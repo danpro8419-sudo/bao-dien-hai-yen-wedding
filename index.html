@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="opening/opening.css?v=7">
+  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="opening/opening.css?v=10">
 </head>
 
 <body>
@@ -51,150 +51,330 @@
     </div>
   </div>
 
-  <main>
-    <section class="hero section-dark">
-      <div class="hero-content reveal">
-        <p class="eyebrow">OUR WEDDING STORY</p>
-        <h1>Bảo Điền <span>&amp;</span> Hải Yến</h1>
-        <p class="date">03 · 01 · 2027</p>
-        <p class="hero-copy">A new chapter begins.</p>
-      </div>
-      <div class="scroll-cue">SCROLL <span>↓</span></div>
-    </section>
+  
+<main id="mainContent">
 
-    <section id="countdown-section" class="countdown section-dark">
-      <div class="container center reveal">
+  <!-- HERO / OUR WEDDING STORY -->
+  <section class="hero-v10" id="hero">
+    <div class="hero-v10__media">
+      <img id="heroPhoto" alt="Bảo Điền & Hải Yến" hidden>
+      <div class="hero-v10__placeholder" id="heroPlaceholder">
+        <span>OUR WEDDING STORY</span>
+        <small>Ảnh cưới nổi bật sẽ tự động hiển thị khi được duyệt</small>
+      </div>
+      <div class="hero-v10__shade"></div>
+    </div>
+    <div class="hero-v10__content reveal">
+      <p class="eyebrow">THƯ MỜI THAM DỰ LỄ CƯỚI</p>
+      <h1><span>Bảo Điền</span><em>&amp;</em><span>Hải Yến</span></h1>
+      <p class="hero-v10__date">03 · 01 · 2027</p>
+      <p class="hero-v10__quote">From this day forward, our forever begins.</p>
+    </div>
+    <a class="scroll-cue-v10" href="#countdown-section">SCROLL <span>↓</span></a>
+  </section>
+
+  <!-- COUNTDOWN + CALENDAR -->
+  <section id="countdown-section" class="countdown-v10">
+    <div class="container-v10 countdown-v10__grid">
+      <div class="calendar-card reveal">
+        <p class="section-kicker">SAVE THE DATE</p>
+        <div class="calendar-card__month">THÁNG 1 · 2027</div>
+        <div class="calendar-card__weekdays">
+          <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+        </div>
+        <div class="calendar-card__days" aria-label="Lịch tháng 1 năm 2027">
+          <span></span><span></span><span></span><span></span>
+          <span>1</span><span>2</span><span class="is-wedding-day">3</span>
+          <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+          <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+          <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+          <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+        </div>
+        <p class="calendar-card__note">Chủ Nhật · 03.01.2027</p>
+      </div>
+
+      <div class="countdown-panel reveal">
         <p class="eyebrow">THE WEDDING DAY</p>
-        <h2>03 January 2027</h2>
+        <h2>Ngày trọng đại đang đến gần.</h2>
         <div class="countdown-grid" id="countdown">
-          <div><strong id="days">--</strong><span>DAYS</span></div>
-          <div><strong id="hours">--</strong><span>HOURS</span></div>
-          <div><strong id="minutes">--</strong><span>MINUTES</span></div>
-          <div><strong id="seconds">--</strong><span>SECONDS</span></div>
+          <div><strong id="days">--</strong><span>NGÀY</span></div>
+          <div><strong id="hours">--</strong><span>GIỜ</span></div>
+          <div><strong id="minutes">--</strong><span>PHÚT</span></div>
+          <div><strong id="seconds">--</strong><span>GIÂY</span></div>
+        </div>
+        <p class="countdown-panel__copy">Chúng mình mong được cùng bạn đếm ngược đến khoảnh khắc bắt đầu chương mới.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVITATION / OUR STORY -->
+  <section class="invitation-v10 section-paper" id="our-story">
+    <div class="container-v10">
+      <div class="section-heading reveal">
+        <p class="section-label">01 / OUR STORY</p>
+        <p class="section-kicker">A letter from us</p>
+        <h2>Thư mời tham dự<br>ngày vui của chúng mình.</h2>
+      </div>
+
+      <div class="invitation-letter reveal">
+        <p class="invitation-letter__eyebrow">TRÂN TRỌNG KÍNH MỜI</p>
+        <h3>Bạn &amp; người thương</h3>
+        <div class="invitation-letter__rule"></div>
+        <p>Chúng mình đã cùng viết nên câu chuyện tình yêu bằng những ngày bình dị nhất. Và giờ đây, một chương mới sắp bắt đầu.</p>
+        <p>Thật hạnh phúc nếu ngày đặc biệt ấy có sự hiện diện và lời chúc phúc của bạn.</p>
+        <strong>BẢO ĐIỀN &amp; HẢI YẾN</strong>
+        <small>03 · 01 · 2027</small>
+      </div>
+
+      <div class="love-story-head reveal">
+        <p class="section-kicker">OUR LOVE STORY</p>
+        <h3>Những cột mốc nhỏ<br>làm nên một hành trình lớn.</h3>
+      </div>
+
+      <div class="love-story-timeline" id="loveStoryTimeline">
+        <article class="love-story-card reveal">
+          <span>01</span>
+          <div class="love-story-card__media approved-media-slot" data-story-slot="0"><small>ẢNH ĐƯỢC DUYỆT</small></div>
+          <p class="micro">THE BEGINNING</p>
+          <h4>Lần đầu gặp gỡ</h4>
+          <p>Một cuộc gặp rất bình thường, nhưng lại mở đầu cho câu chuyện đặc biệt nhất.</p>
+        </article>
+        <article class="love-story-card reveal">
+          <span>02</span>
+          <div class="love-story-card__media approved-media-slot" data-story-slot="1"><small>ẢNH ĐƯỢC DUYỆT</small></div>
+          <p class="micro">THE JOURNEY</p>
+          <h4>Những ngày đồng hành</h4>
+          <p>Những chuyến đi, những bữa ăn và những điều nhỏ bé đã trở thành ký ức của cả hai.</p>
+        </article>
+        <article class="love-story-card reveal">
+          <span>03</span>
+          <div class="love-story-card__media approved-media-slot" data-story-slot="2"><small>ẢNH ĐƯỢC DUYỆT</small></div>
+          <p class="micro">THE PROMISE</p>
+          <h4>Một lời hứa</h4>
+          <p>Không chỉ là yêu nhau hôm nay, mà là lựa chọn đồng hành cùng nhau trong những ngày phía trước.</p>
+        </article>
+        <article class="love-story-card reveal">
+          <span>04</span>
+          <div class="love-story-card__media approved-media-slot" data-story-slot="3"><small>ẢNH ĐƯỢC DUYỆT</small></div>
+          <p class="micro">THE FOREVER</p>
+          <h4>Ngày về chung một nhà</h4>
+          <p>03.01.2027 — ngày chúng mình chính thức bắt đầu một mái nhà mang tên “chúng ta”.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIGHT BEFORE: intentionally hidden when disabled -->
+  <section class="optional-section" data-enabled="false" hidden aria-hidden="true"></section>
+
+  <!-- WEDDING JOURNEY / FAMILY + CEREMONIES -->
+  <section class="journey-v10 section-ivory" id="wedding-journey">
+    <div class="container-v10">
+      <div class="section-heading reveal">
+        <p class="section-label">02 / OUR WEDDING JOURNEY</p>
+        <p class="section-kicker">Two families. One celebration.</p>
+        <h2>Một ngày cưới,<br>nhiều khoảnh khắc đáng nhớ.</h2>
+      </div>
+
+      <div class="family-cards reveal">
+        <article class="family-card">
+          <p>NHÀ TRAI</p>
+          <h3>Gia đình chú rể</h3>
+          <dl>
+            <div><dt>Thân phụ</dt><dd>Cập nhật sau</dd></div>
+            <div><dt>Thân mẫu</dt><dd>Cập nhật sau</dd></div>
+            <div><dt>Địa chỉ</dt><dd>Cập nhật sau</dd></div>
+          </dl>
+        </article>
+        <div class="family-cards__monogram">D<span>&amp;</span>Y</div>
+        <article class="family-card">
+          <p>NHÀ GÁI</p>
+          <h3>Gia đình cô dâu</h3>
+          <dl>
+            <div><dt>Thân phụ</dt><dd>Cập nhật sau</dd></div>
+            <div><dt>Thân mẫu</dt><dd>Cập nhật sau</dd></div>
+            <div><dt>Địa chỉ</dt><dd>Cập nhật sau</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="ceremony-cards">
+        <article class="ceremony-card reveal">
+          <span>01</span>
+          <p class="micro">NHÀ GÁI</p>
+          <h3>Lễ rước dâu</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Khoảnh khắc bắt đầu hành trình về chung một nhà.</p>
+        </article>
+        <article class="ceremony-card reveal">
+          <span>02</span>
+          <p class="micro">NHÀ GÁI</p>
+          <h3>Gia tiên nhà gái</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Nghi lễ gia đình và lời chúc phúc trước khi cô dâu về nhà mới.</p>
+        </article>
+        <article class="ceremony-card reveal">
+          <span>03</span>
+          <p class="micro">NHÀ TRAI</p>
+          <h3>Gia tiên nhà trai</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Hai gia đình cùng chứng kiến khoảnh khắc đôi trẻ chính thức nên duyên.</p>
+        </article>
+        <article class="ceremony-card reveal">
+          <span>04</span>
+          <p class="micro">LỄ ĐƯỜNG / NHÀ THỜ</p>
+          <h3>Wedding Ceremony</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Một lời hứa thiêng liêng trong sự chứng kiến của gia đình và những người thân yêu.</p>
+        </article>
+        <article class="ceremony-card reveal">
+          <span>05</span>
+          <p class="micro">TIỆC MỪNG</p>
+          <h3>Tiệc nhà trai</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Cùng nâng ly, dùng tiệc và chia sẻ niềm vui với gia đình chú rể.</p>
+        </article>
+        <article class="ceremony-card reveal">
+          <span>06</span>
+          <p class="micro">TIỆC MỪNG</p>
+          <h3>Tiệc nhà gái</h3>
+          <strong>Giờ cập nhật sau</strong>
+          <p>Buổi tiệc thân mật cùng gia đình, họ hàng và bạn bè của cô dâu.</p>
+        </article>
+      </div>
+
+      <div class="day-timeline reveal">
+        <p class="section-kicker">WEDDING DAY TIMELINE</p>
+        <h3>Lịch trình ngày cưới</h3>
+        <div class="day-timeline__line">
+          <div><time>--:--</time><span></span><h4>Rước dâu</h4><p>Nhà gái</p></div>
+          <div><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà gái</p></div>
+          <div><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà trai</p></div>
+          <div><time>--:--</time><span></span><h4>Lễ đường</h4><p>Nhà thờ / lễ đường</p></div>
+          <div><time>--:--</time><span></span><h4>Tiệc mừng</h4><p>Reception</p></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="story section-light">
-      <div class="container split">
-        <div class="section-label">01 / OUR STORY</div>
+  <!-- ALBUM -->
+  <section class="album-v10 section-paper" id="album">
+    <div class="container-v10">
+      <div class="section-heading section-heading--row reveal">
         <div>
-          <p class="kicker">Every love story is beautiful.</p>
-          <h2>Ours is the one<br>we'll remember forever.</h2>
-          <p class="body-copy">Một hành trình của hai người, những ngày bình thường trở nên đặc biệt, và một lời hứa cho những ngày phía trước.</p>
-          <div class="story-line"></div>
-          <p class="micro">THE BEGINNING · THE JOURNEY · THE FOREVER</p>
+          <p class="section-label">03 / OUR ALBUM</p>
+          <p class="section-kicker">Moments to keep</p>
+          <h2>Our memories.</h2>
+        </div>
+        <div class="album-filters" role="group" aria-label="Lọc album">
+          <button class="active" data-filter="all">ALL</button>
+          <button data-filter="couple">OUR STORY</button>
+          <button data-filter="guest">GUEST MEMORIES</button>
         </div>
       </div>
-    </section>
-
-    <section class="journey section-light">
-      <div class="container">
-        <div class="section-label">02 / OUR WEDDING JOURNEY</div>
-        <div class="journey-intro">
-          <p class="kicker">One day. Four chapters.</p>
-          <h2>From her home<br>to forever.</h2>
-        </div>
-        <div class="timeline">
-          <article class="event reveal"><span class="event-no">01</span><div><p class="event-place">NHÀ GÁI</p><h3>Lễ rước dâu</h3><p>Khoảnh khắc bắt đầu hành trình về chung một nhà.</p></div></article>
-          <article class="event reveal"><span class="event-no">02</span><div><p class="event-place">NHÀ GÁI</p><h3>Lễ gia tiên</h3><p>Nghi lễ gia đình tại nhà gái.</p></div></article>
-          <article class="event reveal"><span class="event-no">03</span><div><p class="event-place">NHÀ TRAI</p><h3>Lễ gia tiên</h3><p>Nghi lễ gia đình tại nhà trai.</p></div></article>
-          <article class="event reveal"><span class="event-no">04</span><div><p class="event-place">NHÀ THỜ</p><h3>Wedding Ceremony</h3><p>In the presence of God, we say “I do”.</p></div></article>
-          <article class="event reveal"><span class="event-no">05</span><div><p class="event-place">RECEPTION</p><h3>Tiệc tối</h3><p>The celebration begins.</p></div></article>
-        </div>
+      <div class="gallery-v10" id="approvedGallery">
+        <div class="gallery-empty">Ảnh/video đã được duyệt trong Admin sẽ xuất hiện tại đây.</div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="night-before section-dark optional-section" data-enabled="false" hidden>
-      <div class="container center">
-        <p class="eyebrow">THE NIGHT BEFORE</p>
-        <h2>A quiet evening<br>before forever.</h2>
-        <p class="body-copy">Phần này đang được tắt. Khi có kế hoạch tiệc gia đình, chỉ cần bật trong cấu hình.</p>
+  <!-- SHARE MOMENTS -->
+  <section class="share-v10 section-dark-v10" id="share">
+    <div class="container-v10 share-v10__grid">
+      <div class="reveal">
+        <p class="section-label">04 / SHARE YOUR MOMENTS</p>
+        <p class="section-kicker">Your photos. Our memories.</p>
+        <h2>Gửi lại cho chúng mình<br>những khoảnh khắc bạn lưu giữ.</h2>
+        <p>Ảnh và video của khách sẽ được gửi vào khu vực chờ duyệt. Chỉ nội dung được hai bạn duyệt mới xuất hiện công khai trong Guest Memories.</p>
+        <button class="outline-btn-v10" id="uploadPreview">UPLOAD YOUR MOMENTS</button>
       </div>
-    </section>
 
-    <section class="album section-light">
-      <div class="container">
-        <div class="section-label">03 / OUR ALBUM</div>
-        <div class="album-head">
-          <div><p class="kicker">Moments to keep.</p><h2>Our memories.</h2></div>
-          <div class="filters"><button class="active">ALL</button><button>THE STORY</button><button>THE WEDDING</button></div>
-        </div>
-        <div class="gallery">
-          <div class="photo photo-a"><span>PHOTO 01</span></div>
-          <div class="photo photo-b"><span>PHOTO 02</span></div>
-          <div class="photo photo-c"><span>PHOTO 03</span></div>
-          <div class="photo photo-d"><span>PHOTO 04</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="share section-dark">
-      <div class="container split">
-        <div class="section-label">04 / SHARE YOUR MOMENTS</div>
-        <div>
-          <p class="kicker">Your photos. Your memories. Our story.</p>
-          <h2>Be part of<br>our album.</h2>
-          <p class="body-copy">Sau này khách mời có thể gửi ảnh và video trực tiếp từ điện thoại. Nội dung sẽ chờ hai bạn duyệt trước khi xuất hiện công khai.</p>
-          <button class="outline-btn" id="uploadPreview">UPLOAD YOUR MOMENTS</button>
-          <p class="micro">SUPABASE UPLOAD · ADMIN APPROVAL · GUEST MEMORIES</p>
-
-          <div class="upload-panel" id="uploadPanel" hidden>
-            <form id="uploadForm" class="upload-form">
-              <label>TÊN CỦA BẠN<input id="guestName" required maxlength="120" placeholder="Nguyễn Văn A"></label>
-              <label>ẢNH / VIDEO<input id="mediaFiles" type="file" accept="image/*,video/*" multiple required></label>
-              <div id="uploadPreviewGrid" class="upload-preview-grid"></div>
-              <label>LỜI NHẮN<textarea id="guestMessage" rows="4" maxlength="1000" placeholder="Một lời nhắn dành cho cô dâu chú rể..."></textarea></label>
-              <label class="check-row"><input id="shareConsent" type="checkbox" required><span>Tôi đồng ý cho cô dâu chú rể sử dụng ảnh/video này trong album cưới.</span></label>
-              <button class="solid-btn" type="submit">SEND TO OUR ALBUM</button>
-              <p class="micro">Ảnh/video sẽ được duyệt trước khi xuất hiện công khai.</p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="locations section-light">
-      <div class="container">
-        <div class="section-label">05 / LOCATIONS</div>
-        <div class="location-grid">
-          <div><span>01</span><h3>NHÀ GÁI</h3><p>Lễ rước dâu · Gia tiên</p><button>OPEN MAP</button></div>
-          <div><span>02</span><h3>NHÀ TRAI</h3><p>Lễ gia tiên</p><button>OPEN MAP</button></div>
-          <div><span>03</span><h3>NHÀ THỜ</h3><p>Wedding Ceremony</p><button>OPEN MAP</button></div>
-          <div><span>04</span><h3>TIỆC TỐI</h3><p>Wedding Reception</p><button>OPEN MAP</button></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="rsvp section-dark">
-      <div class="container center">
-        <p class="eyebrow">06 / RSVP</p>
-        <h2>Will you celebrate<br>with us?</h2>
-        <form id="rsvpForm" class="rsvp-form">
-          <input required placeholder="Tên của bạn">
-          <select required>
-            <option value="">Bạn sẽ tham dự?</option>
-            <option>YES, I'LL BE THERE</option>
-            <option>SORRY, I CAN'T</option>
-          </select>
-          <input type="number" min="1" max="20" placeholder="Số khách">
-          <textarea rows="4" placeholder="Lời nhắn dành cho Bảo Điền &amp; Hải Yến"></textarea>
-          <button class="solid-btn" type="submit">CONFIRM ATTENDANCE</button>
+      <div class="upload-panel-v10" id="uploadPanel" hidden>
+        <form id="uploadForm" class="upload-form-v10">
+          <label>TÊN CỦA BẠN<input id="guestName" required maxlength="120" placeholder="Nguyễn Văn A"></label>
+          <label>ẢNH / VIDEO<input id="mediaFiles" type="file" accept="image/*,video/*" multiple required></label>
+          <div id="uploadPreviewGrid" class="upload-preview-grid-v10"></div>
+          <label>LỜI NHẮN<textarea id="guestMessage" rows="4" maxlength="1000" placeholder="Một lời nhắn dành cho cô dâu chú rể..."></textarea></label>
+          <label class="check-row-v10"><input id="shareConsent" type="checkbox" required><span>Tôi đồng ý cho cô dâu chú rể sử dụng ảnh/video này trong album cưới.</span></label>
+          <button class="solid-btn-v10" type="submit">SEND TO OUR ALBUM</button>
+          <p class="micro">Nội dung sẽ chờ duyệt trước khi xuất hiện công khai.</p>
         </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="footer section-dark">
-      <div class="container center">
-        <p class="eyebrow">THE LAST CHAPTER</p>
-        <h2>Thank you for being<br>part of our story.</h2>
-        <p class="names">Bảo Điền <span>&amp;</span> Hải Yến</p>
-        <p class="date">03 · 01 · 2027</p>
+  <!-- LOCATIONS -->
+  <section class="locations-v10 section-ivory" id="locations">
+    <div class="container-v10">
+      <div class="section-heading reveal">
+        <p class="section-label">05 / LOCATIONS</p>
+        <p class="section-kicker">Where to celebrate</p>
+        <h2>Địa điểm tổ chức.</h2>
       </div>
-    </footer>
-  </main>
+      <div class="location-grid-v10">
+        <article class="location-card reveal">
+          <span>01</span><p class="micro">NHÀ GÁI</p><h3>Gia tiên &amp; rước dâu</h3>
+          <address>Cập nhật địa chỉ sau</address>
+          <a class="map-btn is-disabled" aria-disabled="true">OPEN MAP</a>
+        </article>
+        <article class="location-card reveal">
+          <span>02</span><p class="micro">NHÀ TRAI</p><h3>Gia tiên &amp; tiệc mừng</h3>
+          <address>Cập nhật địa chỉ sau</address>
+          <a class="map-btn is-disabled" aria-disabled="true">OPEN MAP</a>
+        </article>
+        <article class="location-card reveal">
+          <span>03</span><p class="micro">LỄ ĐƯỜNG</p><h3>Wedding Ceremony</h3>
+          <address>Cập nhật địa chỉ nhà thờ / lễ đường sau</address>
+          <a class="map-btn is-disabled" aria-disabled="true">OPEN MAP</a>
+        </article>
+        <article class="location-card reveal">
+          <span>04</span><p class="micro">RECEPTION</p><h3>Tiệc cưới</h3>
+          <address>Cập nhật nhà hàng / sảnh tiệc sau</address>
+          <a class="map-btn is-disabled" aria-disabled="true">OPEN MAP</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <div class="toast" id="toast"></div>
+  <!-- RSVP -->
+  <section class="rsvp-v10 section-dark-v10" id="rsvp">
+    <div class="container-v10 rsvp-v10__inner">
+      <div class="reveal">
+        <p class="section-label">06 / RSVP</p>
+        <p class="section-kicker">Will you celebrate with us?</p>
+        <h2>Hẹn gặp bạn<br>trong ngày vui của chúng mình.</h2>
+        <p>Vui lòng xác nhận để hai bạn có thể chuẩn bị chu đáo nhất cho sự hiện diện của bạn.</p>
+      </div>
+      <form id="rsvpForm" class="rsvp-form-v10 reveal">
+        <label>HỌ VÀ TÊN<input name="name" required placeholder="Tên của bạn"></label>
+        <label>XÁC NHẬN THAM DỰ
+          <select name="attending" required>
+            <option value="">Chọn câu trả lời</option>
+            <option value="yes">Có, tôi sẽ tham dự</option>
+            <option value="no">Rất tiếc, tôi không thể tham dự</option>
+          </select>
+        </label>
+        <label>SỐ KHÁCH<input name="guests" type="number" min="1" max="20" value="1"></label>
+        <label>LỜI NHẮN<textarea name="message" rows="4" placeholder="Lời nhắn dành cho Bảo Điền & Hải Yến"></textarea></label>
+        <button class="solid-btn-v10" type="submit">CONFIRM ATTENDANCE</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- LAST CHAPTER -->
+  <footer class="last-chapter">
+    <div class="last-chapter__glow"></div>
+    <div class="container-v10 center reveal">
+      <p class="eyebrow">THE LAST CHAPTER</p>
+      <h2>Thank you for being<br>part of our story.</h2>
+      <p class="last-chapter__vn">Cảm ơn bạn đã dành thời gian, tình cảm và lời chúc phúc cho hành trình của chúng mình.</p>
+      <p class="last-chapter__names">Bảo Điền <span>&amp;</span> Hải Yến</p>
+      <p class="last-chapter__date">03 · 01 · 2027</p>
+    </div>
+  </footer>
+</main>
+
+<div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
