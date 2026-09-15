@@ -1,0 +1,4 @@
+ẢNH HERO:
+- Khi chưa có ảnh được duyệt trên Supabase, web sẽ thử dùng file hero-wedding.jpg ở cùng thư mục với index.html.
+- Khi Admin có ảnh couple status=approved, ảnh đó sẽ tự động ưu tiên lên Hero.
+- Không cần sửa Opening.

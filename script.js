@@ -111,12 +111,31 @@ function renderHeroPhoto(){
   const heroImg=$("#heroPhoto");
   const placeholder=$("#heroPlaceholder");
   if(!heroImg) return;
-  const item = approvedMedia.find(m=>m.featured && m.file_type==="image" && m.source==="couple")
+
+  const approved = approvedMedia.find(m=>m.featured && m.file_type==="image" && m.source==="couple")
     || approvedMedia.find(m=>m.file_type==="image" && m.source==="couple");
-  if(!item) return;
-  heroImg.src=item.file_url;
-  heroImg.hidden=false;
-  if(placeholder) placeholder.hidden=true;
+
+  function showHero(src){
+    heroImg.src = src;
+    heroImg.hidden = false;
+    if(placeholder) placeholder.hidden = true;
+  }
+
+  if(approved?.file_url){
+    showHero(approved.file_url);
+    return;
+  }
+
+  /* Optional local fallback:
+     upload a file named hero-wedding.jpg beside index.html.
+     If it doesn't exist, the elegant placeholder remains. */
+  const tester = new Image();
+  tester.onload = ()=>showHero("hero-wedding.jpg");
+  tester.onerror = ()=>{
+    heroImg.hidden = true;
+    if(placeholder) placeholder.hidden = false;
+  };
+  tester.src = "hero-wedding.jpg?v=1";
 }
 
 function renderStoryPhotos(){
@@ -253,4 +272,5 @@ window.addEventListener("wedding:opening-complete",()=>{
   document.documentElement.classList.add("invitation-opened");
 });
 
+renderHeroPhoto();
 loadApprovedMedia();
