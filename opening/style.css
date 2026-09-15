@@ -1,0 +1,1105 @@
+
+:root{
+  --ink:#211914;
+  --brown:#5c4436;
+  --brown-2:#7b604d;
+  --paper:#f8f4ec;
+  --ivory:#eee4d4;
+  --champagne:#d9c2a0;
+  --gold:#b89668;
+  --line:rgba(70,52,42,.16);
+  --dark:#18130f;
+  --dark-2:#241b16;
+  --muted:#83786e;
+  --serif:"Cormorant Garamond", Georgia, serif;
+  --sans:"Montserrat", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300}
+body.wedding-opening-lock{overflow:hidden}
+img,video{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+section{position:relative}
+.container-v10{width:min(1180px,calc(100% - 48px));margin:auto}
+.center{text-align:center}
+.eyebrow,.section-label,.section-kicker,.micro{font-size:10px;letter-spacing:.27em;text-transform:uppercase}
+.section-label{color:var(--brown-2)}
+.section-kicker{color:var(--gold);margin:0 0 14px}
+.section-heading{max-width:760px;margin-bottom:58px}
+.section-heading h2{font:500 clamp(46px,6vw,82px)/.96 var(--serif);margin:0}
+.section-heading--row{max-width:none;display:flex;align-items:end;justify-content:space-between;gap:30px}
+.section-paper{padding:130px 0;background:var(--paper)}
+.section-ivory{padding:130px 0;background:linear-gradient(180deg,#f0e7d8,#ebe0ce)}
+.section-dark-v10{padding:130px 0;background:var(--dark);color:#f6efe4}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* Hero */
+.hero-v10{height:min(950px,100svh);min-height:720px;background:#1c1713;color:white;overflow:hidden}
+.hero-v10__media{position:absolute;inset:0}
+.hero-v10__media img{width:100%;height:100%;object-fit:cover}
+.hero-v10__placeholder{width:100%;height:100%;display:grid;place-content:center;text-align:center;gap:12px;background:
+  radial-gradient(circle at 50% 20%,rgba(228,205,171,.18),transparent 28%),
+  linear-gradient(135deg,#34271f,#17120f 58%,#2b211b)}
+.hero-v10__placeholder span{font:500 clamp(50px,8vw,120px)/.85 var(--serif);letter-spacing:.02em;color:#f0e4d3}
+.hero-v10__placeholder small{letter-spacing:.2em;text-transform:uppercase;font-size:9px;color:#d4bea0}
+.hero-v10__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,12,10,.12),rgba(15,12,10,.16) 48%,rgba(15,12,10,.82))}
+.hero-v10__content{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);width:min(920px,calc(100% - 40px));text-align:center;z-index:3}
+.hero-v10__content.in{transform:translateX(-50%)}
+.hero-v10__content .eyebrow{color:#ead8bf}
+.hero-v10 h1{font:500 clamp(58px,9vw,132px)/.72 var(--serif);margin:30px 0 34px;letter-spacing:-.035em}
+.hero-v10 h1 span{display:block}
+.hero-v10 h1 em{display:block;font-size:.36em;line-height:1.15;font-weight:400;color:#d7bd98}
+.hero-v10__date{font:500 18px var(--serif);letter-spacing:.32em;margin:0 0 12px}
+.hero-v10__quote{font:italic 20px var(--serif);opacity:.86}
+.scroll-cue-v10{position:absolute;z-index:5;right:36px;bottom:34px;font-size:9px;letter-spacing:.25em;color:#eadbc8}
+
+/* Countdown */
+.countdown-v10{padding:110px 0;background:var(--dark-2);color:#f7efe3}
+.countdown-v10__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:stretch}
+.calendar-card,.countdown-panel{border:1px solid rgba(226,206,176,.18);padding:42px;background:rgba(255,255,255,.035)}
+.calendar-card__month{font:500 38px var(--serif);margin:14px 0 24px}
+.calendar-card__weekdays,.calendar-card__days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center}
+.calendar-card__weekdays{font-size:8px;letter-spacing:.14em;opacity:.58;margin-bottom:12px}
+.calendar-card__days span{height:36px;display:grid;place-items:center;font:500 16px var(--serif);position:relative}
+.calendar-card__days .is-wedding-day{color:#211914;z-index:1;font-weight:600}
+.calendar-card__days .is-wedding-day:before{content:"";position:absolute;width:34px;height:34px;border-radius:50%;background:#dbc7a8;z-index:-1;box-shadow:0 0 0 6px rgba(219,199,168,.08)}
+.calendar-card__days .is-wedding-day:after{content:"♥";position:absolute;right:-2px;top:-9px;color:#c49b77;font-size:11px}
+.calendar-card__note{font:italic 18px var(--serif);color:#dac5a6;margin:24px 0 0;text-align:center}
+.countdown-panel{display:flex;flex-direction:column;justify-content:center}
+.countdown-panel h2{font:500 clamp(48px,6vw,76px)/.95 var(--serif);margin:16px 0 36px}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15)}
+.countdown-grid>div{text-align:center;padding:24px 8px;border-right:1px solid rgba(255,255,255,.12)}
+.countdown-grid>div:last-child{border-right:0}
+.countdown-grid strong{display:block;font:500 clamp(32px,4vw,58px) var(--serif)}
+.countdown-grid span{display:block;font-size:7px;letter-spacing:.19em;opacity:.58}
+.countdown-panel__copy{max-width:540px;font-size:12px;line-height:1.8;color:#c8bdb2;margin:26px 0 0}
+
+/* Invitation and love story */
+.invitation-letter{width:min(780px,100%);margin:0 auto 110px;background:#fcfaf5;padding:75px clamp(28px,7vw,90px);text-align:center;border:1px solid var(--line);box-shadow:0 22px 60px rgba(70,52,42,.08);position:relative}
+.invitation-letter:before{content:"";position:absolute;inset:16px;border:1px solid rgba(111,86,67,.12)}
+.invitation-letter__eyebrow{font-size:10px;letter-spacing:.27em;color:var(--brown-2)}
+.invitation-letter h3{font:500 clamp(46px,6vw,72px) var(--serif);margin:24px 0 12px}
+.invitation-letter__rule{width:100px;height:1px;background:var(--brown);margin:18px auto 28px}
+.invitation-letter p{font:400 20px/1.55 var(--serif);color:#55483f}
+.invitation-letter strong{display:block;font:500 24px var(--serif);letter-spacing:.13em;margin-top:36px}
+.invitation-letter small{display:block;margin-top:10px;letter-spacing:.2em;color:var(--muted)}
+.love-story-head{text-align:center;margin-bottom:48px}
+.love-story-head h3{font:500 clamp(45px,5vw,70px)/.95 var(--serif);margin:0}
+.love-story-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.love-story-card{border-top:1px solid var(--line);padding-top:18px}
+.love-story-card>span{font:500 30px var(--serif);color:#b9a48a}
+.love-story-card__media{aspect-ratio:4/5;margin:18px 0 24px;background:linear-gradient(145deg,#e7dac6,#d8c7ae);display:grid;place-items:center;overflow:hidden}
+.love-story-card__media img,.love-story-card__media video{width:100%;height:100%;object-fit:cover}
+.love-story-card__media small{font-size:8px;letter-spacing:.2em;color:#766757}
+.love-story-card h4{font:500 34px var(--serif);margin:8px 0}
+.love-story-card>p:last-child{font-size:12px;line-height:1.75;color:var(--muted)}
+
+/* Journey */
+.family-cards{display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;border:1px solid var(--line);margin-bottom:60px;background:rgba(255,255,255,.25)}
+.family-card{padding:50px}
+.family-card>p{font-size:9px;letter-spacing:.24em;color:var(--brown-2)}
+.family-card h3{font:500 42px var(--serif);margin:12px 0 28px}
+.family-card dl{margin:0}
+.family-card dl div{display:grid;grid-template-columns:100px 1fr;gap:14px;border-top:1px solid var(--line);padding:13px 0}
+.family-card dt{font-size:9px;letter-spacing:.12em;color:var(--muted)}
+.family-card dd{margin:0;font:500 18px var(--serif)}
+.family-cards__monogram{text-align:center;font:500 50px var(--serif);color:#9a7d5e}
+.family-cards__monogram span{font-size:.5em;margin:0 4px}
+.ceremony-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ceremony-card{background:#f9f5ec;padding:34px;border:1px solid rgba(84,62,47,.12);min-height:285px}
+.ceremony-card>span{font:500 25px var(--serif);color:#c1aa8c}
+.ceremony-card h3{font:500 36px var(--serif);margin:12px 0}
+.ceremony-card strong{display:inline-block;font-size:10px;letter-spacing:.14em;color:#8d6f54;margin-bottom:20px}
+.ceremony-card>p:last-child{font-size:12px;line-height:1.75;color:var(--muted)}
+.day-timeline{margin-top:85px;padding-top:55px;border-top:1px solid var(--line)}
+.day-timeline h3{font:500 54px var(--serif);margin:8px 0 40px}
+.day-timeline__line{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.day-timeline__line:before{content:"";position:absolute;left:5%;right:5%;top:50px;height:1px;background:#a88a68}
+.day-timeline__line>div{text-align:center;position:relative;padding:0 8px}
+.day-timeline time{font:500 24px var(--serif);display:block}
+.day-timeline span{display:block;width:13px;height:13px;border-radius:50%;background:#8d6d4d;border:4px solid #ede2d1;margin:17px auto;position:relative;z-index:2}
+.day-timeline h4{font:500 24px var(--serif);margin:0 0 3px}
+.day-timeline p{font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+
+/* Album */
+.album-filters{display:flex;gap:8px}
+.album-filters button{border:1px solid var(--line);background:transparent;padding:10px 14px;font-size:8px;letter-spacing:.14em;color:var(--brown)}
+.album-filters button.active{background:var(--brown);color:#fff}
+.gallery-v10{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:190px;gap:10px}
+.gallery-item{position:relative;overflow:hidden;background:#e7dccb}
+.gallery-item:nth-child(6n+1){grid-column:span 5;grid-row:span 2}
+.gallery-item:nth-child(6n+2){grid-column:span 4}
+.gallery-item:nth-child(6n+3){grid-column:span 3}
+.gallery-item:nth-child(6n+4){grid-column:span 3}
+.gallery-item:nth-child(6n+5){grid-column:span 4}
+.gallery-item:nth-child(6n+6){grid-column:span 5}
+.gallery-item img,.gallery-item video{width:100%;height:100%;object-fit:cover}
+.gallery-item__meta{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-size:9px}
+.gallery-empty{grid-column:1/-1;min-height:280px;display:grid;place-items:center;border:1px dashed var(--line);font-size:10px;letter-spacing:.13em;color:var(--muted)}
+
+/* Share */
+.share-v10__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}
+.share-v10 h2,.rsvp-v10 h2{font:500 clamp(48px,6vw,78px)/.95 var(--serif);margin:18px 0 26px}
+.share-v10 p,.rsvp-v10 p{font-size:12px;line-height:1.8;color:#c5b8ad}
+.outline-btn-v10,.solid-btn-v10{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:14px 20px;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.solid-btn-v10{background:#f5ede1;color:#211914;border-color:#f5ede1}
+.upload-panel-v10{border-left:1px solid rgba(255,255,255,.14);padding-left:40px}
+.upload-form-v10{display:grid;gap:18px}
+.upload-form-v10 label,.rsvp-form-v10 label{display:grid;gap:8px;font-size:8px;letter-spacing:.18em}
+.upload-form-v10 input,.upload-form-v10 textarea,.rsvp-form-v10 input,.rsvp-form-v10 select,.rsvp-form-v10 textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:14px 4px;color:#fff;outline:none}
+.upload-form-v10 textarea,.rsvp-form-v10 textarea{resize:vertical}
+.upload-preview-grid-v10{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.upload-preview-grid-v10 img,.upload-preview-grid-v10 video{width:100%;height:90px;object-fit:cover}
+.check-row-v10{display:flex!important;align-items:flex-start;gap:10px!important;letter-spacing:normal!important;font-size:11px!important}
+.check-row-v10 input{width:auto!important}
+
+/* Locations */
+.location-grid-v10{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line)}
+.location-card{padding:44px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.location-card:nth-child(even){border-right:0}
+.location-card:nth-child(n+3){border-bottom:0}
+.location-card>span{font:500 28px var(--serif);color:#bea687}
+.location-card h3{font:500 40px var(--serif);margin:10px 0 18px}
+.location-card address{font:400 17px/1.5 var(--serif);font-style:normal;color:#6d6258;min-height:52px}
+.map-btn{display:inline-block;margin-top:24px;padding:11px 16px;border:1px solid var(--line);font-size:8px;letter-spacing:.16em}
+.map-btn.is-disabled{opacity:.42;pointer-events:none}
+
+/* RSVP */
+.rsvp-v10__inner{display:grid;grid-template-columns:.85fr 1.15fr;gap:90px}
+.rsvp-form-v10{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.rsvp-form-v10 label:nth-child(4),.rsvp-form-v10 button{grid-column:1/-1}
+
+/* Footer */
+.last-chapter{padding:170px 0 130px;background:#120f0c;color:#f7efe3;text-align:center;overflow:hidden}
+.last-chapter__glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(206,174,126,.12),transparent 68%);left:50%;top:50%;transform:translate(-50%,-50%)}
+.last-chapter h2{font:500 clamp(58px,8vw,112px)/.85 var(--serif);margin:30px 0}
+.last-chapter__vn{font:400 20px/1.5 var(--serif);max-width:600px;margin:0 auto;color:#cdbdae}
+.last-chapter__names{font:500 42px var(--serif);margin:55px 0 10px}
+.last-chapter__date{font-size:10px;letter-spacing:.28em;color:#cbb89d}
+
+/* Sticky countdown */
+#countdown-section{position:relative;z-index:60}
+#countdown-section.v5-sticky-countdown{position:fixed;top:16px;right:16px;width:auto;padding:8px 12px;background:rgba(28,22,18,.88);backdrop-filter:blur(14px);border:1px solid rgba(225,207,170,.2);border-radius:999px;box-shadow:0 14px 40px rgba(0,0,0,.18)}
+#countdown-section.v5-sticky-countdown .calendar-card,
+#countdown-section.v5-sticky-countdown .countdown-panel h2,
+#countdown-section.v5-sticky-countdown .countdown-panel>.eyebrow,
+#countdown-section.v5-sticky-countdown .countdown-panel__copy{display:none}
+#countdown-section.v5-sticky-countdown .countdown-v10__grid{display:block;width:auto}
+#countdown-section.v5-sticky-countdown .countdown-panel{padding:0;border:0;background:transparent}
+#countdown-section.v5-sticky-countdown .countdown-grid{display:flex;border:0}
+#countdown-section.v5-sticky-countdown .countdown-grid>div{padding:0 7px;border:0}
+#countdown-section.v5-sticky-countdown .countdown-grid strong{font-size:14px}
+#countdown-section.v5-sticky-countdown .countdown-grid span{font-size:6px}
+#countdown-section.v5-married .countdown-grid{display:none!important}
+#countdown-section.v5-married .countdown-panel:after{content:"WE ARE MARRIED ❤️";font-size:10px;letter-spacing:.13em;white-space:nowrap}
+
+/* Toast */
+.toast{position:fixed;z-index:99999;left:50%;bottom:28px;transform:translate(-50%,20px);padding:13px 18px;background:#211914;color:#fff;opacity:0;pointer-events:none;transition:.3s;font-size:10px;letter-spacing:.08em}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:900px){
+  .container-v10{width:min(100% - 32px,760px)}
+  .hero-v10{min-height:680px}
+  .countdown-v10__grid,.share-v10__grid,.rsvp-v10__inner{grid-template-columns:1fr}
+  .love-story-timeline{grid-template-columns:1fr 1fr}
+  .family-cards{grid-template-columns:1fr}
+  .family-cards__monogram{padding:20px}
+  .ceremony-cards{grid-template-columns:1fr 1fr}
+  .day-timeline__line{grid-template-columns:1fr;gap:0}
+  .day-timeline__line:before{left:49px;right:auto;top:0;bottom:0;width:1px;height:auto}
+  .day-timeline__line>div{display:grid;grid-template-columns:70px 28px 1fr;text-align:left;align-items:center;padding:14px 0}
+  .day-timeline time{grid-column:1}
+  .day-timeline span{grid-column:2;grid-row:1/3;margin:auto}
+  .day-timeline h4,.day-timeline p{grid-column:3}
+  .day-timeline h4{grid-row:1;margin:0}
+  .day-timeline p{grid-row:2;margin:2px 0 0}
+  .section-heading--row{display:block}
+  .album-filters{margin-top:28px;flex-wrap:wrap}
+}
+@media(max-width:650px){
+  .container-v10{width:calc(100% - 24px)}
+  .section-paper,.section-ivory,.section-dark-v10{padding:90px 0}
+  .hero-v10{height:100svh;min-height:620px}
+  .hero-v10__content{bottom:72px}
+  .hero-v10 h1{font-size:64px}
+  .hero-v10__quote{font-size:17px}
+  .scroll-cue-v10{right:18px;bottom:18px}
+  .calendar-card,.countdown-panel{padding:28px 20px}
+  .countdown-grid strong{font-size:31px}
+  .countdown-grid>div{padding:20px 4px}
+  .section-heading h2{font-size:50px}
+  .invitation-letter{padding:56px 24px}
+  .love-story-timeline{grid-template-columns:1fr}
+  .ceremony-cards{grid-template-columns:1fr}
+  .family-card{padding:34px 24px}
+  .family-card dl div{grid-template-columns:90px 1fr}
+  .gallery-v10{grid-template-columns:1fr 1fr;grid-auto-rows:165px}
+  .gallery-item,.gallery-item:nth-child(n){grid-column:span 1;grid-row:span 1}
+  .gallery-item:nth-child(5n+1){grid-column:1/-1;grid-row:span 2}
+  .upload-panel-v10{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding:30px 0 0}
+  .location-grid-v10{grid-template-columns:1fr}
+  .location-card,.location-card:nth-child(n){border-right:0;border-bottom:1px solid var(--line)}
+  .location-card:last-child{border-bottom:0}
+  .rsvp-form-v10{grid-template-columns:1fr}
+  .rsvp-form-v10 label,.rsvp-form-v10 label:nth-child(4),.rsvp-form-v10 button{grid-column:1}
+  #countdown-section.v5-sticky-countdown{top:0;right:0;left:0;border-radius:0;border-left:0;border-right:0}
+}
+
+
+/* =========================================================
+   V10.1 POLISH — HERO IMAGE, INVITATION BALANCE, HEART DATE
+   ========================================================= */
+
+/* HERO: when a real image exists, make it feel cinematic rather than flat */
+.hero-v10__media {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(220,190,150,.12), transparent 30%),
+    linear-gradient(135deg,#33261f,#17120f 60%,#2b211b);
+}
+
+.hero-v10__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  transform: scale(1.01);
+  filter: saturate(.92) contrast(1.02) brightness(.9);
+}
+
+.hero-v10__shade {
+  background:
+    linear-gradient(180deg, rgba(15,12,10,.10) 0%, rgba(15,12,10,.15) 40%, rgba(15,12,10,.80) 100%),
+    linear-gradient(90deg, rgba(12,10,8,.18), transparent 28%, transparent 72%, rgba(12,10,8,.18));
+}
+
+.hero-v10__placeholder {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(228,205,171,.18), transparent 30%),
+    linear-gradient(135deg,#34271f,#17120f 58%,#2b211b);
+}
+
+.hero-v10__placeholder:before,
+.hero-v10__placeholder:after {
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  border:1px solid rgba(226,201,164,.08);
+  border-radius:50%;
+}
+.hero-v10__placeholder:before { left:7%; top:12%; }
+.hero-v10__placeholder:after { right:8%; bottom:14%; }
+
+.hero-v10__content {
+  text-shadow: 0 2px 22px rgba(0,0,0,.24);
+}
+
+/* Invitation heading: prevent the oversized cut-off feeling on desktop */
+.invitation-v10 .section-heading {
+  max-width: 860px;
+  margin-bottom: 54px;
+}
+
+.invitation-v10__title {
+  max-width: 840px;
+  font-size: clamp(54px, 5.2vw, 82px) !important;
+  line-height: .94 !important;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.invitation-letter {
+  margin-top: 18px;
+}
+
+/* Wedding day heart */
+.calendar-card__days .is-wedding-day {
+  width: 42px;
+  height: 42px;
+  margin: -3px auto;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+}
+
+.calendar-card__days .is-wedding-day::before,
+.calendar-card__days .is-wedding-day::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  width: 22px;
+  height: 34px;
+  background: #a93d3f;
+  border-radius: 22px 22px 0 0;
+  z-index: -1;
+  box-shadow: 0 7px 16px rgba(169,61,63,.22);
+}
+
+.calendar-card__days .is-wedding-day::before {
+  left: 21px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.calendar-card__days .is-wedding-day::after {
+  left: -1px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.calendar-card__days .is-wedding-day b {
+  position: relative;
+  top: 2px;
+  font: 600 15px var(--serif);
+  z-index: 3;
+}
+
+.calendar-card__days .is-wedding-day:after {
+  /* override the old tiny heart icon */
+  content: "";
+}
+
+/* Keep a faint gold halo around the red heart */
+.calendar-card__days .is-wedding-day {
+  filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+}
+
+@media(max-width:650px){
+  .invitation-v10__title {
+    font-size: clamp(42px, 11vw, 58px) !important;
+    line-height: .98 !important;
+  }
+
+  .hero-v10__media img {
+    object-position: center center;
+  }
+}
+
+
+/* =========================================================
+   V10.2 — COUNTDOWN DESKTOP SCALE + STICKY LAYOUT STABILITY
+   ========================================================= */
+
+/* Make the full desktop countdown feel more premium and substantial */
+@media (min-width: 901px) {
+  .countdown-v10 {
+    padding: 135px 0 145px;
+  }
+
+  .countdown-v10__grid {
+    grid-template-columns: 1fr 1.22fr;
+    gap: 42px;
+  }
+
+  .calendar-card,
+  .countdown-panel {
+    min-height: 500px;
+    padding: 54px 48px;
+  }
+
+  .calendar-card__month {
+    font-size: 46px;
+    margin: 18px 0 30px;
+  }
+
+  .calendar-card__weekdays {
+    font-size: 9px;
+    margin-bottom: 15px;
+  }
+
+  .calendar-card__days {
+    gap: 10px;
+  }
+
+  .calendar-card__days span {
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .calendar-card__days .is-wedding-day {
+    width: 48px;
+    height: 48px;
+    margin: -3px auto;
+  }
+
+  .calendar-card__days .is-wedding-day::before,
+  .calendar-card__days .is-wedding-day::after {
+    top: 10px;
+    width: 25px;
+    height: 39px;
+  }
+
+  .calendar-card__days .is-wedding-day::before {
+    left: 24px;
+  }
+
+  .calendar-card__days .is-wedding-day::after {
+    left: -1px;
+  }
+
+  .calendar-card__days .is-wedding-day b {
+    font-size: 17px;
+  }
+
+  .calendar-card__note {
+    font-size: 21px;
+    margin-top: 30px;
+  }
+
+  .countdown-panel h2 {
+    font-size: clamp(68px, 5.8vw, 96px);
+    margin: 20px 0 42px;
+  }
+
+  .countdown-grid strong {
+    font-size: clamp(52px, 4.7vw, 76px);
+  }
+
+  .countdown-grid span {
+    font-size: 8px;
+  }
+
+  .countdown-grid > div {
+    padding: 30px 10px;
+  }
+
+  .countdown-panel__copy {
+    font-size: 13px;
+    max-width: 610px;
+    margin-top: 32px;
+  }
+}
+
+/* Sticky countdown: compact, but more readable on desktop */
+@media (min-width: 901px) {
+  #countdown-section.v5-sticky-countdown {
+    top: 22px;
+    right: 24px;
+    padding: 11px 16px;
+    border-radius: 999px;
+    box-shadow: 0 14px 44px rgba(0,0,0,.20);
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid > div {
+    padding: 1px 9px;
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid strong {
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid span {
+    font-size: 6px;
+    margin-top: 3px;
+  }
+}
+
+/* Give the invitation heading enough breathing room after countdown.
+   This also prevents the title from feeling chopped off at the top. */
+.invitation-v10 {
+  scroll-margin-top: 110px;
+}
+
+.invitation-v10 .section-heading {
+  padding-top: 8px;
+}
+
+.invitation-v10__title {
+  margin-top: 4px !important;
+}
+
+@media (max-width: 900px) {
+  .invitation-v10 {
+    scroll-margin-top: 78px;
+  }
+}
+
+
+/* =========================================================
+   V10.3 — VIETNAMESE POLISH + SOFTER TRANSITIONS
+   ========================================================= */
+
+:root{
+  --section-bg-image:none;
+}
+
+/* Softer section transitions and optional background support */
+.has-optional-bg{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.has-optional-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--section-bg-image);
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:opacity .45s ease;
+  z-index:0;
+  transform:scale(1.02);
+}
+.has-optional-bg.has-bg::before{
+  opacity:.16;
+}
+.section-paper.has-bg::after,
+.section-ivory.has-bg::after,
+.section-dark-v10.has-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.section-paper.has-bg::after{
+  background:linear-gradient(180deg, rgba(248,244,236,.92), rgba(248,244,236,.95));
+}
+.section-ivory.has-bg::after{
+  background:linear-gradient(180deg, rgba(238,228,212,.90), rgba(235,224,206,.94));
+}
+.section-dark-v10.has-bg::after{
+  background:linear-gradient(180deg, rgba(24,19,15,.90), rgba(24,19,15,.93));
+}
+.has-optional-bg > *{
+  position:relative;
+  z-index:1;
+}
+
+/* Hero / countdown / invitation overall comfort */
+.hero-v10__quote{
+  font-size:22px;
+}
+.countdown-v10{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201,169,130,.12), transparent 32%),
+    linear-gradient(180deg, #1b1512 0%, #261c17 55%, #2b2018 100%);
+  padding:128px 0 136px;
+}
+.countdown-v10__grid{
+  gap:38px;
+}
+.calendar-card,
+.countdown-panel{
+  min-height:510px;
+  border-radius:10px;
+}
+.countdown-panel h2{
+  font-size:clamp(60px,5.4vw,92px);
+  line-height:.92;
+}
+.countdown-grid strong{
+  font-size:clamp(50px,5.2vw,84px);
+  line-height:1;
+}
+.countdown-grid span{
+  font-size:8px;
+}
+.countdown-panel__copy{
+  font-size:14px;
+  max-width:620px;
+}
+.calendar-card__month{
+  font-size:44px;
+}
+.calendar-card__days .is-wedding-day{
+  color:#fff8ef;
+}
+.calendar-card__days .is-wedding-day::before,
+.calendar-card__days .is-wedding-day::after{
+  content:"";
+  position:absolute;
+  top:5px;
+  width:19px;
+  height:30px;
+  background:#b44f45;
+  border-radius:19px 19px 0 0;
+  z-index:-1;
+  box-shadow:none;
+}
+.calendar-card__days .is-wedding-day::before{
+  left:16px;
+  transform:rotate(-45deg);
+  transform-origin:0 100%;
+}
+.calendar-card__days .is-wedding-day::after{
+  left:-3px;
+  transform:rotate(45deg);
+  transform-origin:100% 100%;
+}
+.calendar-card__days .is-wedding-day b{
+  position:relative;
+  z-index:1;
+  font-size:15px;
+  font-weight:700;
+}
+
+/* Sticky countdown: smaller, horizontal, more elegant */
+#countdown-section.v5-sticky-countdown{
+  top:18px;
+  right:18px;
+  left:auto;
+  width:auto;
+  min-width:310px;
+  padding:14px 16px;
+  border-radius:28px;
+  background:rgba(33,25,20,.92);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(225,207,170,.18);
+}
+#countdown-section.v5-sticky-countdown .countdown-v10__grid{
+  display:block;
+  width:auto;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid{
+  display:flex;
+  align-items:center;
+  gap:0;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid > div{
+  padding:0 10px;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid strong{
+  font-size:24px;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid span{
+  font-size:7px;
+  margin-top:4px;
+}
+
+/* Invitation section */
+.invitation-v10{
+  padding-top:98px;
+}
+.invitation-v10 .section-heading{
+  max-width:860px;
+  margin-bottom:42px;
+}
+.invitation-v10__title{
+  font-size:clamp(56px,4.7vw,86px) !important;
+  line-height:.96;
+  max-width:11ch;
+}
+.invitation-letter{
+  margin-bottom:92px;
+}
+.invitation-letter h3{
+  font-size:clamp(54px,5vw,74px);
+}
+.invitation-letter p{
+  font-size:19px;
+}
+.invitation-letter strong{
+  font-size:22px;
+}
+.love-story-head .section-kicker{
+  margin-bottom:10px;
+}
+
+/* Family info that can be hidden */
+.family-card{
+  border-radius:4px;
+}
+.family-card__details[hidden]{
+  display:none !important;
+}
+.family-card__empty{
+  margin:0;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  line-height:1.8;
+  color:var(--muted);
+}
+.family-card__empty[hidden]{
+  display:none !important;
+}
+
+/* Ceremony cards and timeline aligned to the new 6-part split */
+.ceremony-card{
+  min-height:300px;
+  border-radius:4px;
+}
+.ceremony-card strong{
+  line-height:1.7;
+}
+.day-timeline__line{
+  grid-template-columns:repeat(6,1fr);
+}
+.day-timeline__line:before{
+  left:5%;
+  right:5%;
+}
+
+/* Locations: auto responsive so any number of cards looks balanced */
+.location-grid-v10{
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:14px;
+  border:0;
+}
+.location-card{
+  border:1px solid var(--line) !important;
+  background:rgba(255,255,255,.22);
+  border-radius:4px;
+}
+.location-card address{
+  min-height:76px;
+}
+.map-btn.is-disabled{
+  opacity:.5;
+}
+
+/* RSVP clearer and more premium */
+.rsvp-v10__inner{
+  gap:74px;
+}
+.rsvp-v10 h2{
+  max-width:9ch;
+}
+.rsvp-form-v10{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  padding:34px;
+  border-radius:6px;
+}
+.rsvp-form-v10 label{
+  font-size:9px;
+  letter-spacing:.22em;
+  color:#dbc5a7;
+}
+.rsvp-form-v10 input,
+.rsvp-form-v10 select,
+.rsvp-form-v10 textarea{
+  padding:16px 6px;
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+.rsvp-form-v10 button{
+  margin-top:10px;
+}
+.solid-btn-v10{
+  letter-spacing:.22em;
+}
+
+/* Vietnamese-first polish in dark sections */
+.share-v10 .section-kicker,
+.rsvp-v10 .section-kicker{
+  color:#d8be98;
+}
+.share-v10 p,
+.rsvp-v10 p{
+  font-size:13px;
+}
+
+/* Footer polish */
+.last-chapter h2{
+  max-width:11ch;
+  margin-inline:auto;
+}
+
+/* Tablet / mobile */
+@media (max-width: 1100px){
+  .countdown-panel h2{
+    font-size:clamp(52px,5vw,76px);
+  }
+  .countdown-grid strong{
+    font-size:clamp(42px,4.8vw,64px);
+  }
+  .day-timeline__line{
+    grid-template-columns:repeat(3,1fr);
+    row-gap:26px;
+  }
+  .day-timeline__line:before{
+    display:none;
+  }
+}
+
+@media (max-width: 900px){
+  .countdown-v10{
+    padding:94px 0 102px;
+  }
+  .calendar-card,
+  .countdown-panel{
+    min-height:auto;
+  }
+  .invitation-v10{
+    padding-top:84px;
+  }
+  .invitation-v10__title{
+    max-width:100%;
+  }
+  .rsvp-form-v10{
+    padding:24px;
+  }
+}
+
+@media (max-width: 700px){
+  #countdown-section.v5-sticky-countdown{
+    top:10px;
+    right:10px;
+    left:10px;
+    min-width:0;
+    border-radius:18px;
+    padding:10px 12px;
+  }
+  #countdown-section.v5-sticky-countdown .countdown-grid{
+    justify-content:space-between;
+  }
+  #countdown-section.v5-sticky-countdown .countdown-grid > div{
+    padding:0 4px;
+  }
+  #countdown-section.v5-sticky-countdown .countdown-grid strong{
+    font-size:18px;
+  }
+  .day-timeline__line{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* =========================================================
+   V10.4 — FIX KHOẢNG TRỐNG + MINI COUNTDOWN MỚI
+   ========================================================= */
+
+/* Vô hiệu hóa cơ chế sticky cũ nếu CSS cũ còn sót lại */
+#countdown-section.v5-sticky-countdown{
+  position:relative !important;
+  inset:auto !important;
+  width:auto !important;
+  min-width:0 !important;
+  padding:128px 0 136px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201,169,130,.12), transparent 32%),
+    linear-gradient(180deg, #1b1512 0%, #261c17 55%, #2b2018 100%) !important;
+  backdrop-filter:none !important;
+}
+#countdown-section.v5-sticky-countdown .calendar-card,
+#countdown-section.v5-sticky-countdown .countdown-panel h2,
+#countdown-section.v5-sticky-countdown .countdown-panel>.eyebrow,
+#countdown-section.v5-sticky-countdown .countdown-panel__copy{
+  display:initial !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-v10__grid{
+  display:grid !important;
+  width:min(1180px,calc(100% - 48px)) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-panel{
+  padding:54px 48px !important;
+  border:1px solid rgba(226,206,176,.18) !important;
+  background:rgba(255,255,255,.035) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid{
+  display:grid !important;
+  border-top:1px solid rgba(255,255,255,.15) !important;
+  border-bottom:1px solid rgba(255,255,255,.15) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid>div{
+  padding:30px 10px !important;
+  border-right:1px solid rgba(255,255,255,.12) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid strong{
+  font-size:clamp(50px,5.2vw,84px) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid span{
+  font-size:8px !important;
+}
+
+/* Mini countdown mới */
+.mini-countdown{
+  position:fixed;
+  z-index:9000;
+  top:18px;
+  right:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 15px;
+  border-radius:18px;
+  background:rgba(34,27,22,.90);
+  border:1px solid rgba(233,214,186,.18);
+  box-shadow:0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter:blur(14px);
+  color:#f7efe3;
+  opacity:0;
+  transform:translateY(-12px);
+  pointer-events:none;
+  transition:opacity .28s ease, transform .28s ease;
+}
+.mini-countdown.show{
+  opacity:1;
+  transform:none;
+}
+.mini-countdown__label{
+  font-size:7px;
+  letter-spacing:.22em;
+  color:#d0b58f;
+  margin-right:2px;
+}
+.mini-countdown>div{
+  min-width:42px;
+  text-align:center;
+}
+.mini-countdown strong{
+  display:block;
+  font:600 21px/1 var(--serif);
+}
+.mini-countdown small{
+  display:block;
+  margin-top:4px;
+  font-size:6px;
+  letter-spacing:.13em;
+  opacity:.6;
+}
+
+/* Sửa khoảng trước thư mời */
+.invitation-v10{
+  padding-top:82px !important;
+}
+.invitation-v10 .section-heading{
+  margin-bottom:36px !important;
+}
+.invitation-v10__title{
+  margin-bottom:0 !important;
+}
+.invitation-letter{
+  margin-top:0 !important;
+}
+
+/* Nền section từ bộ ảnh mới */
+.has-optional-bg.has-bg::before{
+  opacity:.22;
+  filter:saturate(.85) contrast(.98);
+}
+.section-paper.has-bg::after{
+  background:linear-gradient(180deg, rgba(248,244,236,.84), rgba(248,244,236,.90));
+}
+.section-ivory.has-bg::after{
+  background:linear-gradient(180deg, rgba(238,228,212,.82), rgba(235,224,206,.90));
+}
+.section-dark-v10.has-bg::after{
+  background:linear-gradient(180deg, rgba(24,19,15,.83), rgba(24,19,15,.89));
+}
+
+/* Thư mời: xưng hô trang trọng */
+.invitation-letter p{
+  font-size:20px;
+  line-height:1.68;
+}
+
+/* Tiệc nhà gái trước nhà trai */
+.ceremony-card:nth-child(5),
+.location-card:nth-child(4){
+  box-shadow:inset 0 0 0 1px rgba(184,150,104,.08);
+}
+
+/* Mobile */
+@media(max-width:700px){
+  .mini-countdown{
+    top:10px;
+    right:10px;
+    left:10px;
+    justify-content:space-between;
+    border-radius:14px;
+    padding:9px 12px;
+  }
+  .mini-countdown__label{
+    display:none;
+  }
+  .mini-countdown>div{
+    min-width:0;
+    flex:1;
+  }
+  .mini-countdown strong{
+    font-size:18px;
+  }
+  .invitation-v10{
+    padding-top:68px !important;
+  }
+}
+
+
+/* =========================================================
+   V10.5 — BACKGROUNDS VISIBLE + OPENING LOGO IN FAMILY BLOCK
+   ========================================================= */
+
+/* Use the uploaded background files directly; no JS dependency needed. */
+#our-story{
+  background-image:
+    linear-gradient(rgba(248,244,236,.72), rgba(248,244,236,.82)),
+    url("story-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-attachment:scroll !important;
+}
+#wedding-journey{
+  background-image:
+    linear-gradient(rgba(238,228,212,.70), rgba(235,224,206,.80)),
+    url("journey-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#album{
+  background-image:
+    linear-gradient(rgba(248,244,236,.72), rgba(248,244,236,.84)),
+    url("album-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#locations{
+  background-image:
+    linear-gradient(rgba(238,228,212,.70), rgba(235,224,206,.80)),
+    url("locations-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#rsvp{
+  background-image:
+    linear-gradient(rgba(24,19,15,.70), rgba(24,19,15,.82)),
+    url("rsvp-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+
+/* Disable the old pseudo background layers so they cannot wash out the images. */
+#our-story::before,#our-story::after,
+#wedding-journey::before,#wedding-journey::after,
+#album::before,#album::after,
+#locations::before,#locations::after,
+#rsvp::before,#rsvp::after{
+  display:none !important;
+}
+
+/* Use the exact same DY seal image as the opening. */
+.family-cards__monogram{
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+.family-cards__monogram img{
+  width:96px;
+  height:96px;
+  object-fit:contain;
+  display:block;
+  border-radius:50%;
+  filter:drop-shadow(0 10px 20px rgba(57,39,27,.16));
+}
+
+@media(max-width:900px){
+  .family-cards__monogram img{
+    width:82px;
+    height:82px;
+  }
+}
