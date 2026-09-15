@@ -139,3 +139,11 @@ document.getElementById("uploadForm").addEventListener("submit",async e=>{
     btn.disabled=false; btn.textContent="SEND TO OUR ALBUM";
   }
 });
+
+/* ===== V5 STICKY COUNTDOWN ===== */
+(()=>{const s=document.getElementById("countdown-section");if(!s)return;
+const weddingDate=new Date(2027,0,3,0,0,0);if(new Date()>=weddingDate)s.classList.add("v5-married");
+const marker=document.createElement("div");marker.setAttribute("aria-hidden","true");marker.style.cssText="height:1px;width:100%;pointer-events:none;";s.parentNode.insertBefore(marker,s);
+let raf=0;const update=()=>{s.classList.toggle("v5-sticky-countdown",marker.getBoundingClientRect().top < -Math.max(s.offsetHeight,80));};
+const req=()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;update();});};
+addEventListener("scroll",req,{passive:true});addEventListener("resize",req);update();})();
