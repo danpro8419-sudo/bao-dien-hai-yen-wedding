@@ -55,3 +55,23 @@ Countdown is now section #2 after the opening. Once scrolled past, it becomes a 
 - Same logo geometry on Windows, iPhone, Android, Safari, Chrome and Messenger.
 - Stronger raised/shadow treatment.
 - Name and wedding date remain separated below the logo.
+
+
+## V6.3 — Final Envelope Composition
+- DY reduced ~20–25% and moved upward.
+- Couple name and date occupy separate lower zones.
+- Desktop/mobile share identical vector logo geometry.
+- Envelope size and all V5/V6 functionality remain unchanged.
+
+## V6.4
+Clean fixed DY monogram closer to the original reference; dedicated couple-name/date block; separate open-state positioning to prevent overlap.
+
+
+## V7 — Seal Tear Opening
+- Uses the supplied DY reference image inside a circular luxury seal.
+- Fold text: “SỰ KIỆN ĐÁNG MONG CHỜ SẮP DIỄN RA”.
+- Date below seal: 03.01.2027.
+- Clicking the seal triggers a tear animation.
+- Fold message/date disappear and BẢO ĐIỀN & HẢI YẾN are revealed.
+- Holds on the names for 3 seconds, then enters the invitation.
+- Adds subtle floating champagne particles in the side negative space.

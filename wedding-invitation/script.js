@@ -158,3 +158,46 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd
   window.addEventListener("resize", setViewport, { passive: true });
   window.addEventListener("orientationchange", setViewport, { passive: true });
 })();
+
+
+/* ===== V7 — SEAL CLICK -> TEAR -> NAMES -> 3s -> ENTER ===== */
+(() => {
+  const seal = document.getElementById("v7InvitationSeal");
+  const btn = document.getElementById("v7SealButton");
+  if (!seal || !btn) return;
+
+  let running = false;
+
+  const findOriginalTrigger = () =>
+    document.querySelector("#openInvitation, .open-invitation, .open-btn, [data-open-invitation]");
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (running) return;
+    running = true;
+
+    seal.classList.add("v7-tearing");
+
+    window.setTimeout(() => {
+      seal.classList.remove("v7-tearing");
+      seal.classList.add("v7-revealed");
+
+      // Pause on Bảo Điền & Hải Yến for exactly 3 seconds.
+      window.setTimeout(() => {
+        seal.style.transition = "opacity .7s ease";
+        seal.style.opacity = "0";
+        const original = findOriginalTrigger();
+        if (original && original !== btn) {
+          original.click();
+        } else {
+          // Fallback: reveal main content using common classes.
+          document.body.classList.add("invitation-opened");
+          const opening = document.querySelector(".opening, .hero, .invitation-opening");
+          if (opening) opening.classList.add("opened");
+        }
+        window.setTimeout(() => { seal.style.display = "none"; }, 750);
+      }, 3000);
+    }, 850);
+  }, true);
+})();
