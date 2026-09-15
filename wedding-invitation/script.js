@@ -159,23 +159,4 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd
   window.addEventListener("orientationchange", setViewport, { passive: true });
 })();
 
-
-/* V9 bridge: the Opening module emits this event when it finishes.
-   Keep page behavior here; do not style the Opening from this file. */
-window.addEventListener("wedding:opening-complete", () => {
-  document.body.classList.add("invitation-opened");
-  document.documentElement.classList.add("invitation-opened");
-
-  document.querySelectorAll(".legacy-opening-disabled").forEach((el) => {
-    el.style.display = "none";
-    el.setAttribute("aria-hidden", "true");
-  });
-
-  const main = document.querySelector("main, #mainContent, .main-content, .site-content");
-  if (main) {
-    main.classList.add("visible", "active", "revealed");
-    main.style.removeProperty("display");
-    main.style.removeProperty("opacity");
-    main.style.removeProperty("visibility");
-  }
-});
+window.addEventListener("wedding:opening-complete",()=>{document.body.classList.add("invitation-opened");document.documentElement.classList.add("invitation-opened");const m=document.querySelector("main,#mainContent,.main-content,.site-content");if(m){m.classList.add("visible","active","revealed");m.style.removeProperty("display");m.style.removeProperty("opacity");m.style.removeProperty("visibility");}});

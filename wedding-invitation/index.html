@@ -9,122 +9,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="opening/opening.css">
+<link rel="stylesheet" href="opening/opening.css">
 </head>
 <body>
-
-<div class="wedding-opening" id="weddingOpening" aria-label="Thiệp cưới Bảo Điền và Hải Yến">
-  <div class="wedding-opening__atmosphere" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <div class="wedding-opening__envelope">
-    <div class="wedding-opening__back"></div>
-
-    <div class="wedding-opening__card">
-      <div class="wedding-opening__names">
-        <div>BẢO ĐIỀN</div>
-        <em>&amp;</em>
-        <div>HẢI YẾN</div>
-      </div>
-    </div>
-
-    <div class="wedding-opening__fold wedding-opening__fold--left"></div>
-    <div class="wedding-opening__fold wedding-opening__fold--right"></div>
-    <div class="wedding-opening__fold wedding-opening__fold--bottom"></div>
-
-    <div class="wedding-opening__fold wedding-opening__fold--top">
-      <p>SỰ KIỆN ĐÁNG MONG CHỜ SẮP DIỄN RA</p>
-    </div>
-
-    <div class="wedding-opening__rip wedding-opening__rip--left"></div>
-    <div class="wedding-opening__rip wedding-opening__rip--right"></div>
-
-    <button class="wedding-opening__seal" id="weddingOpeningSeal" type="button" aria-label="Mở thiệp cưới">
-      <span class="wedding-opening__seal-inner">
-        <svg viewBox="0 0 200 200" aria-hidden="true">
-          <path class="wedding-opening__logo-d" d="M43 31V164M43 31H83C124 31 145 56 145 97C145 139 121 164 82 164H43M43 49H80C108 49 124 66 124 97C124 129 107 146 79 146H43"/>
-          <path class="wedding-opening__logo-y" d="M94 67C110 82 121 101 128 122C134 143 130 166 117 183C109 194 100 198 94 194C88 190 91 180 101 168C117 150 133 137 148 119C162 102 174 83 181 65"/>
-          <path class="wedding-opening__logo-flourish" d="M103 167C82 182 62 183 47 176"/>
-        </svg>
-      </span>
-    </button>
-
-    <div class="wedding-opening__date">03.01.2027</div>
-  </div>
-</div>
-
-<div class="v8-envelope">
-    <div class="v8-back"></div>
-
-    <div class="v8-card">
-      <div class="v8-reveal">
-        <div class="v8-name">BẢO ĐIỀN</div>
-        <div class="v8-amp">&amp;</div>
-        <div class="v8-name">HẢI YẾN</div>
-      </div>
-    </div>
-
-    <div class="v8-left-fold"></div>
-    <div class="v8-right-fold"></div>
-    <div class="v8-bottom-fold"></div>
-
-    <div class="v8-top-fold">
-      <div class="v8-kicker">SỰ KIỆN ĐÁNG MONG CHỜ SẮP DIỄN RA</div>
-    </div>
-
-    <div class="v8-tear v8-tear-left"></div>
-    <div class="v8-tear v8-tear-right"></div>
-
-    <button class="v8-seal" id="v8Seal" type="button" aria-label="Nhấn để xé và mở thiệp">
-      <span class="v8-seal-rim"></span>
-      <span class="v8-logo" aria-hidden="true">
-        <svg viewBox="0 0 200 200">
-          <path class="v8-d" d="M43 31V164M43 31H83C124 31 145 56 145 97C145 139 121 164 82 164H43M43 49H80C108 49 124 66 124 97C124 129 107 146 79 146H43"/>
-          <path class="v8-y" d="M94 67C110 82 121 101 128 122C134 143 130 166 117 183C109 194 100 198 94 194C88 190 91 180 101 168C117 150 133 137 148 119C162 102 174 83 181 65"/>
-          <path class="v8-y2" d="M103 167C82 182 62 183 47 176"/>
-        </svg>
-      </span>
-    </button>
-
-    <div class="v8-date">03.01.2027</div>
-    <div class="v8-hint">CHẠM VÀO CON DẤU ĐỂ MỞ</div>
-  </div>
-</div>
-
-  <div id="opening" class="opening">
-    <div class="grain"></div>
-    <div class="envelope-wrap">
-      <p class="eyebrow">WEDDING INVITATION</p>
-      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Mở thiệp cưới">
-        <div class="envelope-back"></div>
-        <div class="letter">
-          <span>BAO DIEN</span>
-          <span class="amp">&amp;</span>
-          <span>HAI YEN</span>
-          <small>03 · 01 · 2027</small>
-        </div>
-        <div class="envelope-front"></div>
-        <div class="legacy-opening-disabled flap"></div>
-        
-
-      </div>
-      <button class="open-btn" id="openBtn">
-OPEN INVITATION</button>
-      <p class="hint">Tap to open</p>
-    </div>
-  </div>
-
-  <button class="music-toggle" id="musicToggle" aria-label="Bật hoặc tắt nhạc">♪</button>
-  <audio id="music" loop preload="none">
-    <source src="assets/music/music.mp3" type="audio/mpeg">
-  </audio>
-
-  <main id="site" class="site" aria-hidden="true">
-    <section class="hero section-dark">
-      <div class="hero-overlay"></div>
-      <div class="hero-content reveal">
+<div class="wedding-opening" id="weddingOpening">
+<div class="wedding-opening__dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="wedding-opening__envelope">
+<div class="wedding-opening__back"></div>
+<div class="wedding-opening__card"><div class="wedding-opening__names"><strong>BẢO ĐIỀN</strong><em>&amp;</em><strong>HẢI YẾN</strong></div></div>
+<div class="wedding-opening__left"></div><div class="wedding-opening__right"></div><div class="wedding-opening__bottom"></div>
+<div class="wedding-opening__top"><span>SỰ KIỆN ĐÁNG MONG CHỜ SẮP DIỄN RA</span></div>
+<div class="wedding-opening__tear l"></div><div class="wedding-opening__tear r"></div>
+<button class="wedding-opening__seal" id="weddingOpeningSeal" type="button" aria-label="Mở thiệp cưới">
+<svg viewBox="0 0 200 200"><path d="M43 31V164M43 31H83C124 31 145 56 145 97C145 139 121 164 82 164H43M43 49H80C108 49 124 66 124 97C124 129 107 146 79 146H43"/><path d="M94 67C110 82 121 101 128 122C134 143 130 166 117 183C109 194 100 198 94 194C88 190 91 180 101 168C117 150 133 137 148 119C162 102 174 83 181 65"/><path d="M103 167C82 182 62 183 47 176"/></svg>
+</button><div class="wedding-opening__date">03.01.2027</div></div></div>
+<div class="hero-content reveal">
         <p class="eyebrow">OUR WEDDING STORY</p>
         <h1>Bảo Điền <span>&amp;</span> Hải Yến</h1>
         <p class="date">03 · 01 · 2027</p>
@@ -269,6 +168,6 @@ OPEN INVITATION</button>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="script.js"></script>
-  <script src="opening/opening.js" defer></script>
+<script src="opening/opening.js" defer></script>
 </body>
 </html>
