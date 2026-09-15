@@ -1,49 +1,235 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wedding Admin — Bảo Điền & Hải Yến</title>
-<link rel="stylesheet" href="admin.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../js/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171310">
+  <title>Bảo Điền & Hải Yến — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="loginView" class="view">
-  <section class="login-card">
-    <p class="eyebrow">BẢO ĐIỀN & HẢI YẾN · 03.01.2027</p>
-    <h1>Wedding Admin</h1>
-    <p class="muted">Đăng nhập để quản lý ảnh, video và RSVP.</p>
-    <form id="loginForm">
-      <label>Email<input id="email" type="email" autocomplete="email" required></label>
-      <label>Mật khẩu<input id="password" type="password" autocomplete="current-password" required></label>
-      <button class="primary" type="submit">ĐĂNG NHẬP</button>
-      <p id="loginError" class="error"></p>
-    </form>
-  </section>
+
+<div class="v8-opening" id="v8Opening" aria-label="Thiệp cưới Bảo Điền và Hải Yến">
+  <div class="v8-ambient" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+
+  <div class="v8-envelope">
+    <div class="v8-back"></div>
+
+    <div class="v8-card">
+      <div class="v8-reveal">
+        <div class="v8-name">BẢO ĐIỀN</div>
+        <div class="v8-amp">&amp;</div>
+        <div class="v8-name">HẢI YẾN</div>
+      </div>
+    </div>
+
+    <div class="v8-left-fold"></div>
+    <div class="v8-right-fold"></div>
+    <div class="v8-bottom-fold"></div>
+
+    <div class="v8-top-fold">
+      <div class="v8-kicker">SỰ KIỆN ĐÁNG MONG CHỜ SẮP DIỄN RA</div>
+    </div>
+
+    <div class="v8-tear v8-tear-left"></div>
+    <div class="v8-tear v8-tear-right"></div>
+
+    <button class="v8-seal" id="v8Seal" type="button" aria-label="Nhấn để xé và mở thiệp">
+      <span class="v8-seal-rim"></span>
+      <span class="v8-logo" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <path class="v8-d" d="M43 31V164M43 31H83C124 31 145 56 145 97C145 139 121 164 82 164H43M43 49H80C108 49 124 66 124 97C124 129 107 146 79 146H43"/>
+          <path class="v8-y" d="M94 67C110 82 121 101 128 122C134 143 130 166 117 183C109 194 100 198 94 194C88 190 91 180 101 168C117 150 133 137 148 119C162 102 174 83 181 65"/>
+          <path class="v8-y2" d="M103 167C82 182 62 183 47 176"/>
+        </svg>
+      </span>
+    </button>
+
+    <div class="v8-date">03.01.2027</div>
+    <div class="v8-hint">CHẠM VÀO CON DẤU ĐỂ MỞ</div>
+  </div>
 </div>
 
-<div id="appView" class="hidden">
-<header class="topbar">
-  <div><p class="eyebrow">BẢO ĐIỀN & HẢI YẾN</p><h1>Wedding Admin</h1></div>
-  <div class="top-actions"><span id="adminEmail"></span><button id="logoutBtn" class="ghost">Đăng xuất</button></div>
-</header>
-<main class="dashboard">
-  <section class="stats">
-    <article><span>CHỜ DUYỆT</span><strong id="pendingCount">0</strong></article>
-    <article><span>ĐÃ DUYỆT</span><strong id="approvedCount">0</strong></article>
-    <article><span>RSVP</span><strong id="rsvpCount">0</strong></article>
-  </section>
+  <div id="opening" class="opening">
+    <div class="grain"></div>
+    <div class="envelope-wrap">
+      <p class="eyebrow">WEDDING INVITATION</p>
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Mở thiệp cưới">
+        <div class="envelope-back"></div>
+        <div class="letter">
+          <span>BAO DIEN</span>
+          <span class="amp">&amp;</span>
+          <span>HAI YEN</span>
+          <small>03 · 01 · 2027</small>
+        </div>
+        <div class="envelope-front"></div>
+        <div class="flap"></div>
+        
 
-  <section class="panel">
-    <div class="panel-head"><div><p class="eyebrow">GUEST MEMORIES</p><h2>Ảnh & video chờ duyệt</h2></div><button id="refreshBtn" class="ghost">Làm mới</button></div>
-    <div id="pendingList" class="media-grid"><p class="muted">Đang tải…</p></div>
-  </section>
+      </div>
+      <button class="open-btn" id="openBtn">
+OPEN INVITATION</button>
+      <p class="hint">Tap to open</p>
+    </div>
+  </div>
 
-  <section class="panel">
-    <div class="panel-head"><div><p class="eyebrow">RSVP</p><h2>Khách mời</h2></div></div>
-    <div class="table-wrap"><table><thead><tr><th>Thời gian</th><th>Tên</th><th>Tham dự</th><th>Số người</th><th>Lời nhắn</th></tr></thead><tbody id="rsvpList"></tbody></table></div>
-  </section>
-</main>
-</div>
-<script src="admin.js"></script>
-</body></html>
+  <button class="music-toggle" id="musicToggle" aria-label="Bật hoặc tắt nhạc">♪</button>
+  <audio id="music" loop preload="none">
+    <source src="assets/music/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main id="site" class="site" aria-hidden="true">
+    <section class="hero section-dark">
+      <div class="hero-overlay"></div>
+      <div class="hero-content reveal">
+        <p class="eyebrow">OUR WEDDING STORY</p>
+        <h1>Bảo Điền <span>&amp;</span> Hải Yến</h1>
+        <p class="date">03 · 01 · 2027</p>
+        <p class="hero-copy">A new chapter begins.</p>
+      </div>
+      <div class="scroll-cue">SCROLL <span>↓</span></div>
+    </section>
+
+<section id="countdown-section" class="countdown section-dark">
+      <div class="container center reveal">
+        <p class="eyebrow">THE WEDDING DAY</p>
+        <h2>03 January 2027</h2>
+        <div class="countdown-grid" id="countdown">
+          <div><strong id="days">--</strong><span>DAYS</span></div>
+          <div><strong id="hours">--</strong><span>HOURS</span></div>
+          <div><strong id="minutes">--</strong><span>MINUTES</span></div>
+          <div><strong id="seconds">--</strong><span>SECONDS</span></div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="story section-light">
+      <div class="container split">
+        <div class="section-label">01 / OUR STORY</div>
+        <div>
+          <p class="kicker">Every love story is beautiful.</p>
+          <h2>Ours is the one<br>we'll remember forever.</h2>
+          <p class="body-copy">Một hành trình của hai người, những ngày bình thường trở nên đặc biệt, và một lời hứa cho những ngày phía trước.</p>
+          <div class="story-line"></div>
+          <p class="micro">THE BEGINNING · THE JOURNEY · THE FOREVER</p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section class="journey section-light">
+      <div class="container">
+        <div class="section-label">02 / OUR WEDDING JOURNEY</div>
+        <div class="journey-intro">
+          <p class="kicker">One day. Four chapters.</p>
+          <h2>From her home<br>to forever.</h2>
+        </div>
+        <div class="timeline">
+          <article class="event reveal"><span class="event-no">01</span><div><p class="event-place">NHÀ GÁI</p><h3>Lễ rước dâu</h3><p>Khoảnh khắc bắt đầu hành trình về chung một nhà.</p></div></article>
+          <article class="event reveal"><span class="event-no">02</span><div><p class="event-place">NHÀ GÁI</p><h3>Lễ gia tiên</h3><p>Nghi lễ gia đình tại nhà gái.</p></div></article>
+          <article class="event reveal"><span class="event-no">03</span><div><p class="event-place">NHÀ TRAI</p><h3>Lễ gia tiên</h3><p>Nghi lễ gia đình tại nhà trai.</p></div></article>
+          <article class="event reveal"><span class="event-no">04</span><div><p class="event-place">NHÀ THỜ</p><h3>Wedding Ceremony</h3><p>In the presence of God, we say “I do”.</p></div></article>
+          <article class="event reveal"><span class="event-no">05</span><div><p class="event-place">RECEPTION</p><h3>Tiệc tối</h3><p>The celebration begins.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="night-before section-dark optional-section" data-enabled="false" hidden>
+      <div class="container center">
+        <p class="eyebrow">THE NIGHT BEFORE</p>
+        <h2>A quiet evening<br>before forever.</h2>
+        <p class="body-copy">Phần này đang được tắt. Khi có kế hoạch tiệc gia đình, chỉ cần bật trong cấu hình.</p>
+      </div>
+    </section>
+
+    <section class="album section-light">
+      <div class="container">
+        <div class="section-label">03 / OUR ALBUM</div>
+        <div class="album-head">
+          <div><p class="kicker">Moments to keep.</p><h2>Our memories.</h2></div>
+          <div class="filters"><button class="active">ALL</button><button>THE STORY</button><button>THE WEDDING</button></div>
+        </div>
+        <div class="gallery">
+          <div class="photo photo-a"><span>PHOTO 01</span></div>
+          <div class="photo photo-b"><span>PHOTO 02</span></div>
+          <div class="photo photo-c"><span>PHOTO 03</span></div>
+          <div class="photo photo-d"><span>PHOTO 04</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="share section-dark">
+      <div class="container split">
+        <div class="section-label">04 / SHARE YOUR MOMENTS</div>
+        <div>
+          <p class="kicker">Your photos. Your memories. Our story.</p>
+          <h2>Be part of<br>our album.</h2>
+          <p class="body-copy">Sau này khách mời có thể gửi ảnh và video trực tiếp từ điện thoại. Nội dung sẽ chờ hai bạn duyệt trước khi xuất hiện công khai.</p>
+          <button class="outline-btn" id="uploadPreview">UPLOAD YOUR MOMENTS</button>
+          <p class="micro">SUPABASE UPLOAD · ADMIN APPROVAL · GUEST MEMORIES</p>
+
+          <div class="upload-panel" id="uploadPanel" hidden>
+            <form id="uploadForm" class="upload-form">
+              <label>TÊN CỦA BẠN<input id="guestName" required maxlength="120" placeholder="Nguyễn Văn A"></label>
+              <label>ẢNH / VIDEO<input id="mediaFiles" type="file" accept="image/*,video/*" multiple required></label>
+              <div id="uploadPreviewGrid" class="upload-preview-grid"></div>
+              <label>LỜI NHẮN<textarea id="guestMessage" rows="4" maxlength="1000" placeholder="Một lời nhắn dành cho cô dâu chú rể..."></textarea></label>
+              <label class="check-row"><input id="shareConsent" type="checkbox" required><span>Tôi đồng ý cho cô dâu chú rể sử dụng ảnh/video này trong album cưới.</span></label>
+              <button class="solid-btn" type="submit">SEND TO OUR ALBUM</button>
+              <p class="micro">Ảnh/video sẽ được duyệt trước khi xuất hiện công khai.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="locations section-light">
+      <div class="container">
+        <div class="section-label">05 / LOCATIONS</div>
+        <div class="location-grid">
+          <div><span>01</span><h3>NHÀ GÁI</h3><p>Lễ rước dâu · Gia tiên</p><button>OPEN MAP</button></div>
+          <div><span>02</span><h3>NHÀ TRAI</h3><p>Lễ gia tiên</p><button>OPEN MAP</button></div>
+          <div><span>03</span><h3>NHÀ THỜ</h3><p>Wedding Ceremony</p><button>OPEN MAP</button></div>
+          <div><span>04</span><h3>TIỆC TỐI</h3><p>Wedding Reception</p><button>OPEN MAP</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp section-dark">
+      <div class="container center">
+        <p class="eyebrow">06 / RSVP</p>
+        <h2>Will you celebrate<br>with us?</h2>
+        <form id="rsvpForm" class="rsvp-form">
+          <input required placeholder="Tên của bạn">
+          <select required><option value="">Bạn sẽ tham dự?</option><option>YES, I'LL BE THERE</option><option>SORRY, I CAN'T</option></select>
+          <input type="number" min="1" max="20" placeholder="Số khách">
+          <textarea rows="4" placeholder="Lời nhắn dành cho Bảo Điền & Hải Yến"></textarea>
+          <button class="solid-btn" type="submit">CONFIRM ATTENDANCE</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer section-dark">
+      <div class="container center">
+        <p class="eyebrow">THE LAST CHAPTER</p>
+        <h2>Thank you for being<br>part of our story.</h2>
+        <p class="names">Bảo Điền <span>&amp;</span> Hải Yến</p>
+        <p class="date">03 · 01 · 2027</p>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
