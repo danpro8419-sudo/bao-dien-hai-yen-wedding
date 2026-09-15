@@ -123,17 +123,7 @@ body.wedding-opening-lock { overflow: hidden; }
 }
 
 .wedding-opening__envelope::after {
-  content: "03  ·  01  ·  2027";
-  position: absolute;
-  z-index: 20;
-  left: 50%;
-  bottom: -56px;
-  transform: translateX(-50%);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 12px;
-  letter-spacing: .34em;
-  color: rgba(233,213,181,.52);
-  white-space: nowrap;
+  content: none;
 }
 
 .wedding-opening__back,
@@ -240,6 +230,25 @@ body.wedding-opening-lock { overflow: hidden; }
   transform: scaleX(-1);
 }
 
+.wedding-opening__names::after {
+  content: "03 · 01 · 2027";
+  display: block;
+  width: max-content;
+  max-width: 90%;
+  margin: clamp(18px, 2.3vw, 28px) auto 0;
+  padding: 10px 18px 9px;
+  border-top: 1px solid rgba(91,67,52,.20);
+  border-bottom: 1px solid rgba(91,67,52,.14);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(17px, 1.55vw, 22px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .24em;
+  color: #6b4f3c;
+  text-shadow: 0 1px 0 rgba(255,255,255,.65);
+  white-space: nowrap;
+}
+
 .wedding-opening__left,
 .wedding-opening__right,
 .wedding-opening__bottom {
@@ -286,16 +295,7 @@ body.wedding-opening-lock { overflow: hidden; }
 }
 
 .wedding-opening__date {
-  position: absolute;
-  z-index: 9;
-  left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(11px, 1.05vw, 14px);
-  letter-spacing: .28em;
-  color: #6b5847;
-  transition: opacity .45s ease, transform .45s ease;
+  display: none;
 }
 
 .wedding-opening__seal {
@@ -435,11 +435,6 @@ body.wedding-opening-lock { overflow: hidden; }
   opacity: 1;
 }
 
-.wedding-opening.is-tearing .wedding-opening__date {
-  opacity: 0;
-  transform: translateX(-50%) translateY(6px);
-}
-
 .wedding-opening.is-revealed .wedding-opening__top {
   transform: rotateX(178deg);
   z-index: 1;
@@ -507,13 +502,7 @@ body.wedding-opening-lock { overflow: hidden; }
     transform: translateY(-1vh);
   }
 
-  .wedding-opening__envelope::after {
-    bottom: -48px;
-    font-size: 10px;
-    letter-spacing: .24em;
-  }
-
-  .wedding-opening__top span {
+    .wedding-opening__top span {
     top: 11%;
     width: 76%;
     font-size: 8px;
@@ -526,18 +515,21 @@ body.wedding-opening-lock { overflow: hidden; }
     padding: 14px;
   }
 
-  .wedding-opening__date {
-    bottom: 6.5%;
-    letter-spacing: .18em;
-  }
-
-  .wedding-opening__card::before {
+    .wedding-opening__card::before {
     inset: 13px;
   }
 
   .wedding-opening__card::after {
     top: 20px;
     font-size: 7px;
+  }
+
+
+  .wedding-opening__names::after {
+    margin-top: 16px;
+    padding: 8px 13px 7px;
+    font-size: 15px;
+    letter-spacing: .18em;
   }
 
   .wedding-opening__tear {
@@ -555,5 +547,120 @@ body.wedding-opening-lock { overflow: hidden; }
   .wedding-opening *::before,
   .wedding-opening *::after {
     animation-duration: .01ms !important;
+  }
+}
+
+
+/* =========================================================
+   V5 DECORATION LAYER — GOLD DUST + BOTANICAL CORNERS
+   Inspired by the user's references, implemented without extra image files.
+   ========================================================= */
+
+/* soft gold dust horizon near the bottom */
+.wedding-opening__dust {
+  background:
+    radial-gradient(circle at 8% 93%, rgba(255,223,149,.75) 0 1px, transparent 2px),
+    radial-gradient(circle at 15% 95%, rgba(255,216,125,.52) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 23% 92%, rgba(255,236,181,.45) 0 1px, transparent 2px),
+    radial-gradient(circle at 31% 96%, rgba(255,220,134,.62) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 40% 93%, rgba(255,229,159,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 48% 96%, rgba(255,214,118,.56) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 57% 92%, rgba(255,232,168,.68) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 95%, rgba(255,218,128,.58) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 75% 93%, rgba(255,235,173,.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 96%, rgba(255,218,126,.50) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 92% 92%, rgba(255,231,165,.66) 0 1px, transparent 2px),
+    linear-gradient(
+      to top,
+      rgba(188,138,61,.18) 0%,
+      rgba(169,121,46,.08) 3%,
+      transparent 10%
+    );
+}
+
+/* brighter shimmering base line */
+.wedding-opening__dust::marker { content: ""; }
+
+.wedding-opening .wedding-opening__dust {
+  box-shadow: inset 0 -1px 0 rgba(255,220,145,.10);
+}
+
+/* additional sparkle field */
+.wedding-opening__dust i {
+  width: 4px;
+  height: 4px;
+  background: rgba(245,221,169,.58);
+  box-shadow:
+    0 0 9px rgba(239,203,132,.24),
+    0 0 18px rgba(239,203,132,.08);
+}
+
+/* leaf corner ornaments as inline SVGs */
+.wedding-opening__dust::before,
+.wedding-opening__dust::after {
+  width: min(22vw, 300px);
+  height: min(22vw, 300px);
+  border: 0 !important;
+  border-radius: 0 !important;
+  opacity: .34;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 0 8px rgba(210,181,135,.03));
+}
+
+.wedding-opening__dust::before {
+  left: 2.8vw;
+  top: 3.5vh;
+  background-position: left top;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23bda77e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 210 C45 150 76 102 130 50'/%3E%3Cpath d='M55 150 C34 145 23 128 18 112 C39 116 54 128 55 150 Z'/%3E%3Cpath d='M72 124 C49 117 43 98 44 83 C65 91 75 103 72 124 Z'/%3E%3Cpath d='M92 96 C72 87 69 67 74 52 C93 63 101 76 92 96 Z'/%3E%3Cpath d='M114 69 C101 54 104 36 113 22 C128 40 131 52 114 69 Z'/%3E%3Cpath d='M65 165 C84 158 100 163 111 176 C91 180 77 178 65 165 Z'/%3E%3Cpath d='M84 136 C104 130 119 137 127 151 C108 153 94 149 84 136 Z'/%3E%3Cpath d='M104 106 C123 103 138 111 144 126 C125 126 112 120 104 106 Z'/%3E%3Cpath d='M128 77 C145 76 158 85 162 100 C145 98 135 91 128 77 Z'/%3E%3Ccircle cx='139' cy='47' r='3.2'/%3E%3Ccircle cx='152' cy='34' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.wedding-opening__dust::after {
+  right: 2.8vw;
+  bottom: 4.0vh;
+  transform: rotate(180deg);
+  background-position: right bottom;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23bda77e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 210 C45 150 76 102 130 50'/%3E%3Cpath d='M55 150 C34 145 23 128 18 112 C39 116 54 128 55 150 Z'/%3E%3Cpath d='M72 124 C49 117 43 98 44 83 C65 91 75 103 72 124 Z'/%3E%3Cpath d='M92 96 C72 87 69 67 74 52 C93 63 101 76 92 96 Z'/%3E%3Cpath d='M114 69 C101 54 104 36 113 22 C128 40 131 52 114 69 Z'/%3E%3Cpath d='M65 165 C84 158 100 163 111 176 C91 180 77 178 65 165 Z'/%3E%3Cpath d='M84 136 C104 130 119 137 127 151 C108 153 94 149 84 136 Z'/%3E%3Cpath d='M104 106 C123 103 138 111 144 126 C125 126 112 120 104 106 Z'/%3E%3Cpath d='M128 77 C145 76 158 85 162 100 C145 98 135 91 128 77 Z'/%3E%3Ccircle cx='139' cy='47' r='3.2'/%3E%3Ccircle cx='152' cy='34' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* subtle gold floor glow */
+.wedding-opening__envelope::before {
+  box-shadow:
+    0 46px 70px rgba(197,148,73,.06),
+    0 18px 34px rgba(0,0,0,.22);
+}
+
+/* a faint gold light strip behind envelope */
+.wedding-opening__envelope::after {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -28%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,225,162,.10) 12%,
+    rgba(255,221,148,.50) 50%,
+    rgba(255,225,162,.10) 88%,
+    transparent
+  );
+  filter: blur(.4px);
+}
+
+/* mobile: keep ornament visible but restrained */
+@media (max-width: 700px) {
+  .wedding-opening__dust::before,
+  .wedding-opening__dust::after {
+    width: 34vw;
+    height: 34vw;
+    opacity: .22;
+  }
+
+  .wedding-opening__envelope::after {
+    left: -3%;
+    right: -3%;
+    bottom: -23%;
   }
 }
