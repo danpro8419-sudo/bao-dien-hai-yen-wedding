@@ -513,3 +513,130 @@ body > main > section:first-of-type,
     transform: translateY(52px) !important;
   }
 }
+
+
+/* ===== V6.4 — CLEAN MONOGRAM + OPEN STATE FIX ===== */
+
+/* Hide legacy card name/date only inside the envelope, because V6.4 supplies
+   a dedicated typography block that cannot collide with the monogram. */
+.envelope-card .names,
+.envelope-card .couple-names,
+.envelope-card .envelope-names,
+.envelope-card .card-names,
+.envelope-card .date,
+.envelope-card .wedding-date,
+.envelope-card .envelope-date,
+.envelope-card .card-date,
+.envelope-front .names,
+.envelope-front .couple-names,
+.envelope-front .date,
+.envelope-front .wedding-date {
+  visibility: hidden !important;
+}
+
+.dy-v64 {
+  top: 31% !important;
+  width: clamp(76px, 5.5vw, 96px) !important;
+  height: auto !important;
+  transform: translate(-50%,-50%) !important;
+  color: #2b211b !important;
+  filter: drop-shadow(0 5px 7px rgba(43,33,27,.18)) !important;
+}
+.dy-v64::before {
+  width: 145% !important;
+  height: 135% !important;
+  opacity: .65 !important;
+}
+.dy-v64 .v64-d {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.dy-v64 .v64-y {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 6.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dy-v64 .v64-flourish { stroke-width: 4; }
+
+.v64-couple-block {
+  position: absolute;
+  z-index: 14;
+  left: 50%;
+  top: 63%;
+  width: 88%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color: #302720;
+  pointer-events: none;
+}
+.v64-couple-name {
+  font-family: "Times New Roman","Bodoni 72","Didot",Georgia,serif;
+  font-size: clamp(14px,1.25vw,20px);
+  font-weight: 400;
+  letter-spacing: .09em;
+  white-space: nowrap;
+}
+.v64-couple-name span {
+  display: inline-block;
+  margin: 0 .35em;
+  font-size: .68em;
+  opacity: .75;
+}
+.v64-date {
+  margin-top: 13px;
+  font-family: Arial, sans-serif;
+  font-size: clamp(8px,.72vw,11px);
+  letter-spacing: .28em;
+  white-space: nowrap;
+  opacity: .78;
+}
+
+/* OPEN STATE:
+   logo moves to the upper part of the revealed card, while the couple block
+   sits safely underneath. This explicitly fixes the overlap seen in V6.3. */
+.opened .dy-v64,
+.is-open .dy-v64,
+.envelope.open .dy-v64,
+.is-opening .dy-v64 {
+  top: 27% !important;
+  width: clamp(68px,4.8vw,86px) !important;
+}
+.opened .v64-couple-block,
+.is-open .v64-couple-block,
+.envelope.open .v64-couple-block,
+.is-opening .v64-couple-block {
+  top: 62% !important;
+}
+
+/* Mobile keeps exactly the same vector shape and hierarchy. */
+@media (max-width:700px) {
+  .dy-v64 {
+    top: 29% !important;
+    width: 78px !important;
+  }
+  .v64-couple-block {
+    top: 64%;
+    width: 92%;
+  }
+  .v64-couple-name {
+    font-size: 15px;
+    letter-spacing: .055em;
+  }
+  .v64-date {
+    margin-top: 12px;
+    font-size: 9px;
+    letter-spacing: .24em;
+  }
+  .opened .dy-v64,
+  .is-open .dy-v64,
+  .envelope.open .dy-v64,
+  .is-opening .dy-v64 {
+    top: 26% !important;
+    width: 72px !important;
+  }
+}
