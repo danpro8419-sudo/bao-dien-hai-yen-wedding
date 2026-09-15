@@ -211,3 +211,195 @@ body > main > section:first-of-type,
     animation: none;
   }
 }
+
+
+/* ===== V6.1 — MONOGRAM EMPHASIS + CLEAR NAME/DATE ===== */
+
+/* Give the DY mark its own visual layer so it no longer collides with names/date. */
+.dy-monogram {
+  top: 39% !important;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+  color: #2b211b !important;
+  z-index: 12 !important;
+  filter:
+    drop-shadow(0 2px 0 rgba(255,255,255,.48))
+    drop-shadow(0 7px 9px rgba(47,34,25,.20)) !important;
+}
+
+/* Subtle champagne halo behind the monogram: "embossed / raised" effect. */
+.dy-monogram::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 128%;
+  height: 128%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(230,211,174,.25) 0%,
+    rgba(230,211,174,.11) 40%,
+    rgba(230,211,174,0) 72%);
+  z-index: -1;
+}
+
+/* Existing envelope text gets a clean lower zone. */
+.envelope .names,
+.envelope .couple-names,
+.invitation-envelope .names,
+.invitation-envelope .couple-names,
+.envelope-card .names,
+.envelope-card .couple-names {
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(50px) !important;
+  white-space: nowrap;
+}
+
+.envelope .date,
+.envelope .wedding-date,
+.invitation-envelope .date,
+.invitation-envelope .wedding-date,
+.envelope-card .date,
+.envelope-card .wedding-date {
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(58px) !important;
+}
+
+/* Generic fallback for the V4/V5 markup: central card text is layered above logo,
+   while the logo itself is moved upward enough to leave it readable. */
+.envelope-card > p,
+.envelope-card > h1,
+.envelope-card > h2,
+.envelope-card > h3,
+.envelope-front > p,
+.envelope-front > h1,
+.envelope-front > h2,
+.envelope-front > h3 {
+  position: relative;
+  z-index: 15;
+}
+
+/* On phones the logo needs slightly more separation because the envelope is narrower. */
+@media (max-width: 700px) {
+  .dy-monogram {
+    top: 36% !important;
+    transform: translate(-50%, -50%) scale(.96) !important;
+  }
+  .dy-monogram::before {
+    width: 118%;
+    height: 118%;
+  }
+
+  .envelope .names,
+  .envelope .couple-names,
+  .invitation-envelope .names,
+  .invitation-envelope .couple-names,
+  .envelope-card .names,
+  .envelope-card .couple-names {
+    transform: translateY(46px) !important;
+  }
+
+  .envelope .date,
+  .envelope .wedding-date,
+  .invitation-envelope .date,
+  .invitation-envelope .wedding-date,
+  .envelope-card .date,
+  .envelope-card .wedding-date {
+    transform: translateY(54px) !important;
+  }
+}
+
+
+/* ===== V6.2 — FIXED VECTOR DY LOGO ===== */
+/* The monogram is now SVG geometry, so desktop/iPhone/Android render identically. */
+.dy-monogram-fixed {
+  position: absolute !important;
+  left: 50% !important;
+  top: 36% !important;
+  width: clamp(104px, 8.2vw, 138px) !important;
+  height: auto !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 12 !important;
+  color: #2b211b !important;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 2px 0 rgba(255,255,255,.50))
+    drop-shadow(0 8px 10px rgba(48,34,25,.24)) !important;
+}
+.dy-monogram-fixed::before {
+  width: 138% !important;
+  height: 128% !important;
+  background: radial-gradient(circle,
+    rgba(230,211,174,.30) 0%,
+    rgba(230,211,174,.13) 42%,
+    rgba(230,211,174,0) 73%) !important;
+}
+.dy-logo-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.dy-logo-d {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.dy-logo-y {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dy-logo-y.flourish {
+  stroke-width: 5.5;
+}
+
+/* Names and date live below the mark instead of behind it. */
+.envelope .names,
+.envelope .couple-names,
+.invitation-envelope .names,
+.invitation-envelope .couple-names,
+.envelope-card .names,
+.envelope-card .couple-names {
+  z-index: 15 !important;
+  transform: translateY(58px) !important;
+}
+.envelope .date,
+.envelope .wedding-date,
+.invitation-envelope .date,
+.invitation-envelope .wedding-date,
+.envelope-card .date,
+.envelope-card .wedding-date {
+  z-index: 15 !important;
+  transform: translateY(68px) !important;
+}
+
+@media (max-width: 700px) {
+  .dy-monogram-fixed {
+    top: 34% !important;
+    width: 112px !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .envelope .names,
+  .envelope .couple-names,
+  .invitation-envelope .names,
+  .invitation-envelope .couple-names,
+  .envelope-card .names,
+  .envelope-card .couple-names {
+    transform: translateY(55px) !important;
+  }
+  .envelope .date,
+  .envelope .wedding-date,
+  .invitation-envelope .date,
+  .invitation-envelope .wedding-date,
+  .envelope-card .date,
+  .envelope-card .wedding-date {
+    transform: translateY(66px) !important;
+  }
+}

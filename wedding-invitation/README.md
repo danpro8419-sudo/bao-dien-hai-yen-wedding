@@ -33,3 +33,25 @@ Mở `/admin/` để đăng nhập bằng tài khoản Supabase Auth.
 
 ## V5 — Sticky Countdown
 Countdown is now section #2 after the opening. Once scrolled past, it becomes a compact sticky pill on desktop and a full-width top bar on mobile. On/after 03.01.2027 it changes to `WE ARE MARRIED ❤️`. Supabase, RSVP, Guest Upload and Admin are unchanged.
+
+
+## V6 — Responsive Cinematic Opening
+- Desktop envelope enlarged for stronger visual focus.
+- Mobile opening optimized for Messenger/Facebook/Safari dynamic browser bars.
+- Uses dynamic viewport units (`dvh` / `svh`) with a JS fallback.
+- New D/Y monogram inspired by the supplied reference: serif D + calligraphic Y.
+- CTA interaction and envelope presence refined.
+- V5 Sticky Countdown, Supabase, RSVP, Guest Upload and Admin remain intact.
+
+
+## V6.1 — Monogram refinement
+- DY monogram moved upward and given a raised shadow/champagne halo.
+- Couple name and wedding date receive a separate lower visual zone.
+- Mobile spacing refined so the monogram no longer covers the name/date.
+
+
+## V6.2 — Fixed DY Vector Logo
+- DY monogram converted from device-dependent fonts to inline SVG vector paths.
+- Same logo geometry on Windows, iPhone, Android, Safari, Chrome and Messenger.
+- Stronger raised/shadow treatment.
+- Name and wedding date remain separated below the logo.
