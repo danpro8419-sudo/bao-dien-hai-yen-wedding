@@ -176,23 +176,44 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd
   let running = false;
 
   function triggerLegacyEntrance() {
-    const candidates = [
-      "#openInvitation",
-      ".open-invitation",
-      ".open-btn",
-      "[data-open-invitation]"
+    // V8.1: skip the old envelope/open-invitation sequence completely.
+    // Mark the legacy opening as completed using its common state hooks.
+    document.body.classList.add("invitation-opened", "opened", "is-open");
+    document.documentElement.classList.add("invitation-opened");
+
+    const legacySelectors = [
+      "#opening", ".opening", ".invitation-opening", ".opening-screen",
+      ".envelope-scene", ".envelope-wrapper", ".open-invitation",
+      "#openInvitation", ".open-btn", "[data-open-invitation]"
     ];
-    for (const selector of candidates) {
-      const el = document.querySelector(selector);
-      if (el && el !== seal) {
-        try { el.click(); return true; } catch (_) {}
-      }
+    legacySelectors.forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        if (!el.closest("#v8Opening")) {
+          el.style.display = "none";
+          el.setAttribute("aria-hidden", "true");
+        }
+      });
+    });
+
+    // Reveal the normal page without asking the guest to click a second time.
+    const main = document.querySelector("main, #mainContent, .main-content, .site-content");
+    if (main) {
+      main.classList.add("visible", "active", "revealed");
+      main.style.removeProperty("display");
+      main.style.removeProperty("opacity");
+      main.style.removeProperty("visibility");
     }
 
-    document.body.classList.add("invitation-opened");
-    const main = document.querySelector("main, #mainContent, .main-content");
-    if (main) main.classList.add("visible");
-    return false;
+    // Prefer the Our Wedding Story / hero section as the destination.
+    const destination =
+      document.querySelector("#hero, .hero, #story, .story-section, [data-section='story']") ||
+      main;
+    if (destination) {
+      requestAnimationFrame(() => {
+        destination.scrollIntoView({behavior:"auto", block:"start"});
+      });
+    }
+    return true;
   }
 
   seal.addEventListener("click", (event) => {

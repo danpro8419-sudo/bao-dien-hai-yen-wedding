@@ -80,3 +80,11 @@ Clean fixed DY monogram closer to the original reference; dedicated couple-name/
 ## V8 — Cinematic Tear Seal
 Opening rebuilt as an isolated full-screen component so legacy name/date/open controls cannot bleed through.
 Sequence: seal click → bilateral tear → seal disappears → upper fold is removed → BẢO ĐIỀN & HẢI YẾN reveal → 3-second hold → cinematic fade into the existing wedding site.
+
+
+## V8.1 — Cinematic Atmosphere + Direct Story Transition
+- Added subtle botanical line-art in opposite side corners.
+- Added layered champagne bokeh, floating dust, and slow warm light drift.
+- Mobile automatically reduces decorative density.
+- Removed the second legacy envelope interaction from the guest flow.
+- After the 3-second name reveal, V8 fades directly into the wedding story.

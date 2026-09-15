@@ -1160,3 +1160,68 @@ body.v8-locked { overflow: hidden !important; }
 @media (prefers-reduced-motion:reduce) {
   .v8-ambient i,.v8-hint { animation:none !important; }
 }
+
+
+/* ===== V8.1 — CINEMATIC SIDE ATMOSPHERE ===== */
+.v8-opening::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 48%,rgba(184,145,95,.10),transparent 23%),
+    radial-gradient(ellipse at 80% 45%,rgba(184,145,95,.08),transparent 24%);
+  animation:v81-light-drift 10s ease-in-out infinite alternate;
+}
+@keyframes v81-light-drift{
+  from{transform:translate3d(-1.5%,1%,0) scale(1)}
+  to{transform:translate3d(1.5%,-1%,0) scale(1.04)}
+}
+.v81-botanical{
+  position:absolute;
+  width:clamp(105px,12vw,190px);
+  height:auto;
+  fill:none;
+  stroke:rgba(218,190,148,.25);
+  stroke-width:1.05;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 8px rgba(202,164,111,.08));
+  opacity:.62;
+  animation:v81-branch-breathe 7s ease-in-out infinite alternate;
+}
+.v81-botanical-left{left:4.5%;bottom:-3%;transform:rotate(-7deg)}
+.v81-botanical-right{right:4.5%;top:-4%;transform:rotate(173deg)}
+@keyframes v81-branch-breathe{
+  from{opacity:.34}
+  to{opacity:.64}
+}
+.v81-bokeh{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(229,200,156,.15);
+  filter:blur(5px);
+  animation:v81-bokeh 7s ease-in-out infinite;
+}
+.v81-bokeh.b1{width:28px;height:28px;left:15%;top:35%;animation-delay:.4s}
+.v81-bokeh.b2{width:15px;height:15px;left:25%;top:72%;animation-delay:2.1s}
+.v81-bokeh.b3{width:24px;height:24px;right:16%;top:67%;animation-delay:1.2s}
+.v81-bokeh.b4{width:12px;height:12px;right:27%;top:26%;animation-delay:3.4s}
+@keyframes v81-bokeh{
+  0%,100%{opacity:.05;transform:translateY(7px) scale(.8)}
+  50%{opacity:.5;transform:translateY(-8px) scale(1.12)}
+}
+/* Keep visual detail outside the envelope's focal zone. */
+.v8-envelope{z-index:3}
+
+/* V8.1 transition: V8 owns the only opening experience. */
+.v8-opening.v8-exit{
+  transition:opacity .95s cubic-bezier(.4,0,.2,1),visibility .95s ease;
+}
+@media(max-width:700px){
+  .v81-botanical{opacity:.22;width:90px}
+  .v81-botanical-left{left:-26px;bottom:1%}
+  .v81-botanical-right{right:-28px;top:2%}
+  .v81-bokeh.b2,.v81-bokeh.b4{display:none}
+}
