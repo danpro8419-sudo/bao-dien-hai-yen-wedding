@@ -133,7 +133,7 @@ function createMediaNode(item){
     el.muted=true; el.loop=true; el.playsInline=true; el.controls=true;
   }else{
     el.loading="lazy";
-    el.alt=item.caption || item.guest_name || "Wedding memory";
+    el.alt=item.caption || item.guest_name || "Kỷ niệm ngày cưới";
   }
   return el;
 }
@@ -196,7 +196,7 @@ function renderGallery(filter="all"){
     card.appendChild(createMediaNode(item));
     const meta=document.createElement("div");
     meta.className="gallery-item__meta";
-    meta.textContent=item.caption || item.message || (item.source==="guest" ? `Guest memory${item.guest_name ? " · "+item.guest_name : ""}` : "Bảo Điền & Hải Yến");
+    meta.textContent=item.caption || item.message || (item.source==="guest" ? `Khoảnh khắc khách mời${item.guest_name ? " · "+item.guest_name : ""}` : "Bảo Điền & Hải Yến");
     card.appendChild(meta);
     gallery.appendChild(card);
   });
@@ -240,7 +240,7 @@ $("#uploadForm")?.addEventListener("submit",async event=>{
   const name=$("#guestName").value.trim();
   const message=$("#guestMessage").value.trim();
   const btn=event.currentTarget.querySelector("button[type=submit]");
-  btn.disabled=true; btn.textContent="UPLOADING…";
+  btn.disabled=true; btn.textContent="ĐANG TẢI LÊN…";
   let uploaded=0;
   try{
     for(const file of files){
@@ -271,7 +271,7 @@ $("#uploadForm")?.addEventListener("submit",async event=>{
     console.error(error);
     showToast("Upload chưa thành công. Vui lòng thử lại.");
   }finally{
-    btn.disabled=false; btn.textContent="SEND TO OUR ALBUM";
+    btn.disabled=false; btn.textContent="GỬI VỀ ALBUM";
   }
 });
 
@@ -289,9 +289,9 @@ $("#rsvpForm")?.addEventListener("submit",async event=>{
     message:String(fd.get("message")||"").trim()
   };
   const btn=form.querySelector("button[type=submit]");
-  btn.disabled=true; btn.textContent="SENDING…";
+  btn.disabled=true; btn.textContent="ĐANG GỬI…";
   const {error}=await supabaseClient.from("rsvps").insert(payload);
-  btn.disabled=false; btn.textContent="CONFIRM ATTENDANCE";
+  btn.disabled=false; btn.textContent="GỬI XÁC NHẬN";
   if(error){console.error(error);showToast("Có lỗi khi gửi RSVP. Bạn thử lại nhé.");return;}
   showToast("Cảm ơn bạn! RSVP đã được gửi thành công ❤️");
   form.reset();
@@ -302,6 +302,50 @@ window.addEventListener("wedding:opening-complete",()=>{
   document.body.classList.add("invitation-opened");
   document.documentElement.classList.add("invitation-opened");
 });
+
+
+/* Optional background images for section transitions.
+   If you upload these files beside index.html, they will appear automatically:
+   story-bg.jpg, journey-bg.jpg, album-bg.jpg, locations-bg.jpg, rsvp-bg.jpg */
+function initOptionalSectionBackgrounds(){
+  $$(".has-optional-bg[data-bg]").forEach(section=>{
+    const file = section.dataset.bg;
+    if(!file) return;
+    const test = new Image();
+    test.onload = ()=>{
+      section.style.setProperty("--section-bg-image", `url("${file}?v=1")`);
+      section.classList.add("has-bg");
+    };
+    test.onerror = ()=>{};
+    test.src = `${file}?v=1`;
+  });
+}
+
+/* Hide empty family rows.
+   If a field is blank, "-" , "ẩn" or "cập nhật sau", it will be hidden automatically. */
+function initFamilyCards(){
+  const hideValues = ["", "-", "ẩn", "an", "hide", "cập nhật sau", "cap nhat sau"];
+  $$(".family-card").forEach(card=>{
+    const rows = $$("dl div", card);
+    let visible = 0;
+    rows.forEach(row=>{
+      const dd = $("dd", row);
+      const text = (dd?.textContent || "").trim().toLowerCase();
+      if(hideValues.includes(text)){
+        row.hidden = true;
+      }else{
+        visible += 1;
+      }
+    });
+    const detail = $(".family-card__details", card);
+    const empty = $(".family-card__empty", card);
+    if(detail) detail.hidden = visible === 0;
+    if(empty) empty.hidden = visible > 0;
+  });
+}
+
+initOptionalSectionBackgrounds();
+initFamilyCards();
 
 renderHeroPhoto();
 loadApprovedMedia();
