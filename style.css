@@ -1170,3 +1170,84 @@ section{position:relative}
     font-size:8px;
   }
 }
+
+
+/* =========================================================
+   V10.7 — HERO CLEANUP
+   Remove duplicated placeholder text and simplify hierarchy.
+   ========================================================= */
+
+.hero-v10__placeholder{
+  position:absolute;
+  inset:0;
+  display:block !important;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(216,187,146,.08), transparent 22%),
+    radial-gradient(circle at 84% 70%, rgba(216,187,146,.06), transparent 20%),
+    linear-gradient(135deg,#2d221c 0%,#17120f 58%,#261c17 100%);
+}
+
+.hero-v10__placeholder span,
+.hero-v10__placeholder small{
+  display:none !important;
+}
+
+.hero-v10__placeholder::before,
+.hero-v10__placeholder::after{
+  content:"";
+  position:absolute;
+  width:min(220px,14vw);
+  height:min(220px,14vw);
+  border:1px solid rgba(226,201,164,.06);
+  border-radius:50%;
+}
+.hero-v10__placeholder::before{
+  left:7%;
+  top:12%;
+}
+.hero-v10__placeholder::after{
+  right:8%;
+  bottom:15%;
+}
+
+.hero-v10__content{
+  bottom:86px;
+  max-width:900px;
+}
+
+.hero-v10__content .eyebrow{
+  font-size:9px;
+  letter-spacing:.34em;
+  opacity:.78;
+}
+
+.hero-v10 h1{
+  margin:22px 0 28px;
+  font-size:clamp(70px,8.2vw,124px);
+  line-height:.76;
+}
+
+.hero-v10__date{
+  margin-bottom:10px;
+}
+
+.hero-v10__quote{
+  font-size:18px;
+  opacity:.78;
+  margin-top:8px;
+}
+
+@media(max-width:700px){
+  .hero-v10__content{
+    bottom:70px;
+  }
+
+  .hero-v10 h1{
+    font-size:clamp(56px,17vw,76px);
+  }
+
+  .hero-v10__quote{
+    font-size:16px;
+    line-height:1.5;
+  }
+}
