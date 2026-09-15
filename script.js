@@ -53,51 +53,51 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown,1000);
 
-/* Sticky mini countdown — preserve layout height so content below never jumps */
+/* Mini countdown độc lập — không di chuyển section gốc, nên không tạo khoảng trống khó chịu */
 (()=>{
-  const section=$("#countdown-section");
+  const section = $("#countdown-section");
   if(!section) return;
 
-  const marker=document.createElement("div");
-  marker.className="countdown-sticky-spacer";
-  marker.style.cssText="height:0;width:100%;pointer-events:none;";
-  section.parentNode.insertBefore(marker,section);
+  const mini = document.createElement("div");
+  mini.className = "mini-countdown";
+  mini.setAttribute("aria-label", "Đếm ngược đến ngày cưới");
+  mini.innerHTML = `
+    <span class="mini-countdown__label">CÒN</span>
+    <div><strong id="miniDays">--</strong><small>NGÀY</small></div>
+    <div><strong id="miniHours">--</strong><small>GIỜ</small></div>
+    <div><strong id="miniMinutes">--</strong><small>PHÚT</small></div>
+    <div><strong id="miniSeconds">--</strong><small>GIÂY</small></div>
+  `;
+  document.body.appendChild(mini);
 
-  let fullHeight = section.offsetHeight;
+  function syncMini(){
+    const map = [
+      ["days","miniDays"],
+      ["hours","miniHours"],
+      ["minutes","miniMinutes"],
+      ["seconds","miniSeconds"]
+    ];
+    map.forEach(([from,to])=>{
+      const src = $("#"+from);
+      const dst = $("#"+to);
+      if(src && dst) dst.textContent = src.textContent;
+    });
+  }
 
-  const measure=()=>{
-    if(!section.classList.contains("v5-sticky-countdown")){
-      fullHeight = section.offsetHeight;
-    }
+  const miniTimer = setInterval(syncMini, 1000);
+  syncMini();
+
+  const updateVisibility = ()=>{
+    const rect = section.getBoundingClientRect();
+    const shouldShow = rect.bottom < 80;
+    mini.classList.toggle("show", shouldShow);
   };
 
-  const update=()=>{
-    const triggerTop = marker.getBoundingClientRect().top;
-    const shouldStick = triggerTop < -220;
+  addEventListener("scroll", updateVisibility, {passive:true});
+  addEventListener("resize", updateVisibility);
+  updateVisibility();
 
-    if(shouldStick){
-      if(!section.classList.contains("v5-sticky-countdown")){
-        fullHeight = section.offsetHeight;
-        marker.style.height = fullHeight + "px";
-        section.classList.add("v5-sticky-countdown");
-      }
-    }else{
-      if(section.classList.contains("v5-sticky-countdown")){
-        section.classList.remove("v5-sticky-countdown");
-        marker.style.height = "0px";
-        fullHeight = section.offsetHeight;
-      }
-    }
-  };
-
-  addEventListener("scroll",update,{passive:true});
-  addEventListener("resize",()=>{
-    measure();
-    update();
-  });
-
-  measure();
-  update();
+  window.addEventListener("beforeunload", ()=>clearInterval(miniTimer));
 })();
 
 /* Night-before: fully hidden unless explicitly enabled */

@@ -1,0 +1,12 @@
+V10.4 SAFE
+- Không ghi đè opening/opening.css hoặc dy-seal.png.
+- Ghi đè: index.html, style.css, script.js, config.js.
+- Upload thêm 5 ảnh nền ở root:
+  story-bg.jpg
+  journey-bg.jpg
+  album-bg.jpg
+  locations-bg.jpg
+  rsvp-bg.jpg
+- Countdown mini mới là widget độc lập, không còn tạo khoảng trắng lớn.
+- Trong thiệp: đã đổi 'chúng mình' thành 'chúng con'.
+- Tiệc cưới nhà gái được xếp trước nhà trai.

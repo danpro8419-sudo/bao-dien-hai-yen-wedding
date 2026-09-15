@@ -865,3 +865,167 @@ section{position:relative}
     grid-template-columns:1fr;
   }
 }
+
+
+/* =========================================================
+   V10.4 — FIX KHOẢNG TRỐNG + MINI COUNTDOWN MỚI
+   ========================================================= */
+
+/* Vô hiệu hóa cơ chế sticky cũ nếu CSS cũ còn sót lại */
+#countdown-section.v5-sticky-countdown{
+  position:relative !important;
+  inset:auto !important;
+  width:auto !important;
+  min-width:0 !important;
+  padding:128px 0 136px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201,169,130,.12), transparent 32%),
+    linear-gradient(180deg, #1b1512 0%, #261c17 55%, #2b2018 100%) !important;
+  backdrop-filter:none !important;
+}
+#countdown-section.v5-sticky-countdown .calendar-card,
+#countdown-section.v5-sticky-countdown .countdown-panel h2,
+#countdown-section.v5-sticky-countdown .countdown-panel>.eyebrow,
+#countdown-section.v5-sticky-countdown .countdown-panel__copy{
+  display:initial !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-v10__grid{
+  display:grid !important;
+  width:min(1180px,calc(100% - 48px)) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-panel{
+  padding:54px 48px !important;
+  border:1px solid rgba(226,206,176,.18) !important;
+  background:rgba(255,255,255,.035) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid{
+  display:grid !important;
+  border-top:1px solid rgba(255,255,255,.15) !important;
+  border-bottom:1px solid rgba(255,255,255,.15) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid>div{
+  padding:30px 10px !important;
+  border-right:1px solid rgba(255,255,255,.12) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid strong{
+  font-size:clamp(50px,5.2vw,84px) !important;
+}
+#countdown-section.v5-sticky-countdown .countdown-grid span{
+  font-size:8px !important;
+}
+
+/* Mini countdown mới */
+.mini-countdown{
+  position:fixed;
+  z-index:9000;
+  top:18px;
+  right:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 15px;
+  border-radius:18px;
+  background:rgba(34,27,22,.90);
+  border:1px solid rgba(233,214,186,.18);
+  box-shadow:0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter:blur(14px);
+  color:#f7efe3;
+  opacity:0;
+  transform:translateY(-12px);
+  pointer-events:none;
+  transition:opacity .28s ease, transform .28s ease;
+}
+.mini-countdown.show{
+  opacity:1;
+  transform:none;
+}
+.mini-countdown__label{
+  font-size:7px;
+  letter-spacing:.22em;
+  color:#d0b58f;
+  margin-right:2px;
+}
+.mini-countdown>div{
+  min-width:42px;
+  text-align:center;
+}
+.mini-countdown strong{
+  display:block;
+  font:600 21px/1 var(--serif);
+}
+.mini-countdown small{
+  display:block;
+  margin-top:4px;
+  font-size:6px;
+  letter-spacing:.13em;
+  opacity:.6;
+}
+
+/* Sửa khoảng trước thư mời */
+.invitation-v10{
+  padding-top:82px !important;
+}
+.invitation-v10 .section-heading{
+  margin-bottom:36px !important;
+}
+.invitation-v10__title{
+  margin-bottom:0 !important;
+}
+.invitation-letter{
+  margin-top:0 !important;
+}
+
+/* Nền section từ bộ ảnh mới */
+.has-optional-bg.has-bg::before{
+  opacity:.22;
+  filter:saturate(.85) contrast(.98);
+}
+.section-paper.has-bg::after{
+  background:linear-gradient(180deg, rgba(248,244,236,.84), rgba(248,244,236,.90));
+}
+.section-ivory.has-bg::after{
+  background:linear-gradient(180deg, rgba(238,228,212,.82), rgba(235,224,206,.90));
+}
+.section-dark-v10.has-bg::after{
+  background:linear-gradient(180deg, rgba(24,19,15,.83), rgba(24,19,15,.89));
+}
+
+/* Thư mời: xưng hô trang trọng */
+.invitation-letter p{
+  font-size:20px;
+  line-height:1.68;
+}
+
+/* Tiệc nhà gái trước nhà trai */
+.ceremony-card:nth-child(5),
+.location-card:nth-child(4){
+  box-shadow:inset 0 0 0 1px rgba(184,150,104,.08);
+}
+
+/* Mobile */
+@media(max-width:700px){
+  .mini-countdown{
+    top:10px;
+    right:10px;
+    left:10px;
+    justify-content:space-between;
+    border-radius:14px;
+    padding:9px 12px;
+  }
+  .mini-countdown__label{
+    display:none;
+  }
+  .mini-countdown>div{
+    min-width:0;
+    flex:1;
+  }
+  .mini-countdown strong{
+    font-size:18px;
+  }
+  .invitation-v10{
+    padding-top:68px !important;
+  }
+}
