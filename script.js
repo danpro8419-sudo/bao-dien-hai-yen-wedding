@@ -5,7 +5,7 @@ const supabaseClient = window.supabase?.createClient(
   CONFIG.supabase?.publishableKey
 );
 
-const weddingTarget = new Date(CONFIG.weddingDate || "2027-01-03T00:00:00+07:00").getTime();
+const weddingTarget = new Date(CONFIG.weddingDate || "2027-01-03T07:00:00+07:00").getTime();
 
 function $(selector, root=document){ return root.querySelector(selector); }
 function $$(selector, root=document){ return [...root.querySelectorAll(selector)]; }
@@ -34,11 +34,25 @@ $$(".reveal").forEach(el=>revealObserver.observe(el));
 function updateCountdown(){
   const diff = weddingTarget - Date.now();
   const ids = ["days","hours","minutes","seconds"];
+  const section = $("#countdown-section");
+  const panelTitle = $(".countdown-panel h2");
+  const panelCopy = $(".countdown-panel__copy");
+
   if(diff <= 0){
     ids.forEach(id=>{ const el=$("#"+id); if(el) el.textContent="00"; });
-    $("#countdown-section")?.classList.add("v5-married");
+    section?.classList.add("v5-married");
+    if(panelTitle) panelTitle.textContent = "Chúng tôi đã cưới.";
+    if(panelCopy) panelCopy.textContent = "Cảm ơn bạn đã hiện diện và chúc phúc cho hành trình của chúng tôi. ❤️";
+
+    const mini = $(".mini-countdown");
+    if(mini){
+      mini.classList.add("is-married");
+      mini.innerHTML = '<span class="mini-countdown__married">CHÚNG TÔI ĐÃ CƯỚI ❤️</span>';
+    }
     return;
   }
+
+  section?.classList.remove("v5-married");
   const values = [
     Math.floor(diff/86400000),
     Math.floor(diff/3600000)%24,
@@ -71,6 +85,11 @@ setInterval(updateCountdown,1000);
   document.body.appendChild(mini);
 
   function syncMini(){
+    if(Date.now() >= weddingTarget){
+      mini.classList.add("is-married");
+      mini.innerHTML = '<span class="mini-countdown__married">CHÚNG TÔI ĐÃ CƯỚI ❤️</span>';
+      return;
+    }
     const map = [
       ["days","miniDays"],
       ["hours","miniHours"],

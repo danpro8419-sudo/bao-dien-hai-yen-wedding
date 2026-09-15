@@ -1,7 +1,7 @@
 window.WEDDING_CONFIG = {
   groom: "Bảo Điền",
   bride: "Hải Yến",
-  weddingDate: "2027-01-03T17:30:00+07:00",
+  weddingDate: "2027-01-03T07:00:00+07:00",
   theNightBefore: false,
 
   // Publishable key: an toàn để dùng ở frontend. KHÔNG đặt service_role/secret key ở đây.

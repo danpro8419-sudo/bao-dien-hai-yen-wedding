@@ -1103,3 +1103,70 @@ section{position:relative}
     height:82px;
   }
 }
+
+
+/* =========================================================
+   V10.6 — DESKTOP INVITATION WIDTH + 07:00 MARRIED STATE
+   ========================================================= */
+
+/* Trên desktop: tiêu đề thư mời trải ngang, chỉ giữ 2 dòng rõ ràng */
+@media (min-width: 1000px){
+  .invitation-v10 .section-heading{
+    max-width:1180px !important;
+    width:100%;
+  }
+
+  .invitation-v10__title{
+    max-width:1080px !important;
+    width:100%;
+    font-size:clamp(62px,5.3vw,94px) !important;
+    line-height:.92 !important;
+    letter-spacing:-.03em;
+    text-wrap:balance;
+  }
+}
+
+/* Trạng thái sau 07:00 ngày 03.01.2027 */
+#countdown-section.v5-married .countdown-grid{
+  display:none !important;
+}
+#countdown-section.v5-married .countdown-panel{
+  justify-content:center;
+}
+#countdown-section.v5-married .countdown-panel h2{
+  max-width:650px;
+  font-size:clamp(64px,6vw,104px);
+  color:#f7efe3;
+}
+#countdown-section.v5-married .countdown-panel::after{
+  content:none !important;
+}
+#countdown-section.v5-married .countdown-panel__copy{
+  max-width:620px;
+  font-size:15px;
+  line-height:1.9;
+  color:#d8c8ba;
+}
+
+/* Mini countdown sau giờ cưới */
+.mini-countdown.is-married{
+  min-width:auto;
+  padding:13px 18px;
+}
+.mini-countdown__married{
+  font-size:9px;
+  letter-spacing:.18em;
+  white-space:nowrap;
+  color:#f4e7d5;
+}
+
+@media (max-width:700px){
+  .mini-countdown.is-married{
+    left:auto;
+    right:10px;
+    width:auto;
+  }
+  .mini-countdown__married{
+    font-size:8px;
+  }
+}
