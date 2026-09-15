@@ -12,6 +12,130 @@
 
   <link rel="stylesheet" href="style.css?v=17">
   <link rel="stylesheet" href="opening/opening.css?v=10">
+
+  <style id="openingFxV108">
+    /* Opening V10.8 FX — scoped, does not replace opening/opening.css */
+    .wedding-opening__fx {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .wedding-opening__star {
+      --x: 50vw;
+      --size: 3px;
+      --duration: 6s;
+      --delay: 0s;
+      --drift: 24px;
+      position: absolute;
+      left: var(--x);
+      top: -8vh;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: rgba(244, 216, 162, .88);
+      box-shadow:
+        0 0 7px rgba(244, 216, 162, .62),
+        0 0 18px rgba(224, 181, 111, .24);
+      opacity: 0;
+      animation: weddingStarFall var(--duration) linear var(--delay) infinite;
+    }
+
+    .wedding-opening__star:nth-child(3n) {
+      border-radius: 0;
+      transform: rotate(45deg);
+      background: rgba(255, 236, 196, .95);
+    }
+
+    .wedding-opening__star:nth-child(5n) {
+      filter: blur(.35px);
+      opacity: .7;
+    }
+
+    @keyframes weddingStarFall {
+      0% {
+        transform: translate3d(0, -8vh, 0) scale(.7);
+        opacity: 0;
+      }
+      8% { opacity: .85; }
+      72% { opacity: .68; }
+      100% {
+        transform: translate3d(var(--drift), 116vh, 0) scale(1.08);
+        opacity: 0;
+      }
+    }
+
+    .wedding-opening__burst {
+      position: absolute;
+      z-index: 40;
+      left: 50%;
+      top: 48%;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .wedding-opening__burst-particle {
+      --tx: 0px;
+      --ty: -120px;
+      --rot: 0deg;
+      --scale: 1;
+      --duration: 1700ms;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(222, 184, 126, .92);
+      font-family: Georgia, serif;
+      font-size: 18px;
+      line-height: 1;
+      text-shadow: 0 2px 10px rgba(0,0,0,.18);
+      opacity: 0;
+      animation: weddingBurst var(--duration) cubic-bezier(.16,.78,.24,1) forwards;
+    }
+
+    .wedding-opening__burst-particle.is-heart {
+      color: rgba(177, 97, 82, .88);
+      font-size: 17px;
+    }
+
+    .wedding-opening__burst-particle.is-flower {
+      color: rgba(231, 205, 164, .95);
+      font-size: 19px;
+    }
+
+    @keyframes weddingBurst {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(.25);
+        opacity: 0;
+      }
+      15% { opacity: 1; }
+      68% { opacity: .9; }
+      100% {
+        transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(var(--scale));
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .wedding-opening__star { opacity: .75; }
+      .wedding-opening__burst-particle { font-size: 15px; }
+      .wedding-opening__burst-particle.is-heart { font-size: 14px; }
+      .wedding-opening__burst-particle.is-flower { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wedding-opening__star,
+      .wedding-opening__burst-particle {
+        animation: none !important;
+        display: none !important;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
@@ -383,7 +507,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="script.js?v=17"></script>
+  <script src="script.js?v=18"></script>
 
   <!-- Opening animation embedded directly: no external .js file -->
   <script>
@@ -403,6 +527,75 @@
 
         document.body.classList.add("wedding-opening-lock");
         var started = false;
+
+        var fxLayer = document.createElement("div");
+        fxLayer.className = "wedding-opening__fx";
+        fxLayer.setAttribute("aria-hidden", "true");
+        opening.appendChild(fxLayer);
+
+        function rand(min, max) {
+          return Math.random() * (max - min) + min;
+        }
+
+        function createFallingStars() {
+          var count = window.innerWidth < 700 ? 22 : 36;
+          var fragment = document.createDocumentFragment();
+
+          for (var i = 0; i < count; i++) {
+            var star = document.createElement("i");
+            star.className = "wedding-opening__star";
+            star.style.setProperty("--x", rand(2, 98).toFixed(2) + "vw");
+            star.style.setProperty("--size", rand(1.6, 4.2).toFixed(2) + "px");
+            star.style.setProperty("--duration", rand(5.2, 9.4).toFixed(2) + "s");
+            star.style.setProperty("--delay", (-rand(0, 8)).toFixed(2) + "s");
+            star.style.setProperty("--drift", rand(-42, 42).toFixed(0) + "px");
+            fragment.appendChild(star);
+          }
+
+          fxLayer.appendChild(fragment);
+        }
+
+        function burstHeartsAndFlowers() {
+          var burst = document.createElement("div");
+          burst.className = "wedding-opening__burst";
+          burst.setAttribute("aria-hidden", "true");
+          fxLayer.appendChild(burst);
+
+          var symbols = [
+            { char: "♡", cls: "is-heart" },
+            { char: "♥", cls: "is-heart" },
+            { char: "❀", cls: "is-flower" },
+            { char: "✿", cls: "is-flower" },
+            { char: "❁", cls: "is-flower" }
+          ];
+
+          var count = window.innerWidth < 700 ? 14 : 22;
+
+          for (var i = 0; i < count; i++) {
+            var particle = document.createElement("span");
+            var item = symbols[i % symbols.length];
+            var angle = rand(200, 340) * Math.PI / 180;
+            var distance = rand(95, window.innerWidth < 700 ? 210 : 300);
+            var tx = Math.cos(angle) * distance;
+            var ty = Math.sin(angle) * distance - rand(10, 90);
+
+            particle.className = "wedding-opening__burst-particle " + item.cls;
+            particle.textContent = item.char;
+            particle.style.setProperty("--tx", tx.toFixed(0) + "px");
+            particle.style.setProperty("--ty", ty.toFixed(0) + "px");
+            particle.style.setProperty("--rot", rand(-180, 180).toFixed(0) + "deg");
+            particle.style.setProperty("--scale", rand(.75, 1.35).toFixed(2));
+            particle.style.setProperty("--duration", rand(1450, 2300).toFixed(0) + "ms");
+            particle.style.animationDelay = rand(0, 220).toFixed(0) + "ms";
+            burst.appendChild(particle);
+          }
+
+          window.setTimeout(function () {
+            if (burst.parentNode) burst.parentNode.removeChild(burst);
+          }, 2800);
+        }
+
+        createFallingStars();
 
         function animate(el, frames, options) {
           if (!el || !el.animate) return null;
@@ -523,6 +716,7 @@
 
             /* 4. Card rises clearly above the envelope */
             window.setTimeout(function () {
+              burstHeartsAndFlowers();
               card.style.zIndex = "8";
               animate(card, [
                 { transform: "translateY(0px) scale(1)" },
