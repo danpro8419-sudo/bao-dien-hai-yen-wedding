@@ -147,3 +147,14 @@ const marker=document.createElement("div");marker.setAttribute("aria-hidden","tr
 let raf=0;const update=()=>{s.classList.toggle("v5-sticky-countdown",marker.getBoundingClientRect().top < -Math.max(s.offsetHeight,80));};
 const req=()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;update();});};
 addEventListener("scroll",req,{passive:true});addEventListener("resize",req);update();})();
+
+
+/* ===== V6 — MOBILE VIEWPORT SUPPORT ===== */
+(() => {
+  const setViewport = () => {
+    document.documentElement.style.setProperty("--v6-vh", `${window.innerHeight * 0.01}px`);
+  };
+  setViewport();
+  window.addEventListener("resize", setViewport, { passive: true });
+  window.addEventListener("orientationchange", setViewport, { passive: true });
+})();
