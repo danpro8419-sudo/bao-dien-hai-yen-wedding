@@ -53,19 +53,50 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown,1000);
 
-/* Sticky mini countdown */
+/* Sticky mini countdown — preserve layout height so content below never jumps */
 (()=>{
   const section=$("#countdown-section");
   if(!section) return;
+
   const marker=document.createElement("div");
-  marker.style.cssText="height:1px;width:100%;pointer-events:none";
+  marker.className="countdown-sticky-spacer";
+  marker.style.cssText="height:0;width:100%;pointer-events:none;";
   section.parentNode.insertBefore(marker,section);
-  const update=()=>{
-    const sticky=marker.getBoundingClientRect().top < -220;
-    section.classList.toggle("v5-sticky-countdown",sticky);
+
+  let fullHeight = section.offsetHeight;
+
+  const measure=()=>{
+    if(!section.classList.contains("v5-sticky-countdown")){
+      fullHeight = section.offsetHeight;
+    }
   };
+
+  const update=()=>{
+    const triggerTop = marker.getBoundingClientRect().top;
+    const shouldStick = triggerTop < -220;
+
+    if(shouldStick){
+      if(!section.classList.contains("v5-sticky-countdown")){
+        fullHeight = section.offsetHeight;
+        marker.style.height = fullHeight + "px";
+        section.classList.add("v5-sticky-countdown");
+      }
+    }else{
+      if(section.classList.contains("v5-sticky-countdown")){
+        section.classList.remove("v5-sticky-countdown");
+        marker.style.height = "0px";
+        fullHeight = section.offsetHeight;
+      }
+    }
+  };
+
   addEventListener("scroll",update,{passive:true});
-  addEventListener("resize",update);
+  addEventListener("resize",()=>{
+    measure();
+    update();
+  });
+
+  measure();
   update();
 })();
 

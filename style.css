@@ -383,3 +383,143 @@ section{position:relative}
     object-position: center center;
   }
 }
+
+
+/* =========================================================
+   V10.2 — COUNTDOWN DESKTOP SCALE + STICKY LAYOUT STABILITY
+   ========================================================= */
+
+/* Make the full desktop countdown feel more premium and substantial */
+@media (min-width: 901px) {
+  .countdown-v10 {
+    padding: 135px 0 145px;
+  }
+
+  .countdown-v10__grid {
+    grid-template-columns: 1fr 1.22fr;
+    gap: 42px;
+  }
+
+  .calendar-card,
+  .countdown-panel {
+    min-height: 500px;
+    padding: 54px 48px;
+  }
+
+  .calendar-card__month {
+    font-size: 46px;
+    margin: 18px 0 30px;
+  }
+
+  .calendar-card__weekdays {
+    font-size: 9px;
+    margin-bottom: 15px;
+  }
+
+  .calendar-card__days {
+    gap: 10px;
+  }
+
+  .calendar-card__days span {
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .calendar-card__days .is-wedding-day {
+    width: 48px;
+    height: 48px;
+    margin: -3px auto;
+  }
+
+  .calendar-card__days .is-wedding-day::before,
+  .calendar-card__days .is-wedding-day::after {
+    top: 10px;
+    width: 25px;
+    height: 39px;
+  }
+
+  .calendar-card__days .is-wedding-day::before {
+    left: 24px;
+  }
+
+  .calendar-card__days .is-wedding-day::after {
+    left: -1px;
+  }
+
+  .calendar-card__days .is-wedding-day b {
+    font-size: 17px;
+  }
+
+  .calendar-card__note {
+    font-size: 21px;
+    margin-top: 30px;
+  }
+
+  .countdown-panel h2 {
+    font-size: clamp(68px, 5.8vw, 96px);
+    margin: 20px 0 42px;
+  }
+
+  .countdown-grid strong {
+    font-size: clamp(52px, 4.7vw, 76px);
+  }
+
+  .countdown-grid span {
+    font-size: 8px;
+  }
+
+  .countdown-grid > div {
+    padding: 30px 10px;
+  }
+
+  .countdown-panel__copy {
+    font-size: 13px;
+    max-width: 610px;
+    margin-top: 32px;
+  }
+}
+
+/* Sticky countdown: compact, but more readable on desktop */
+@media (min-width: 901px) {
+  #countdown-section.v5-sticky-countdown {
+    top: 22px;
+    right: 24px;
+    padding: 11px 16px;
+    border-radius: 999px;
+    box-shadow: 0 14px 44px rgba(0,0,0,.20);
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid > div {
+    padding: 1px 9px;
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid strong {
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  #countdown-section.v5-sticky-countdown .countdown-grid span {
+    font-size: 6px;
+    margin-top: 3px;
+  }
+}
+
+/* Give the invitation heading enough breathing room after countdown.
+   This also prevents the title from feeling chopped off at the top. */
+.invitation-v10 {
+  scroll-margin-top: 110px;
+}
+
+.invitation-v10 .section-heading {
+  padding-top: 8px;
+}
+
+.invitation-v10__title {
+  margin-top: 4px !important;
+}
+
+@media (max-width: 900px) {
+  .invitation-v10 {
+    scroll-margin-top: 78px;
+  }
+}
