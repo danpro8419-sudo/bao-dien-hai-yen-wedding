@@ -90,7 +90,7 @@
       place-items: center;
       color: rgba(222, 184, 126, .92);
       font-family: Georgia, serif;
-      font-size: 18px;
+      font-size: 26px;
       line-height: 1;
       text-shadow: 0 2px 10px rgba(0,0,0,.18);
       opacity: 0;
@@ -99,12 +99,12 @@
 
     .wedding-opening__burst-particle.is-heart {
       color: rgba(177, 97, 82, .88);
-      font-size: 17px;
+      font-size: 24px;
     }
 
     .wedding-opening__burst-particle.is-flower {
       color: rgba(231, 205, 164, .95);
-      font-size: 19px;
+      font-size: 28px;
     }
 
     @keyframes weddingBurst {
@@ -120,11 +120,17 @@
       }
     }
 
+    @media (min-width: 701px) {
+      .wedding-opening__burst-particle {
+        text-shadow: 0 4px 16px rgba(0,0,0,.22);
+      }
+    }
+
     @media (max-width: 700px) {
       .wedding-opening__star { opacity: .75; }
-      .wedding-opening__burst-particle { font-size: 15px; }
-      .wedding-opening__burst-particle.is-heart { font-size: 14px; }
-      .wedding-opening__burst-particle.is-flower { font-size: 16px; }
+      .wedding-opening__burst-particle { font-size: 16px; }
+      .wedding-opening__burst-particle.is-heart { font-size: 15px; }
+      .wedding-opening__burst-particle.is-flower { font-size: 17px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -136,9 +142,74 @@
     }
   </style>
 
+
+  <style id="adminQuickLinkStyle">
+    .admin-quick-link{
+      position:fixed;
+      top:14px;
+      left:14px;
+      z-index:5000;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 11px;
+      border:1px solid rgba(108,84,66,.18);
+      border-radius:999px;
+      background:rgba(248,244,236,.84);
+      color:#3c2c23;
+      box-shadow:0 8px 24px rgba(37,26,20,.08);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      font:500 8px/1 "Montserrat",Arial,sans-serif;
+      letter-spacing:.14em;
+      text-decoration:none;
+      text-transform:uppercase;
+      opacity:.56;
+      transition:opacity .22s ease, transform .22s ease, background .22s ease;
+    }
+
+    .admin-quick-link:hover,
+    .admin-quick-link:focus-visible{
+      opacity:1;
+      transform:translateY(-1px);
+      background:rgba(248,244,236,.96);
+      outline:none;
+    }
+
+    .admin-quick-link__icon{
+      width:13px;
+      height:13px;
+      display:block;
+      flex:0 0 13px;
+    }
+
+    @media (max-width:700px){
+      .admin-quick-link{
+        top:10px;
+        left:10px;
+        padding:7px 9px;
+        font-size:7px;
+        opacity:.48;
+      }
+      .admin-quick-link__label{
+        display:none;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
+
+  <a class="admin-quick-link" href="/admin/" aria-label="Đăng nhập quản trị">
+    <svg class="admin-quick-link__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+      <rect x="5.5" y="10" width="13" height="10" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <circle cx="12" cy="15" r="1.2" fill="currentColor"/>
+    </svg>
+    <span class="admin-quick-link__label">ĐĂNG NHẬP</span>
+  </a>
+
   <div class="wedding-opening" id="weddingOpening">
     <div class="wedding-opening__dust" aria-hidden="true">
       <i></i><i></i><i></i><i></i><i></i>
@@ -538,17 +609,17 @@
         }
 
         function createFallingStars() {
-          var count = window.innerWidth < 700 ? 22 : 36;
+          var count = window.innerWidth < 700 ? 28 : 64;
           var fragment = document.createDocumentFragment();
 
           for (var i = 0; i < count; i++) {
             var star = document.createElement("i");
             star.className = "wedding-opening__star";
             star.style.setProperty("--x", rand(2, 98).toFixed(2) + "vw");
-            star.style.setProperty("--size", rand(1.6, 4.2).toFixed(2) + "px");
-            star.style.setProperty("--duration", rand(5.2, 9.4).toFixed(2) + "s");
-            star.style.setProperty("--delay", (-rand(0, 8)).toFixed(2) + "s");
-            star.style.setProperty("--drift", rand(-42, 42).toFixed(0) + "px");
+            star.style.setProperty("--size", rand(1.8, window.innerWidth < 700 ? 4.2 : 5.4).toFixed(2) + "px");
+            star.style.setProperty("--duration", rand(4.8, 8.8).toFixed(2) + "s");
+            star.style.setProperty("--delay", (-rand(0, 10)).toFixed(2) + "s");
+            star.style.setProperty("--drift", rand(-58, 58).toFixed(0) + "px");
             fragment.appendChild(star);
           }
 
@@ -569,13 +640,13 @@
             { char: "❁", cls: "is-flower" }
           ];
 
-          var count = window.innerWidth < 700 ? 14 : 22;
+          var count = window.innerWidth < 700 ? 16 : 34;
 
           for (var i = 0; i < count; i++) {
             var particle = document.createElement("span");
             var item = symbols[i % symbols.length];
             var angle = rand(200, 340) * Math.PI / 180;
-            var distance = rand(95, window.innerWidth < 700 ? 210 : 300);
+            var distance = rand(window.innerWidth < 700 ? 105 : 180, window.innerWidth < 700 ? 230 : 430);
             var tx = Math.cos(angle) * distance;
             var ty = Math.sin(angle) * distance - rand(10, 90);
 
@@ -584,9 +655,9 @@
             particle.style.setProperty("--tx", tx.toFixed(0) + "px");
             particle.style.setProperty("--ty", ty.toFixed(0) + "px");
             particle.style.setProperty("--rot", rand(-180, 180).toFixed(0) + "deg");
-            particle.style.setProperty("--scale", rand(.75, 1.35).toFixed(2));
-            particle.style.setProperty("--duration", rand(1450, 2300).toFixed(0) + "ms");
-            particle.style.animationDelay = rand(0, 220).toFixed(0) + "ms";
+            particle.style.setProperty("--scale", rand(window.innerWidth < 700 ? .85 : 1.0, window.innerWidth < 700 ? 1.4 : 1.8).toFixed(2));
+            particle.style.setProperty("--duration", rand(1550, 2550).toFixed(0) + "ms");
+            particle.style.animationDelay = rand(0, 260).toFixed(0) + "ms";
             burst.appendChild(particle);
           }
 
