@@ -29,3 +29,7 @@ Sau khi chạy `supabase/schema.sql`, chạy thêm `supabase/admin-migration.sql
 Admin user hiện tại đã được cấp quyền bằng UUID trong migration.
 
 Mở `/admin/` để đăng nhập bằng tài khoản Supabase Auth.
+
+
+## V5 — Sticky Countdown
+Countdown is now section #2 after the opening. Once scrolled past, it becomes a compact sticky pill on desktop and a full-width top bar on mobile. On/after 03.01.2027 it changes to `WE ARE MARRIED ❤️`. Supabase, RSVP, Guest Upload and Admin are unchanged.
