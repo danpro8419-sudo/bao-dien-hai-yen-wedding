@@ -160,44 +160,64 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd
 })();
 
 
-/* ===== V7 — SEAL CLICK -> TEAR -> NAMES -> 3s -> ENTER ===== */
-(() => {
-  const seal = document.getElementById("v7InvitationSeal");
-  const btn = document.getElementById("v7SealButton");
-  if (!seal || !btn) return;
 
+
+/* =========================================================
+   V8 — CINEMATIC TEAR SEAL CONTROLLER
+   Click seal -> 0.8s tear -> reveal names -> hold 3s
+   -> fade V8 -> invoke existing invitation opening.
+   ========================================================= */
+(() => {
+  const opening = document.getElementById("v8Opening");
+  const seal = document.getElementById("v8Seal");
+  if (!opening || !seal) return;
+
+  document.body.classList.add("v8-locked");
   let running = false;
 
-  const findOriginalTrigger = () =>
-    document.querySelector("#openInvitation, .open-invitation, .open-btn, [data-open-invitation]");
+  function triggerLegacyEntrance() {
+    const candidates = [
+      "#openInvitation",
+      ".open-invitation",
+      ".open-btn",
+      "[data-open-invitation]"
+    ];
+    for (const selector of candidates) {
+      const el = document.querySelector(selector);
+      if (el && el !== seal) {
+        try { el.click(); return true; } catch (_) {}
+      }
+    }
 
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    document.body.classList.add("invitation-opened");
+    const main = document.querySelector("main, #mainContent, .main-content");
+    if (main) main.classList.add("visible");
+    return false;
+  }
+
+  seal.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (running) return;
     running = true;
 
-    seal.classList.add("v7-tearing");
+    opening.classList.add("is-tearing");
 
+    // Tear completes; upper fold disappears and names are revealed.
     window.setTimeout(() => {
-      seal.classList.remove("v7-tearing");
-      seal.classList.add("v7-revealed");
+      opening.classList.remove("is-tearing");
+      opening.classList.add("is-revealed");
 
-      // Pause on Bảo Điền & Hải Yến for exactly 3 seconds.
+      // Hold the completed reveal for exactly 3 seconds.
       window.setTimeout(() => {
-        seal.style.transition = "opacity .7s ease";
-        seal.style.opacity = "0";
-        const original = findOriginalTrigger();
-        if (original && original !== btn) {
-          original.click();
-        } else {
-          // Fallback: reveal main content using common classes.
-          document.body.classList.add("invitation-opened");
-          const opening = document.querySelector(".opening, .hero, .invitation-opening");
-          if (opening) opening.classList.add("opened");
-        }
-        window.setTimeout(() => { seal.style.display = "none"; }, 750);
+        opening.classList.add("v8-exit");
+
+        window.setTimeout(() => {
+          triggerLegacyEntrance();
+          document.body.classList.remove("v8-locked");
+          opening.remove();
+        }, 850);
       }, 3000);
-    }, 850);
-  }, true);
+    }, 820);
+  }, { capture:true });
 })();

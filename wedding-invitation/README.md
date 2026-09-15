@@ -75,3 +75,8 @@ Clean fixed DY monogram closer to the original reference; dedicated couple-name/
 - Fold message/date disappear and BẢO ĐIỀN & HẢI YẾN are revealed.
 - Holds on the names for 3 seconds, then enters the invitation.
 - Adds subtle floating champagne particles in the side negative space.
+
+
+## V8 — Cinematic Tear Seal
+Opening rebuilt as an isolated full-screen component so legacy name/date/open controls cannot bleed through.
+Sequence: seal click → bilateral tear → seal disappears → upper fold is removed → BẢO ĐIỀN & HẢI YẾN reveal → 3-second hold → cinematic fade into the existing wedding site.
