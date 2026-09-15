@@ -403,3 +403,113 @@ body > main > section:first-of-type,
     transform: translateY(66px) !important;
   }
 }
+
+
+/* ===== V6.3 — FINAL ENVELOPE COMPOSITION ===== */
+/*
+  Visual hierarchy:
+  1. DY monogram
+  2. Couple names
+  3. Wedding date
+  Keep all three in separate vertical zones.
+*/
+.dy-monogram-fixed {
+  top: 31% !important;
+  width: clamp(82px, 6.2vw, 104px) !important;
+  transform: translate(-50%, -50%) !important;
+  filter:
+    drop-shadow(0 1px 0 rgba(255,255,255,.58))
+    drop-shadow(0 6px 9px rgba(47,34,25,.20)) !important;
+}
+.dy-monogram-fixed::before {
+  width: 135% !important;
+  height: 125% !important;
+  opacity: .85;
+}
+
+/* Actual card text + fallback selectors. */
+.envelope-card .names,
+.envelope-card .couple-names,
+.envelope-card .envelope-names,
+.envelope-card .card-names,
+.envelope-letter .names,
+.envelope-letter .couple-names,
+.envelope-front .names,
+.envelope-front .couple-names,
+.envelope .names,
+.envelope .couple-names {
+  position: relative !important;
+  z-index: 16 !important;
+  transform: translateY(44px) !important;
+  margin-bottom: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: .08em;
+}
+
+.envelope-card .date,
+.envelope-card .wedding-date,
+.envelope-card .envelope-date,
+.envelope-card .card-date,
+.envelope-letter .date,
+.envelope-letter .wedding-date,
+.envelope-front .date,
+.envelope-front .wedding-date,
+.envelope .date,
+.envelope .wedding-date {
+  position: relative !important;
+  z-index: 16 !important;
+  transform: translateY(54px) !important;
+  margin-top: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* If original V4 text is not classed, place central typography safely below DY. */
+.dy-monogram-fixed ~ .envelope-name,
+.dy-monogram-fixed ~ .names,
+.dy-monogram-fixed ~ .couple-names {
+  transform: translateY(44px) !important;
+}
+.dy-monogram-fixed ~ .envelope-date,
+.dy-monogram-fixed ~ .date,
+.dy-monogram-fixed ~ .wedding-date {
+  transform: translateY(54px) !important;
+}
+
+/* Mobile keeps exactly the same vector geometry, only scales the whole mark. */
+@media (max-width: 700px) {
+  .dy-monogram-fixed {
+    top: 29% !important;
+    width: 82px !important;
+  }
+  .envelope-card .names,
+  .envelope-card .couple-names,
+  .envelope-card .envelope-names,
+  .envelope-card .card-names,
+  .envelope-letter .names,
+  .envelope-letter .couple-names,
+  .envelope-front .names,
+  .envelope-front .couple-names,
+  .envelope .names,
+  .envelope .couple-names,
+  .dy-monogram-fixed ~ .envelope-name,
+  .dy-monogram-fixed ~ .names,
+  .dy-monogram-fixed ~ .couple-names {
+    transform: translateY(42px) !important;
+  }
+
+  .envelope-card .date,
+  .envelope-card .wedding-date,
+  .envelope-card .envelope-date,
+  .envelope-card .card-date,
+  .envelope-letter .date,
+  .envelope-letter .wedding-date,
+  .envelope-front .date,
+  .envelope-front .wedding-date,
+  .envelope .date,
+  .envelope .wedding-date,
+  .dy-monogram-fixed ~ .envelope-date,
+  .dy-monogram-fixed ~ .date,
+  .dy-monogram-fixed ~ .wedding-date {
+    transform: translateY(52px) !important;
+  }
+}
