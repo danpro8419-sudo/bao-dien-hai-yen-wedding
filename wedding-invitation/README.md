@@ -88,3 +88,11 @@ Sequence: seal click → bilateral tear → seal disappears → upper fold is re
 - Mobile automatically reduces decorative density.
 - Removed the second legacy envelope interaction from the guest flow.
 - After the 3-second name reveal, V8 fades directly into the wedding story.
+
+
+# V9 — Modular Cinematic Opening
+The opening is now isolated in `opening/opening.css` and `opening/opening.js`.
+All Opening selectors use the `wedding-opening` namespace.
+The old second envelope is retired from the visible flow.
+Opening sequence: DY seal → tear → top fold opens → card rises 40px → names reveal → 3-second hold → blur/fade → main wedding story.
+Main wedding CSS/JS, Admin, Supabase, RSVP, albums and guest uploads remain separate.

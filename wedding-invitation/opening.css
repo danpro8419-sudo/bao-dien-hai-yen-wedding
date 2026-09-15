@@ -1,0 +1,225 @@
+/* =========================================================
+   V9 — MODULAR CINEMATIC OPENING
+   IMPORTANT: every selector is scoped under .wedding-opening.
+   Editing this file must not restyle the wedding website.
+   ========================================================= */
+
+.wedding-opening {
+  --wo-paper:#e2d3bf;
+  --wo-paper-dark:#c8b59b;
+  --wo-ink:#3d3028;
+  --wo-gold:#d7b986;
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 47%,rgba(132,99,66,.13),transparent 33%),
+    linear-gradient(rgba(18,15,13,.22),rgba(18,15,13,.22)),
+    #171411;
+  isolation:isolate;
+  transition:opacity .9s cubic-bezier(.4,0,.2,1),filter .9s ease,visibility .9s;
+}
+.wedding-opening--exit {
+  opacity:0;
+  filter:blur(7px);
+  visibility:hidden;
+  pointer-events:none;
+}
+.wedding-opening__envelope {
+  position:relative;
+  z-index:3;
+  width:min(760px,82vw);
+  aspect-ratio:1.55/1;
+  perspective:1400px;
+  filter:drop-shadow(0 30px 42px rgba(0,0,0,.35));
+}
+.wedding-opening__back,
+.wedding-opening__card,
+.wedding-opening__fold {
+  position:absolute;
+  inset:0;
+}
+.wedding-opening__back {
+  background:#d5c3aa;
+  border:1px solid rgba(73,53,40,.2);
+}
+.wedding-opening__card {
+  z-index:2;
+  left:11%;right:11%;top:11%;bottom:10%;
+  background:
+    radial-gradient(circle at 50% 36%,rgba(211,182,140,.12),transparent 28%),
+    #f5efe5;
+  box-shadow:inset 0 1px rgba(255,255,255,.78);
+  overflow:hidden;
+  transition:transform 1s cubic-bezier(.22,1,.36,1);
+}
+.wedding-opening__fold--left {
+  z-index:4;background:#cdb99f;
+  clip-path:polygon(0 0,50% 50%,0 100%);
+}
+.wedding-opening__fold--right {
+  z-index:4;background:#c6b197;
+  clip-path:polygon(100% 0,50% 50%,100% 100%);
+}
+.wedding-opening__fold--bottom {
+  z-index:5;background:linear-gradient(#ddcdb7,#cdb99f);
+  clip-path:polygon(0 100%,50% 50%,100% 100%);
+}
+.wedding-opening__fold--top {
+  z-index:6;
+  background:linear-gradient(#eadcca,#ddccb5);
+  clip-path:polygon(0 0,100% 0,50% 50%);
+  transform-origin:50% 0;
+  backface-visibility:hidden;
+  transition:transform 1.05s cubic-bezier(.22,.72,.17,1),opacity .5s ease .45s;
+}
+.wedding-opening__fold--top p {
+  position:absolute;
+  top:14%;left:50%;
+  transform:translateX(-50%);
+  width:92%;margin:0;
+  text-align:center;white-space:nowrap;
+  color:#665445;
+  font:500 clamp(8px,.72vw,11px)/1.4 Arial,sans-serif;
+  letter-spacing:.24em;
+  opacity:.82;
+}
+.wedding-opening__seal {
+  position:absolute;
+  z-index:12;
+  left:50%;top:50%;
+  width:clamp(94px,8vw,120px);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  padding:0;border:0;border-radius:50%;
+  cursor:pointer;
+  background:radial-gradient(circle at 36% 30%,#55443a 0 5%,#31241e 31%,#1a1411 72%,#100c0a);
+  box-shadow:0 14px 24px rgba(29,20,15,.38),inset 0 2px 3px rgba(255,237,206,.18),inset 0 -5px 9px rgba(0,0,0,.35);
+  -webkit-tap-highlight-color:transparent;
+}
+.wedding-opening__seal::before {
+  content:"";position:absolute;inset:-7px;border-radius:50%;
+  border:1px solid rgba(222,194,148,.62);
+  box-shadow:0 0 0 3px rgba(128,96,62,.12),0 0 28px rgba(209,170,111,.08);
+}
+.wedding-opening__seal-inner {
+  position:absolute;inset:9px;border-radius:50%;
+  border:1px solid rgba(235,212,174,.38);
+  display:grid;place-items:center;color:#f0e3cf;
+}
+.wedding-opening__seal svg {width:70%;height:70%;overflow:visible}
+.wedding-opening__seal path {
+  fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;
+}
+.wedding-opening__logo-d{stroke-width:5}
+.wedding-opening__logo-y{stroke-width:7}
+.wedding-opening__logo-flourish{stroke-width:4.5}
+.wedding-opening__date {
+  position:absolute;z-index:10;
+  left:50%;top:69%;
+  transform:translateX(-50%);
+  color:#493a31;
+  font:400 clamp(11px,1vw,15px)/1 "Times New Roman",Georgia,serif;
+  letter-spacing:.26em;white-space:nowrap;
+  transition:opacity .35s ease;
+}
+.wedding-opening__names {
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#342921;
+  opacity:0;filter:blur(8px);
+  transform:translateY(9%) scale(.97);
+}
+.wedding-opening__names div {
+  font:400 clamp(26px,2.55vw,40px)/1.12 "Times New Roman","Bodoni 72","Didot",Georgia,serif;
+  letter-spacing:.12em;white-space:nowrap;
+}
+.wedding-opening__names em {
+  margin:.18em 0;
+  font:italic 400 clamp(15px,1.4vw,22px)/1 Georgia,serif;
+  opacity:.58;
+}
+.wedding-opening__rip {
+  position:absolute;z-index:11;top:50%;height:2px;width:0;opacity:0;
+  background:linear-gradient(90deg,transparent,#7a6351,#3c2e26);
+}
+.wedding-opening__rip--left{right:50%}
+.wedding-opening__rip--right{left:50%;transform:scaleX(-1)}
+
+/* Side atmosphere: intentionally sparse, no botanical illustrations. */
+.wedding-opening__atmosphere span {
+  position:absolute;border-radius:50%;
+  width:3px;height:3px;
+  background:rgba(232,207,167,.72);
+  box-shadow:0 0 10px rgba(232,207,167,.35);
+  opacity:.12;
+  animation:wedding-opening-float 7s ease-in-out infinite;
+}
+.wedding-opening__atmosphere span:nth-child(1){left:10%;top:25%}
+.wedding-opening__atmosphere span:nth-child(2){left:16%;top:47%;animation-delay:1s}
+.wedding-opening__atmosphere span:nth-child(3){left:23%;top:70%;animation-delay:2.2s}
+.wedding-opening__atmosphere span:nth-child(4){left:8%;top:79%;animation-delay:3.4s}
+.wedding-opening__atmosphere span:nth-child(5){left:28%;top:18%;animation-delay:4.3s}
+.wedding-opening__atmosphere span:nth-child(6){right:10%;top:27%;animation-delay:.5s}
+.wedding-opening__atmosphere span:nth-child(7){right:17%;top:51%;animation-delay:1.6s}
+.wedding-opening__atmosphere span:nth-child(8){right:24%;top:72%;animation-delay:2.7s}
+.wedding-opening__atmosphere span:nth-child(9){right:8%;top:81%;animation-delay:3.8s}
+.wedding-opening__atmosphere span:nth-child(10){right:29%;top:19%;animation-delay:4.8s}
+@keyframes wedding-opening-float {
+  0%,100%{opacity:.07;transform:translateY(8px) scale(.7)}
+  50%{opacity:.66;transform:translate(4px,-12px) scale(1.35)}
+}
+
+/* Tear */
+.wedding-opening--tearing .wedding-opening__rip {
+  animation:wedding-opening-rip .72s cubic-bezier(.45,0,.2,1) forwards;
+}
+@keyframes wedding-opening-rip {
+  0%{width:0;opacity:0} 20%{opacity:.9} 100%{width:50%;opacity:.48}
+}
+.wedding-opening--tearing .wedding-opening__seal {
+  animation:wedding-opening-break .82s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes wedding-opening-break {
+  0%{transform:translate(-50%,-50%) scale(1)}
+  28%{transform:translate(-50%,-50%) scale(1.09) rotate(-3deg)}
+  100%{transform:translate(-50%,-75%) scale(.62) rotate(9deg);opacity:0}
+}
+.wedding-opening--tearing .wedding-opening__date,
+.wedding-opening--tearing .wedding-opening__fold--top p{opacity:0}
+
+/* Reveal */
+.wedding-opening--revealed .wedding-opening__fold--top {
+  transform:rotateX(178deg);opacity:0;
+}
+.wedding-opening--revealed .wedding-opening__card {
+  transform:translateY(-40px);
+}
+.wedding-opening--revealed .wedding-opening__seal,
+.wedding-opening--revealed .wedding-opening__date,
+.wedding-opening--revealed .wedding-opening__rip{opacity:0;pointer-events:none}
+.wedding-opening--revealed .wedding-opening__names {
+  animation:wedding-opening-names .95s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes wedding-opening-names {
+  to{opacity:1;filter:blur(0);transform:translateY(4%) scale(1)}
+}
+
+@media(max-width:700px){
+  .wedding-opening__envelope{width:min(90vw,530px)}
+  .wedding-opening__seal{width:82px}
+  .wedding-opening__fold--top p{top:13%;font-size:6.6px;letter-spacing:.14em}
+  .wedding-opening__date{top:70%;font-size:10px;letter-spacing:.2em}
+  .wedding-opening__names div{font-size:22px;letter-spacing:.075em}
+  .wedding-opening__names em{font-size:14px}
+  .wedding-opening__atmosphere span:nth-child(3),
+  .wedding-opening__atmosphere span:nth-child(5),
+  .wedding-opening__atmosphere span:nth-child(8),
+  .wedding-opening__atmosphere span:nth-child(10){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .wedding-opening__atmosphere span{animation:none}
+}

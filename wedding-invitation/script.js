@@ -160,85 +160,22 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd
 })();
 
 
+/* V9 bridge: the Opening module emits this event when it finishes.
+   Keep page behavior here; do not style the Opening from this file. */
+window.addEventListener("wedding:opening-complete", () => {
+  document.body.classList.add("invitation-opened");
+  document.documentElement.classList.add("invitation-opened");
 
+  document.querySelectorAll(".legacy-opening-disabled").forEach((el) => {
+    el.style.display = "none";
+    el.setAttribute("aria-hidden", "true");
+  });
 
-/* =========================================================
-   V8 — CINEMATIC TEAR SEAL CONTROLLER
-   Click seal -> 0.8s tear -> reveal names -> hold 3s
-   -> fade V8 -> invoke existing invitation opening.
-   ========================================================= */
-(() => {
-  const opening = document.getElementById("v8Opening");
-  const seal = document.getElementById("v8Seal");
-  if (!opening || !seal) return;
-
-  document.body.classList.add("v8-locked");
-  let running = false;
-
-  function triggerLegacyEntrance() {
-    // V8.1: skip the old envelope/open-invitation sequence completely.
-    // Mark the legacy opening as completed using its common state hooks.
-    document.body.classList.add("invitation-opened", "opened", "is-open");
-    document.documentElement.classList.add("invitation-opened");
-
-    const legacySelectors = [
-      "#opening", ".opening", ".invitation-opening", ".opening-screen",
-      ".envelope-scene", ".envelope-wrapper", ".open-invitation",
-      "#openInvitation", ".open-btn", "[data-open-invitation]"
-    ];
-    legacySelectors.forEach((selector) => {
-      document.querySelectorAll(selector).forEach((el) => {
-        if (!el.closest("#v8Opening")) {
-          el.style.display = "none";
-          el.setAttribute("aria-hidden", "true");
-        }
-      });
-    });
-
-    // Reveal the normal page without asking the guest to click a second time.
-    const main = document.querySelector("main, #mainContent, .main-content, .site-content");
-    if (main) {
-      main.classList.add("visible", "active", "revealed");
-      main.style.removeProperty("display");
-      main.style.removeProperty("opacity");
-      main.style.removeProperty("visibility");
-    }
-
-    // Prefer the Our Wedding Story / hero section as the destination.
-    const destination =
-      document.querySelector("#hero, .hero, #story, .story-section, [data-section='story']") ||
-      main;
-    if (destination) {
-      requestAnimationFrame(() => {
-        destination.scrollIntoView({behavior:"auto", block:"start"});
-      });
-    }
-    return true;
+  const main = document.querySelector("main, #mainContent, .main-content, .site-content");
+  if (main) {
+    main.classList.add("visible", "active", "revealed");
+    main.style.removeProperty("display");
+    main.style.removeProperty("opacity");
+    main.style.removeProperty("visibility");
   }
-
-  seal.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (running) return;
-    running = true;
-
-    opening.classList.add("is-tearing");
-
-    // Tear completes; upper fold disappears and names are revealed.
-    window.setTimeout(() => {
-      opening.classList.remove("is-tearing");
-      opening.classList.add("is-revealed");
-
-      // Hold the completed reveal for exactly 3 seconds.
-      window.setTimeout(() => {
-        opening.classList.add("v8-exit");
-
-        window.setTimeout(() => {
-          triggerLegacyEntrance();
-          document.body.classList.remove("v8-locked");
-          opening.remove();
-        }, 850);
-      }, 3000);
-    }, 820);
-  }, { capture:true });
-})();
+});
