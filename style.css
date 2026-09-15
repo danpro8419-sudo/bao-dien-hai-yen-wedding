@@ -1029,3 +1029,77 @@ section{position:relative}
     padding-top:68px !important;
   }
 }
+
+
+/* =========================================================
+   V10.5 — BACKGROUNDS VISIBLE + OPENING LOGO IN FAMILY BLOCK
+   ========================================================= */
+
+/* Use the uploaded background files directly; no JS dependency needed. */
+#our-story{
+  background-image:
+    linear-gradient(rgba(248,244,236,.72), rgba(248,244,236,.82)),
+    url("story-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-attachment:scroll !important;
+}
+#wedding-journey{
+  background-image:
+    linear-gradient(rgba(238,228,212,.70), rgba(235,224,206,.80)),
+    url("journey-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#album{
+  background-image:
+    linear-gradient(rgba(248,244,236,.72), rgba(248,244,236,.84)),
+    url("album-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#locations{
+  background-image:
+    linear-gradient(rgba(238,228,212,.70), rgba(235,224,206,.80)),
+    url("locations-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+#rsvp{
+  background-image:
+    linear-gradient(rgba(24,19,15,.70), rgba(24,19,15,.82)),
+    url("rsvp-bg.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+
+/* Disable the old pseudo background layers so they cannot wash out the images. */
+#our-story::before,#our-story::after,
+#wedding-journey::before,#wedding-journey::after,
+#album::before,#album::after,
+#locations::before,#locations::after,
+#rsvp::before,#rsvp::after{
+  display:none !important;
+}
+
+/* Use the exact same DY seal image as the opening. */
+.family-cards__monogram{
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+.family-cards__monogram img{
+  width:96px;
+  height:96px;
+  object-fit:contain;
+  display:block;
+  border-radius:50%;
+  filter:drop-shadow(0 10px 20px rgba(57,39,27,.16));
+}
+
+@media(max-width:900px){
+  .family-cards__monogram img{
+    width:82px;
+    height:82px;
+  }
+}
