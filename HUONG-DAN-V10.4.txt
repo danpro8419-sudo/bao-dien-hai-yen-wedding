@@ -8,5 +8,6 @@ V10.4 SAFE
   locations-bg.jpg
   rsvp-bg.jpg
 - Countdown mini mới là widget độc lập, không còn tạo khoảng trắng lớn.
-- Trong thiệp: đã đổi 'chúng mình' thành 'chúng con'.
 - Tiệc cưới nhà gái được xếp trước nhà trai.
+- Khung lời nhắn mặc định KHÔNG HIỆN nếu chưa nhập nội dung.
+- Sau này muốn thêm lời nhắn: tìm OPENING_NOTE_START trong index.html và điền text trong thẻ openingLyricText.
