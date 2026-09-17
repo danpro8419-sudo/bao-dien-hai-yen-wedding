@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="opening/opening.css?v=10">
 
   <style id="openingFxV108">
@@ -604,7 +604,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 
   <!-- Opening animation embedded directly: no external .js file -->
   <script>
@@ -735,9 +735,8 @@
           started = true;
           seal.disabled = true;
 
-          try {
-            window.dispatchEvent(new CustomEvent("wedding:seal-opened"));
-          } catch (e) {}
+          /* Nhạc nền được mở khóa ngay từ tương tác đầu tiên.
+             Lời hứa sẽ chỉ bắt đầu khi tấm thiệp đã trồi lên. */
 
           /* 1. Seal cracks / shrinks */
           animate(seal, [
@@ -746,7 +745,7 @@
             { transform: "translate(-50%, -50%) scale(.82) rotate(5deg)", opacity: .55, offset: .68 },
             { transform: "translate(-50%, -50%) scale(.62) rotate(-9deg)", opacity: 0, filter: "blur(2px)" }
           ], {
-            duration: 900,
+            duration: 1250,
             easing: "cubic-bezier(.2,.7,.2,1)",
             fill: "forwards"
           });
@@ -766,7 +765,7 @@
               { width: "10%", opacity: 1, offset: .18 },
               { width: "49%", opacity: 1 }
             ], {
-              duration: 900,
+              duration: 1400,
               easing: "cubic-bezier(.18,.72,.2,1)",
               fill: "forwards"
             });
@@ -779,7 +778,7 @@
               { width: "10%", opacity: 1, offset: .18 },
               { width: "49%", opacity: 1 }
             ], {
-              duration: 900,
+              duration: 1400,
               easing: "cubic-bezier(.18,.72,.2,1)",
               fill: "forwards"
             });
@@ -799,7 +798,7 @@
               { transform: "rotateX(62deg)", offset: .42 },
               { transform: "rotateX(178deg)", zIndex: 1 }
             ], {
-              duration: 1150,
+              duration: 1550,
               easing: "cubic-bezier(.35,.05,.2,1)",
               fill: "forwards"
             });
@@ -817,13 +816,18 @@
 
             /* 4. Card rises clearly above the envelope */
             window.setTimeout(function () {
+              /* Tới đây phong bì đã mở đủ chậm để nhạc instrumental có thời gian dẫn vào. */
+              try {
+                window.dispatchEvent(new CustomEvent("wedding:seal-opened"));
+              } catch (e) {}
+
               burstHeartsAndFlowers();
               card.style.zIndex = "8";
               animate(card, [
                 { transform: "translateY(0px) scale(1)" },
                 { transform: "translateY(-72px) scale(1.015)" }
               ], {
-                duration: 1050,
+                duration: 1450,
                 easing: "cubic-bezier(.2,.78,.2,1)",
                 fill: "forwards"
               });
@@ -832,8 +836,8 @@
                 { opacity: 0, transform: "translateY(18px) scale(.985)", filter: "blur(5px)" },
                 { opacity: 1, transform: "translateY(0px) scale(1)", filter: "blur(0px)" }
               ], {
-                duration: 900,
-                delay: 260,
+                duration: 1150,
+                delay: 360,
                 easing: "ease",
                 fill: "forwards"
               });
@@ -845,8 +849,8 @@
               } else {
                 window.setTimeout(finishOpening, 4100);
               }
-            }, 420);
-          }, 920);
+            }, 620);
+          }, 1450);
         }
 
         /* Capture phase prevents older click handlers from skipping our animation. */
