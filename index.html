@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=11>
   <link rel="stylesheet" href="opening/opening.css?v=10">
 
   <style id="openingFxV108">
@@ -207,6 +207,26 @@
 
 <body>
 
+  <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
+    <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
+      <span class="audio-control__icon" id="audioIcon">♪</span>
+    </button>
+    <div class="audio-control__panel" id="audioPanel">
+      <span class="audio-control__label">ÂM THANH</span>
+      <input id="audioVolume" type="range" min="0" max="100" step="1" value="65" aria-label="Âm lượng">
+    </div>
+  </div>
+
+  <aside class="vow-caption" id="vowCaption" hidden aria-live="polite">
+    <p class="vow-caption__eyebrow">LỜI HỨA CỦA CHÚNG CON</p>
+    <p class="vow-caption__text" id="vowCaptionText"></p>
+  </aside>
+
+  <audio id="openingAmbient" preload="auto"></audio>
+  <audio id="vowAudio" preload="auto"></audio>
+  <audio id="playlistAudio" preload="metadata"></audio>
+
+
   <a class="admin-quick-link" href="/admin/" aria-label="Đăng nhập quản trị">
     <svg class="admin-quick-link__icon" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
@@ -399,42 +419,42 @@
       </div>
 
       <div class="ceremony-cards">
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="xinDau">
           <span>01</span>
           <p class="micro">NHÀ GÁI</p>
           <h3>Lễ xin dâu</h3>
           <strong>Giờ cập nhật sau</strong>
           <p>Nghi thức mở đầu ngày vui, đại diện nhà trai sang xin dâu và đón cô dâu về nhà.</p>
         </article>
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="giaTienNhaGai">
           <span>02</span>
           <p class="micro">NHÀ GÁI</p>
           <h3>Lễ gia tiên nhà gái</h3>
           <strong>Giờ cập nhật sau</strong>
           <p>Nghi lễ gia đình trang trọng tại nhà gái, gửi gắm lời chúc phúc cho đôi trẻ.</p>
         </article>
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="giaTienNhaTrai">
           <span>03</span>
           <p class="micro">NHÀ TRAI</p>
           <h3>Lễ gia tiên nhà trai</h3>
           <strong>Giờ cập nhật sau</strong>
           <p>Khoảnh khắc gia đình hai bên chứng kiến đôi trẻ chính thức nên duyên vợ chồng.</p>
         </article>
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="leNhaTho">
           <span>04</span>
           <p class="micro">NHÀ THỜ / LỄ ĐƯỜNG</p>
           <h3>Lễ nhà thờ</h3>
           <strong>Giờ cập nhật sau</strong>
           <p>Nghi thức thành hôn thiêng liêng trong sự hiện diện của gia đình và những người thân yêu.</p>
         </article>
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="tiecNhaGai">
           <span>05</span>
           <p class="micro">TIỆC CƯỚI NHÀ GÁI</p>
           <h3>Tiệc cưới nhà gái</h3>
           <strong>Ngày, giờ và địa điểm cập nhật sau</strong>
           <p>Buổi tiệc mừng ấm cúng cùng gia đình, họ hàng và bạn bè thân thiết của nhà gái.</p>
         </article>
-        <article class="ceremony-card reveal">
+        <article class="ceremony-card reveal" data-event="tiecNhaTrai">
           <span>06</span>
           <p class="micro">TIỆC CƯỚI NHÀ TRAI</p>
           <h3>Tiệc cưới nhà trai</h3>
@@ -447,12 +467,12 @@
         <p class="section-kicker">LỊCH TRÌNH NGÀY CƯỚI</p>
         <h3>Lịch trình ngày cưới</h3>
         <div class="day-timeline__line">
-          <div><time>--:--</time><span></span><h4>Lễ xin dâu</h4><p>Nhà gái</p></div>
-          <div><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà gái</p></div>
-          <div><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà trai</p></div>
-          <div><time>--:--</time><span></span><h4>Lễ nhà thờ</h4><p>Nhà thờ / lễ đường</p></div>
-          <div><time>--:--</time><span></span><h4>Tiệc nhà gái</h4><p>Ngày riêng</p></div>
-          <div><time>--:--</time><span></span><h4>Tiệc nhà trai</h4><p>Ngày riêng</p></div>
+          <div data-event="xinDau"><time>--:--</time><span></span><h4>Lễ xin dâu</h4><p>Nhà gái</p></div>
+          <div data-event="giaTienNhaGai"><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà gái</p></div>
+          <div data-event="giaTienNhaTrai"><time>--:--</time><span></span><h4>Gia tiên</h4><p>Nhà trai</p></div>
+          <div data-event="leNhaTho"><time>--:--</time><span></span><h4>Lễ nhà thờ</h4><p>Nhà thờ / lễ đường</p></div>
+          <div data-event="tiecNhaGai"><time>--:--</time><span></span><h4>Tiệc nhà gái</h4><p>Ngày riêng</p></div>
+          <div data-event="tiecNhaTrai"><time>--:--</time><span></span><h4>Tiệc nhà trai</h4><p>Ngày riêng</p></div>
         </div>
       </div>
     </div>
@@ -584,7 +604,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="script.js?v=18"></script>
+  <script src="script.js?v=11></script>
 
   <!-- Opening animation embedded directly: no external .js file -->
   <script>
@@ -715,6 +735,10 @@
           started = true;
           seal.disabled = true;
 
+          try {
+            window.dispatchEvent(new CustomEvent("wedding:seal-opened"));
+          } catch (e) {}
+
           /* 1. Seal cracks / shrinks */
           animate(seal, [
             { transform: "translate(-50%, -50%) scale(1)", opacity: 1, filter: "blur(0px)" },
@@ -814,8 +838,13 @@
                 fill: "forwards"
               });
 
-              /* Hold names for 3 seconds, then enter the site */
-              window.setTimeout(finishOpening, 4100);
+              /* Chờ lời hứa phát xong rồi mới đi vào nội dung.
+                 Nếu chưa có file lời hứa, fallback về nhịp mở thiệp cũ. */
+              if (typeof window.waitForWeddingVowThenFinish === "function") {
+                window.waitForWeddingVowThenFinish(finishOpening);
+              } else {
+                window.setTimeout(finishOpening, 4100);
+              }
             }, 420);
           }, 920);
         }

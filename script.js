@@ -368,3 +368,348 @@ initFamilyCards();
 
 renderHeroPhoto();
 loadApprovedMedia();
+
+
+/* =========================================================
+   V11 — AUDIO FLOW + SCHEDULE VISIBILITY
+   ========================================================= */
+
+const audioCfg = CONFIG.audio || {};
+const scheduleCfg = CONFIG.schedule || {};
+
+function applyScheduleVisibility(){
+  const events = scheduleCfg.events || {};
+
+  document.querySelectorAll(".ceremony-card[data-event]").forEach(card=>{
+    const key = card.dataset.event;
+    const cfg = events[key];
+    if(cfg && cfg.enabled === false){
+      card.hidden = true;
+    }
+  });
+
+  const timeline = document.querySelector(".day-timeline");
+  if(!timeline) return;
+
+  if(scheduleCfg.showTimeline !== true){
+    timeline.hidden = true;
+    return;
+  }
+
+  let visibleCount = 0;
+  timeline.querySelectorAll(".day-timeline__line > [data-event]").forEach(item=>{
+    const key = item.dataset.event;
+    const cfg = events[key] || {};
+    const time = String(cfg.time || "").trim();
+    const shouldShow = cfg.enabled !== false && time !== "";
+
+    item.hidden = !shouldShow;
+
+    if(shouldShow){
+      visibleCount++;
+      const timeEl = item.querySelector("time");
+      if(timeEl) timeEl.textContent = time;
+    }
+  });
+
+  // Không có giờ thật thì ẩn cả timeline, tránh hiện "--:--".
+  timeline.hidden = visibleCount === 0;
+}
+
+applyScheduleVisibility();
+
+
+/* ---------------- AUDIO MANAGER ---------------- */
+
+const openingAmbient = document.getElementById("openingAmbient");
+const vowAudioEl = document.getElementById("vowAudio");
+const playlistAudio = document.getElementById("playlistAudio");
+const audioControl = document.getElementById("audioControl");
+const audioToggle = document.getElementById("audioToggle");
+const audioPanel = document.getElementById("audioPanel");
+const audioVolume = document.getElementById("audioVolume");
+const audioIcon = document.getElementById("audioIcon");
+const vowCaption = document.getElementById("vowCaption");
+const vowCaptionText = document.getElementById("vowCaptionText");
+
+let masterVolume = Number(localStorage.getItem("weddingMasterVolume") || "0.65");
+if(!Number.isFinite(masterVolume)) masterVolume = .65;
+masterVolume = Math.min(1, Math.max(0, masterVolume));
+
+let muted = localStorage.getItem("weddingMuted") === "1";
+let ambientUnlocked = false;
+let vowStarted = false;
+let vowDoneResolve = null;
+let vowDonePromise = null;
+let playlistQueue = [];
+let playlistPlayed = 0;
+let playlistStarted = false;
+let vowCaptionTimer = null;
+
+if(audioVolume){
+  audioVolume.value = String(Math.round(masterVolume * 100));
+}
+
+function effectiveVolume(base){
+  return muted ? 0 : Math.min(1, Math.max(0, Number(base || 0) * masterVolume));
+}
+
+function syncAllVolumes(){
+  if(openingAmbient) openingAmbient.volume = effectiveVolume(audioCfg.openingVolume ?? .16);
+  if(vowAudioEl) vowAudioEl.volume = effectiveVolume(audioCfg.vowVolume ?? .86);
+  if(playlistAudio) playlistAudio.volume = effectiveVolume(audioCfg.playlistVolume ?? .28);
+
+  if(audioIcon){
+    audioIcon.textContent = muted || masterVolume === 0 ? "×" : "♪";
+  }
+  audioControl?.classList.toggle("is-muted", muted || masterVolume === 0);
+}
+
+function fadeAudio(el, to, duration=700){
+  if(!el) return Promise.resolve();
+
+  const from = el.volume;
+  const target = muted ? 0 : Math.min(1, Math.max(0, to));
+  const started = performance.now();
+
+  return new Promise(resolve=>{
+    function tick(now){
+      const p = Math.min(1, (now-started)/duration);
+      el.volume = from + (target-from)*p;
+      if(p < 1){
+        requestAnimationFrame(tick);
+      }else{
+        resolve();
+      }
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+async function tryStartAmbient(){
+  if(!audioCfg.enabled || !openingAmbient || !audioCfg.openingInstrumental) return false;
+
+  if(!openingAmbient.src){
+    openingAmbient.src = audioCfg.openingInstrumental;
+    openingAmbient.loop = true;
+  }
+
+  syncAllVolumes();
+
+  try{
+    await openingAmbient.play();
+    ambientUnlocked = true;
+    audioControl?.classList.add("is-playing");
+    return true;
+  }catch(_err){
+    audioControl?.classList.add("needs-interaction");
+    return false;
+  }
+}
+
+function firstInteractionUnlock(){
+  if(!ambientUnlocked){
+    tryStartAmbient();
+  }
+}
+document.addEventListener("pointerdown", firstInteractionUnlock, {capture:true});
+document.addEventListener("keydown", firstInteractionUnlock, {capture:true});
+
+audioToggle?.addEventListener("click", event=>{
+  event.preventDefault();
+  event.stopPropagation();
+
+  // click icon toggles the volume panel; double click/middle state isn't needed.
+  audioControl?.classList.toggle("is-open");
+  if(muted){
+    muted = false;
+    localStorage.setItem("weddingMuted","0");
+    syncAllVolumes();
+    tryStartAmbient();
+  }
+});
+
+audioToggle?.addEventListener("contextmenu", event=>{
+  event.preventDefault();
+  muted = !muted;
+  localStorage.setItem("weddingMuted", muted ? "1" : "0");
+  syncAllVolumes();
+});
+
+audioVolume?.addEventListener("input", ()=>{
+  masterVolume = Number(audioVolume.value) / 100;
+  localStorage.setItem("weddingMasterVolume", String(masterVolume));
+  if(masterVolume > 0 && muted){
+    muted = false;
+    localStorage.setItem("weddingMuted","0");
+  }
+  syncAllVolumes();
+});
+
+function setVowCaptionLine(index){
+  const lines = Array.isArray(audioCfg.vowLines) ? audioCfg.vowLines : [];
+  if(!vowCaption || !vowCaptionText || !lines.length) return;
+  vowCaption.hidden = false;
+  vowCaption.classList.add("show");
+  vowCaptionText.textContent = lines[Math.min(lines.length-1, Math.max(0,index))];
+}
+
+function startCaptionSync(){
+  const lines = Array.isArray(audioCfg.vowLines) ? audioCfg.vowLines : [];
+  if(!lines.length || !vowAudioEl) return;
+
+  clearInterval(vowCaptionTimer);
+  setVowCaptionLine(0);
+
+  vowCaptionTimer = setInterval(()=>{
+    if(!Number.isFinite(vowAudioEl.duration) || vowAudioEl.duration <= 0) return;
+    const ratio = vowAudioEl.currentTime / vowAudioEl.duration;
+    const idx = Math.min(lines.length-1, Math.floor(ratio * lines.length));
+    setVowCaptionLine(idx);
+  }, 180);
+}
+
+function hideVowCaption(){
+  clearInterval(vowCaptionTimer);
+  vowCaptionTimer = null;
+  if(vowCaption){
+    vowCaption.classList.remove("show");
+    setTimeout(()=>{ vowCaption.hidden = true; }, 400);
+  }
+}
+
+function shuffle(items){
+  const copy = [...items];
+  for(let i=copy.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
+}
+
+function preparePlaylist(){
+  const list = Array.isArray(audioCfg.playlist) ? audioCfg.playlist.filter(Boolean) : [];
+  playlistQueue = shuffle(list);
+  playlistPlayed = 0;
+}
+
+async function playNextPlaylistTrack(){
+  if(!playlistAudio || !playlistQueue.length) return;
+  const maxTracks = Math.max(0, Number(audioCfg.maxPlaylistTracks || 3));
+  if(playlistPlayed >= maxTracks) return;
+
+  const next = playlistQueue.shift();
+  if(!next) return;
+
+  playlistAudio.src = next;
+  playlistAudio.volume = 0;
+  playlistPlayed++;
+
+  try{
+    await playlistAudio.play();
+    await fadeAudio(playlistAudio, effectiveVolume(audioCfg.playlistVolume ?? .28), 1000);
+  }catch(_err){
+    // Nếu thiếu 1 file, tự bỏ qua file đó và thử file kế tiếp.
+    playNextPlaylistTrack();
+  }
+}
+
+playlistAudio?.addEventListener("ended", ()=>{
+  playNextPlaylistTrack();
+});
+
+async function startPlaylist(){
+  if(playlistStarted) return;
+  playlistStarted = true;
+  preparePlaylist();
+  playNextPlaylistTrack();
+}
+
+function finishVowFlow(){
+  hideVowCaption();
+
+  // Hòa từ instrumental sang playlist.
+  Promise.all([
+    fadeAudio(openingAmbient, 0, 850),
+    startPlaylist()
+  ]).finally(()=>{
+    if(openingAmbient){
+      setTimeout(()=>{
+        openingAmbient.pause();
+        openingAmbient.currentTime = 0;
+      }, 900);
+    }
+  });
+
+  vowDoneResolve?.();
+  vowDoneResolve = null;
+}
+
+function startVow(){
+  if(vowStarted) return vowDonePromise;
+  vowStarted = true;
+
+  vowDonePromise = new Promise(resolve=>{
+    vowDoneResolve = resolve;
+  });
+
+  if(!audioCfg.enabled || !vowAudioEl || !audioCfg.vowAudio){
+    setTimeout(finishVowFlow, 4100);
+    return vowDonePromise;
+  }
+
+  // Nhạc nền lùi xuống phía sau lời hứa.
+  fadeAudio(openingAmbient, effectiveVolume((audioCfg.openingVolume ?? .16) * .32), 500);
+
+  vowAudioEl.src = audioCfg.vowAudio;
+  vowAudioEl.volume = effectiveVolume(audioCfg.vowVolume ?? .86);
+
+  const fallback = setTimeout(()=>{
+    if(!vowAudioEl.duration || vowAudioEl.paused){
+      finishVowFlow();
+    }
+  }, 4700);
+
+  vowAudioEl.addEventListener("playing", ()=>{
+    clearTimeout(fallback);
+    startCaptionSync();
+  }, {once:true});
+
+  vowAudioEl.addEventListener("ended", finishVowFlow, {once:true});
+  vowAudioEl.addEventListener("error", ()=>{
+    clearTimeout(fallback);
+    finishVowFlow();
+  }, {once:true});
+
+  vowAudioEl.play().catch(()=>{
+    // Safari/mobile: click seal là user gesture nên thường play được.
+    // Nếu vẫn bị chặn, không giữ khách ở màn Opening vô hạn.
+    clearTimeout(fallback);
+    setTimeout(finishVowFlow, 4100);
+  });
+
+  return vowDonePromise;
+}
+
+window.addEventListener("wedding:seal-opened", ()=>{
+  startVow();
+});
+
+window.waitForWeddingVowThenFinish = function(finishOpening){
+  if(!vowStarted){
+    startVow();
+  }
+  Promise.resolve(vowDonePromise)
+    .catch(()=>{})
+    .finally(()=>setTimeout(finishOpening, 450));
+};
+
+// Sau khi vào bên trong: ambient không còn phát, playlist tiếp tục.
+window.addEventListener("wedding:opening-complete", ()=>{
+  audioControl?.classList.add("inside-site");
+});
+
+syncAllVolumes();
+// Thử autoplay ngay khi mở link. Trên iOS/Chrome mobile có thể bị chặn;
+// lần chạm đầu tiên sẽ tự mở khóa âm thanh.
+tryStartAmbient();

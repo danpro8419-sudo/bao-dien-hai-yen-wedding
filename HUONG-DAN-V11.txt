@@ -1,0 +1,19 @@
+V11 — MOBILE + AUDIO + LỊCH TRÌNH
+
+Ghi đè:
+- index.html
+- style.css
+- script.js
+- config.js
+
+Sau đó tạo/upload thư mục audio/ theo file HUONG-DAN-AUDIO.txt.
+
+Đã xử lý:
+- Fix mobile bị co/chạy kích thước và xuất hiện khoảng trắng bên phải.
+- Nút âm thanh ở góc trái trên + thanh chỉnh âm lượng.
+- Nhạc nền Opening -> lời hứa -> playlist random tối đa 3 bài.
+- Lời hứa hiện bên trái trên desktop, phía dưới trên mobile.
+- Timeline cưới mặc định ẩn khi chưa chốt giờ.
+- Từng nghi lễ có thể ẩn riêng trong config.js bằng enabled:false.
+
+Opening CSS/JS riêng không cần ghi đè.
