@@ -1559,3 +1559,12 @@ footer{
     font-size:18px;
   }
 }
+
+
+/* V11.3 — audio cue while the first instrumental is starting */
+.audio-control.is-playing .audio-control__toggle{
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.18),
+    0 0 0 1px rgba(222,191,143,.12),
+    0 0 22px rgba(208,171,112,.14);
+}

@@ -486,13 +486,42 @@ function fadeAudio(el, to, duration=700){
   });
 }
 
+window.startWeddingAmbientNow = function(){
+  if(!audioCfg.enabled || !openingAmbient) return;
+
+  if(!openingAmbient.getAttribute("src")){
+    openingAmbient.src = audioCfg.openingInstrumental || "audio/opening-instrumental.mp3";
+  }
+
+  openingAmbient.loop = true;
+  openingAmbient.volume = effectiveVolume(audioCfg.openingVolume ?? .20);
+
+  /* Quan trọng: play() được gọi ngay trong click/pointer gesture. */
+  try{
+    const p = openingAmbient.play();
+    ambientUnlocked = true;
+    audioControl?.classList.add("is-playing");
+    audioControl?.classList.remove("needs-interaction");
+
+    if(p && typeof p.catch === "function"){
+      p.catch(()=>{
+        ambientUnlocked = false;
+        audioControl?.classList.add("needs-interaction");
+      });
+    }
+  }catch(_err){
+    ambientUnlocked = false;
+    audioControl?.classList.add("needs-interaction");
+  }
+};
+
 async function tryStartAmbient(){
   if(!audioCfg.enabled || !openingAmbient || !audioCfg.openingInstrumental) return false;
 
-  if(!openingAmbient.src){
+  if(!openingAmbient.getAttribute("src")){
     openingAmbient.src = audioCfg.openingInstrumental;
-    openingAmbient.loop = true;
   }
+  openingAmbient.loop = true;
 
   syncAllVolumes();
 

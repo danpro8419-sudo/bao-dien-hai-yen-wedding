@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
   <link rel="stylesheet" href="opening/opening.css?v=10">
 
   <style id="openingFxV108">
@@ -222,7 +222,7 @@
     <p class="vow-caption__text" id="vowCaptionText"></p>
   </aside>
 
-  <audio id="openingAmbient" preload="auto"></audio>
+  <audio id="openingAmbient" preload="auto" src="audio/opening-instrumental.mp3"></audio>
   <audio id="vowAudio" preload="auto"></audio>
   <audio id="playlistAudio" preload="metadata"></audio>
 
@@ -604,7 +604,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=13"></script>
 
   <!-- Opening animation embedded directly: no external .js file -->
   <script>
@@ -735,8 +735,14 @@
           started = true;
           seal.disabled = true;
 
-          /* Nhạc nền được mở khóa ngay từ tương tác đầu tiên.
-             Lời hứa sẽ chỉ bắt đầu khi tấm thiệp đã trồi lên. */
+          /* Phát instrumental trực tiếp trong thao tác click để iPhone/Safari
+             xem đây là âm thanh do người dùng chủ động kích hoạt. */
+          if (typeof window.startWeddingAmbientNow === "function") {
+            window.startWeddingAmbientNow();
+          }
+
+          /* Cho nhạc có 1.6 giây dẫn vào trước khi phong bì bắt đầu xé. */
+          window.setTimeout(function () {
 
           /* 1. Seal cracks / shrinks */
           animate(seal, [
@@ -849,8 +855,10 @@
               } else {
                 window.setTimeout(finishOpening, 4100);
               }
-            }, 620);
-          }, 1450);
+            }, 760);
+          }, 1650);
+
+          }, 1600);
         }
 
         /* Capture phase prevents older click handlers from skipping our animation. */

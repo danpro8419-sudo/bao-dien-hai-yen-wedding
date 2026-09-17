@@ -18,7 +18,7 @@ window.WEDDING_CONFIG = {
     enabled: true,
     openingInstrumental: "audio/opening-instrumental.mp3",
     vowAudio: "audio/vow-intro.mp3",
-    openingVolume: 0.20,
+    openingVolume: 0.18,
     vowVolume: 0.86,
     playlistVolume: 0.28,
     maxPlaylistTracks: 3,
