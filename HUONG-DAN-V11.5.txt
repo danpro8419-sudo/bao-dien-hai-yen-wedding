@@ -1,0 +1,12 @@
+V11.5 — DOVE POLISH + MANUAL NOTE
+
+Chỉ cần ghi đè index.html.
+
+Đã chỉnh:
+- Chim bồ câu vẽ lại thanh hơn, có mắt/mỏ/đuôi và cánh mềm hơn.
+- Hai chim mở đầu bay theo quỹ đạo tự nhiên hơn.
+- 4 chim cuối được đặt sát 4 góc lá thư hơn.
+- Khung lời nhắn không tự chạy câu nữa.
+- Bạn chỉ cần tìm dòng: [Bạn tự điền lời nhắn ở đây] trong index.html và thay bằng nội dung của bạn.
+
+Không cần sửa opening/opening.css, opening/opening.js hoặc các file nội dung bên trong.
