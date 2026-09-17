@@ -216,22 +216,66 @@
 
   .opening-dove{
     position:absolute;
-    width:clamp(54px,5.2vw,88px);
+    width:clamp(74px,5.8vw,104px);
     height:auto;
     opacity:0;
-    filter:drop-shadow(0 8px 16px rgba(0,0,0,.24));
     transform-origin:50% 50%;
     will-change:transform,opacity;
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,.12));
   }
-  .opening-dove svg{width:100%;height:auto;display:block;overflow:visible}
-  .opening-dove .dove-body{fill:rgba(247,240,224,.96);stroke:rgba(201,169,118,.72);stroke-width:1.15}
-  .opening-dove .dove-wing{fill:rgba(252,247,235,.98);stroke:rgba(201,169,118,.66);stroke-width:1.05;transform-box:fill-box;transform-origin:50% 72%}
-  .opening-dove.is-flying .wing-l{animation:doveWingLeft .48s ease-in-out infinite alternate}
-  .opening-dove.is-flying .wing-r{animation:doveWingRight .48s ease-in-out infinite alternate}
-  .opening-dove.is-lifting .wing-l{animation:doveWingLeft .36s ease-in-out infinite alternate}
-  .opening-dove.is-lifting .wing-r{animation:doveWingRight .36s ease-in-out infinite alternate}
-  @keyframes doveWingLeft{from{transform:rotate(8deg)}to{transform:rotate(-27deg)}}
-  @keyframes doveWingRight{from{transform:rotate(-8deg)}to{transform:rotate(27deg)}}
+  .opening-dove svg{
+    display:block;
+    width:100%;
+    height:auto;
+    overflow:visible;
+  }
+  .opening-dove .dove-outline,
+  .opening-dove .dove-branch,
+  .opening-dove .dove-leaf{
+    fill:none;
+    stroke:rgba(227,206,166,.95);
+    stroke-width:2.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .opening-dove .dove-leaf{
+    stroke-width:2.25;
+  }
+  .opening-dove .wing-main{
+    transform-box:fill-box;
+    transform-origin:56% 76%;
+  }
+  .opening-dove.is-flying .wing-main{
+    animation:doveWingSoft .62s ease-in-out infinite alternate;
+  }
+  .opening-dove.is-lifting .wing-main{
+    animation:doveWingLift .46s ease-in-out infinite alternate;
+  }
+
+  @keyframes doveWingSoft{
+    from{transform:rotate(6deg) translateY(0)}
+    to{transform:rotate(-16deg) translateY(-1px)}
+  }
+  @keyframes doveWingLift{
+    from{transform:rotate(8deg) translateY(0)}
+    to{transform:rotate(-22deg) translateY(-2px)}
+  }
+
+  .opening-lift-thread{
+    position:absolute;
+    z-index:44;
+    width:1px;
+    height:58px;
+    opacity:0;
+    transform-origin:top center;
+    background:linear-gradient(to bottom,
+      rgba(218,186,137,.04),
+      rgba(218,186,137,.48) 38%,
+      rgba(218,186,137,.18));
+    box-shadow:0 0 6px rgba(218,186,137,.10);
+    pointer-events:none;
+  }
+
 
   .opening-lyric-card{
     position:absolute;
@@ -257,7 +301,7 @@
     color:#d0ad78;
   }
   .opening-lyric-card__text{
-    min-height:3.5em;
+    min-height:2.1em;
     margin:0;
     font:italic clamp(19px,1.7vw,27px)/1.36 "Cormorant Garamond",serif;
     transition:opacity .32s ease,transform .32s ease;
@@ -293,7 +337,7 @@
     }
     .opening-lyric-card.show{transform:none}
     .opening-lyric-card__text{font-size:18px;min-height:2.8em}
-    .opening-dove{width:clamp(44px,12vw,66px)}
+    .opening-dove{width:clamp(50px,11vw,72px)}
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -304,6 +348,7 @@
 </head>
 
 <body>
+  <!-- WEDDING_OPENING_VERSION: V11.7-DOVE-REFERENCE -->
 
   <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
     <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
@@ -344,8 +389,11 @@
     <div class="opening-card-lift-glow" id="openingCardLiftGlow" aria-hidden="true"></div>
 
     <aside class="opening-lyric-card" id="openingLyricCard" aria-live="polite">
-      <p class="opening-lyric-card__kicker">LỜI TỪ CHÚNG CON</p>
+      <p class="opening-lyric-card__kicker">LỜI NHẮN</p>
+      <!-- OPENING_NOTE_START -->
+      <!-- Sau này chỉ cần điền nội dung vào giữa thẻ <p> bên dưới. -->
       <p class="opening-lyric-card__text" id="openingLyricText"></p>
+      <!-- OPENING_NOTE_END -->
       <div class="opening-lyric-card__rule"></div>
     </aside>
 
@@ -740,13 +788,7 @@
         var started = false;
         var finished = false;
         var fallbackDuration = 24.946939;
-        var lyricTimers = [];
 
-        var lyricLines = [
-          "Từ những ngày rất đỗi bình thường, chúng con đã tìm thấy nhau.",
-          "Chúng con hứa sẽ cùng nhau đi qua những ngày vui, những ngày khó khăn và những điều chưa biết trước.",
-          "Từ hôm nay, hai hành trình sẽ trở thành một mái nhà."
-        ];
 
         function rand(min, max) { return Math.random() * (max - min) + min; }
         function animate(el, frames, options) {
@@ -810,12 +852,18 @@
 
         /* ---------- dove ---------- */
         function doveSVG(){
-          return '<svg viewBox="0 0 120 80" aria-hidden="true">' +
-            '<path class="dove-wing wing-l" d="M56 40C38 39 22 29 10 13c2 20 13 36 31 47 8 5 16 6 23 4-5-7-7-15-8-24Z"/>' +
-            '<path class="dove-wing wing-r" d="M64 39c17-5 35-17 46-31-2 21-12 39-29 52-7 5-15 8-23 6 5-8 7-17 6-27Z"/>' +
-            '<path class="dove-body" d="M42 47c7-16 22-22 37-16 8 3 13 9 17 16 6 2 11 1 16-3-1 7-6 12-14 13-7 14-24 18-38 11-8-4-14-11-18-21Z"/>' +
-            '<path class="dove-body" d="M90 37c4-8 10-12 17-12 3 0 6 1 8 3-6 1-10 4-13 9"/>' +
-            '</svg>';
+          return '<svg viewBox="0 0 200 200" aria-hidden="true">' +
+            '<path class="dove-outline wing-main" d="M83 98 C63 70, 49 45, 52 16 C78 45, 95 66, 103 94" />' +
+            '<path class="dove-outline" d="M86 101 C66 85, 46 77, 23 74 C40 93, 57 104, 76 108" />' +
+            '<path class="dove-outline" d="M102 93 C118 77, 130 61, 136 43 C146 16, 157 11, 170 18 C155 31, 149 47, 146 63 C159 72, 170 84, 176 98" />' +
+            '<path class="dove-outline" d="M82 108 C86 132, 75 149, 51 160 C68 163, 84 158, 94 147" />' +
+            '<path class="dove-outline" d="M86 101 C101 106, 115 105, 127 96 C138 87, 146 75, 148 60 C156 66, 162 75, 165 86 C171 108, 161 128, 138 141 C118 152, 95 151, 79 138 C68 129, 64 118, 66 106" />' +
+            '<path class="dove-outline" d="M134 95 C149 100, 163 99, 176 92" />' +
+            '<path class="dove-branch" d="M146 94 C158 90, 170 86, 183 79" />' +
+            '<path class="dove-leaf" d="M165 79 C165 69, 171 61, 181 57 C182 67, 176 76, 165 79" />' +
+            '<path class="dove-leaf" d="M171 84 C174 74, 181 67, 192 65 C191 76, 184 83, 171 84" />' +
+            '<path class="dove-leaf" d="M157 86 C151 78, 144 74, 134 73 C138 82, 146 88, 157 86" />' +
+          '</svg>';
         }
         function makeDove(extraClass){
           var d = document.createElement("div");
@@ -837,82 +885,138 @@
           dove.style.top = p.y + "px";
         }
 
+        function makeLiftThread(x, y, rotateDeg){
+          var t = document.createElement("span");
+          t.className = "opening-lift-thread";
+          t.style.left = x + "px";
+          t.style.top = y + "px";
+          t.style.transform = "rotate(" + rotateDeg + "deg)";
+          cinemaLayer.appendChild(t);
+          animate(t,[
+            {opacity:0,transform:"rotate("+rotateDeg+"deg) scaleY(.4)"},
+            {opacity:.76,transform:"rotate("+rotateDeg+"deg) scaleY(1)"}
+          ],{duration:900,easing:"ease",fill:"forwards"});
+          return t;
+        }
+
         function flyOpeningDoves(){
           var leftDove = makeDove("is-flying");
           var rightDove = makeDove("is-flying");
-          var leftTarget = pointForCard(.24,.13);
-          var rightTarget = pointForCard(.70,.13);
+          var leftTarget = pointForCard(.18,.13);
+          var rightTarget = pointForCard(.82,.13);
           placeDove(leftDove, leftTarget);
           placeDove(rightDove, rightTarget);
           animate(leftDove,[
-            {opacity:0,transform:"translate(-36vw,-42vh) rotate(-20deg) scale(.72)"},
-            {opacity:1,offset:.16},
-            {opacity:1,transform:"translate(-7vw,-6vh) rotate(8deg) scale(1)",offset:.82},
-            {opacity:.15,transform:"translate(-1vw,1vh) rotate(14deg) scale(.95)"}
-          ],{duration:3600,easing:"cubic-bezier(.2,.66,.2,1)",fill:"forwards"});
+            {opacity:0,transform:"translate(-42vw,-46vh) rotate(-14deg) scale(.68)"},
+            {opacity:1,offset:.14},
+            {opacity:1,transform:"translate(-12vw,-10vh) rotate(5deg) scale(.96)",offset:.68},
+            {opacity:.9,transform:"translate(-4vw,-3vh) rotate(8deg) scale(1)",offset:.88},
+            {opacity:0,transform:"translate(-1vw,0vh) rotate(10deg) scale(.96)"}
+          ],{duration:4200,easing:"cubic-bezier(.18,.68,.2,1)",fill:"forwards"});
           animate(rightDove,[
-            {opacity:0,transform:"translate(36vw,-42vh) rotate(20deg) scale(.72) scaleX(-1)"},
-            {opacity:1,offset:.16},
-            {opacity:1,transform:"translate(7vw,-6vh) rotate(-8deg) scale(1) scaleX(-1)",offset:.82},
-            {opacity:.15,transform:"translate(1vw,1vh) rotate(-14deg) scale(.95) scaleX(-1)"}
-          ],{duration:3600,easing:"cubic-bezier(.2,.66,.2,1)",fill:"forwards"});
-          later(function(){leftDove.remove();rightDove.remove();},3900);
+            {opacity:0,transform:"translate(42vw,-46vh) rotate(14deg) scale(.68) scaleX(-1)"},
+            {opacity:1,offset:.14},
+            {opacity:1,transform:"translate(12vw,-10vh) rotate(-5deg) scale(.96) scaleX(-1)",offset:.68},
+            {opacity:.9,transform:"translate(4vw,-3vh) rotate(-8deg) scale(1) scaleX(-1)",offset:.88},
+            {opacity:0,transform:"translate(1vw,0vh) rotate(-10deg) scale(.96) scaleX(-1)"}
+          ],{duration:4200,easing:"cubic-bezier(.18,.68,.2,1)",fill:"forwards"});
+          later(function(){leftDove.remove();rightDove.remove();},4450);
         }
 
         function createLiftDoves(){
-          var points = [
-            {x:.08,y:.10,flip:false,dx:-28,dy:-12},
-            {x:.08,y:.74,flip:false,dx:-34,dy:0},
-            {x:.84,y:.10,flip:true,dx:16,dy:-12},
-            {x:.84,y:.74,flip:true,dx:20,dy:0}
+          /* Hai chim ở mỗi góc trên của thiệp, không che chữ trên thiệp. */
+          var groups = [
+            {x:.045,y:.12,flip:false,dx:-108,dy:-58,threadRot:-12},
+            {x:.055,y:.22,flip:false,dx:-72,dy:-18,threadRot:-6},
+            {x:.955,y:.12,flip:true,dx:18,dy:-58,threadRot:12},
+            {x:.945,y:.22,flip:true,dx:-8,dy:-18,threadRot:6}
           ];
+
           var birds = [];
-          points.forEach(function(item,index){
+          var cardRect = card.getBoundingClientRect();
+          var openRect = opening.getBoundingClientRect();
+
+          groups.forEach(function(item,index){
             var d = makeDove("is-lifting");
             var p = pointForCard(item.x,item.y);
             placeDove(d,p);
-            birds.push({el:d,flip:item.flip});
-            var fromX = item.flip ? 30 : -30;
+
+            var flip = item.flip ? " scaleX(-1)" : "";
+            var finalTransform = "translate("+item.dx+"px,"+item.dy+"px) scale(.92)"+flip;
+
             animate(d,[
-              {opacity:0,transform:"translate("+(fromX*3)+"px,85px) scale(.72)"+(item.flip?" scaleX(-1)":"")},
-              {opacity:1,offset:.25},
-              {opacity:1,transform:"translate("+item.dx+"px,"+item.dy+"px) scale(1)"+(item.flip?" scaleX(-1)":"")}
-            ],{duration:1900+index*110,easing:"cubic-bezier(.18,.76,.2,1)",fill:"forwards"});
+              {opacity:0,transform:"translate("+(item.flip?160:-160)+"px,95px) scale(.66)"+flip},
+              {opacity:.92,offset:.30},
+              {opacity:1,transform:finalTransform}
+            ],{
+              duration:2200 + index*90,
+              easing:"cubic-bezier(.18,.78,.2,1)",
+              fill:"forwards"
+            });
+
+            /* Sợi chỉ vàng rất mảnh nối chim với góc thiệp để cảm giác 'nhấc' rõ hơn. */
+            var anchorX = cardRect.left - openRect.left + cardRect.width * (item.flip ? .94 : .06);
+            var anchorY = cardRect.top - openRect.top + cardRect.height * .12;
+            var thread = makeLiftThread(anchorX, anchorY, item.threadRot);
+
+            birds.push({
+              el:d,
+              flip:item.flip,
+              thread:thread
+            });
           });
+
           return birds;
         }
 
         function liftCardWithDoves(birds){
           if(liftGlow){
-            animate(liftGlow,[{opacity:0,transform:"scale(.88)"},{opacity:1,transform:"scale(1.1)"},{opacity:.35,transform:"scale(1.18)"}],{duration:3300,easing:"ease",fill:"forwards"});
+            animate(liftGlow,[
+              {opacity:0,transform:"scale(.88)"},
+              {opacity:.76,transform:"scale(1.06)"},
+              {opacity:.28,transform:"scale(1.16)"}
+            ],{duration:3500,easing:"ease",fill:"forwards"});
           }
+
           animate(card,[
             {transform:"translateY(-72px) scale(1.015)"},
-            {transform:"translateY(-128px) scale(1.025)"}
-          ],{duration:3200,easing:"cubic-bezier(.22,.72,.2,1)",fill:"forwards"});
+            {transform:"translateY(-110px) scale(1.02)"}
+          ],{
+            duration:3400,
+            easing:"cubic-bezier(.22,.72,.2,1)",
+            fill:"forwards"
+          });
+
           birds.forEach(function(b,index){
             var flip = b.flip ? " scaleX(-1)" : "";
             animate(b.el,[
               {transform:"translateY(0px)"+flip},
-              {transform:"translateY(-56px)"+flip}
-            ],{duration:3200+index*60,easing:"cubic-bezier(.22,.72,.2,1)",fill:"forwards"});
+              {transform:"translateY(-38px) rotate("+(b.flip?-3:3)+"deg)"+flip}
+            ],{
+              duration:3400+index*50,
+              easing:"cubic-bezier(.22,.72,.2,1)",
+              fill:"forwards"
+            });
+
+            if(b.thread){
+              animate(b.thread,[
+                {opacity:.72,transform:b.thread.style.transform+" translateY(0)"},
+                {opacity:.48,transform:b.thread.style.transform+" translateY(-34px)"}
+              ],{
+                duration:3400,
+                easing:"cubic-bezier(.22,.72,.2,1)",
+                fill:"forwards"
+              });
+            }
           });
         }
 
-        /* ---------- lyric / optional spoken intro ---------- */
-        function showLyric(index){
+        /* ---------- manual note / optional spoken intro ---------- */
+        function showManualOpeningNote(){
           if(!lyricCard || !lyricText) return;
+          /* Khi chưa nhập lời nhắn, không hiện khung trống trên website. */
+          if(!String(lyricText.textContent || "").trim()) return;
           lyricCard.classList.add("show");
-          lyricText.classList.add("swap");
-          later(function(){
-            lyricText.textContent = lyricLines[Math.max(0,Math.min(lyricLines.length-1,index))];
-            lyricText.classList.remove("swap");
-          },260);
-        }
-        function scheduleLyrics(durationMs){
-          var times = [durationMs*.29,durationMs*.48,durationMs*.66];
-          times.forEach(function(t,i){ lyricTimers.push(later(function(){showLyric(i);},t)); });
-          lyricTimers.push(later(function(){ if(lyricCard) lyricCard.classList.remove("show"); },durationMs*.88));
         }
         function tryPlaySpokenIntro(){
           if(!vowAudio) return;
@@ -951,7 +1055,6 @@
         function finishOpening(){
           if(finished) return;
           finished = true;
-          lyricTimers.forEach(clearTimeout);
           if(lyricCard) lyricCard.classList.remove("show");
           if(vowAudio && !vowAudio.paused){
             var vFrom = vowAudio.volume;
@@ -1002,7 +1105,6 @@
 
           var durationSec = Number.isFinite(ambient && ambient.duration) && ambient.duration>8 ? ambient.duration : fallbackDuration;
           var durationMs = durationSec*1000;
-          scheduleLyrics(durationMs);
 
           /* 0.0–2.6s — logo responds; glowing cut grows from center to both edges. */
           animate(seal,[
@@ -1055,6 +1157,7 @@
               {opacity:0,transform:"translateY(18px) scale(.985)",filter:"blur(5px)"},
               {opacity:1,transform:"translateY(0) scale(1)",filter:"blur(0px)"}
             ],{duration:1800,delay:800,easing:"ease",fill:"forwards"});
+            later(showManualOpeningNote,900);
             tryPlaySpokenIntro();
           },7000);
 
@@ -1099,3 +1202,4 @@
 
 </body>
 </html>
+
