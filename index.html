@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" href="style.css?v=14">
   <link rel="stylesheet" href="opening/opening.css?v=10">
+  <link rel="preload" as="image" href="dove-ivory-champagne.png">
 
   <style id="openingFxV108">
     /* Opening V10.8 FX — scoped, does not replace opening/opening.css */
@@ -216,53 +217,36 @@
 
   .opening-dove{
     position:absolute;
-    width:clamp(74px,5.8vw,104px);
-    height:auto;
+    width:clamp(88px,6.8vw,126px);
+    aspect-ratio:1 / 1;
     opacity:0;
     transform-origin:50% 50%;
     will-change:transform,opacity;
-    filter:drop-shadow(0 8px 14px rgba(0,0,0,.12));
+    pointer-events:none;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.14));
   }
-  .opening-dove svg{
+  .opening-dove img{
     display:block;
     width:100%;
-    height:auto;
-    overflow:visible;
+    height:100%;
+    object-fit:contain;
+    user-select:none;
+    -webkit-user-drag:none;
   }
-  .opening-dove .dove-outline{
-    fill:none;
-    stroke:rgba(229,223,216,.96);
-    stroke-width:2.5;
-    stroke-linecap:round;
-    stroke-linejoin:round;
+  .opening-dove.is-flying img{
+    animation:doveFloatSoft .92s ease-in-out infinite alternate;
   }
-  .opening-dove .dove-body-fill{
-    fill:rgba(249,249,248,.96);
-  }
-  .opening-dove .dove-shade-fill{
-    fill:rgba(232,233,235,.88);
-  }
-  .opening-dove .dove-eye{
-    fill:rgba(165,148,130,.65);
-  }
-  .opening-dove .wing-main{
-    transform-box:fill-box;
-    transform-origin:56% 76%;
-  }
-  .opening-dove.is-flying .wing-main{
-    animation:doveWingSoft .62s ease-in-out infinite alternate;
-  }
-  .opening-dove.is-lifting .wing-main{
-    animation:doveWingLift .46s ease-in-out infinite alternate;
+  .opening-dove.is-lifting img{
+    animation:doveFloatLift .64s ease-in-out infinite alternate;
   }
 
-  @keyframes doveWingSoft{
-    from{transform:rotate(6deg) translateY(0)}
-    to{transform:rotate(-16deg) translateY(-1px)}
+  @keyframes doveFloatSoft{
+    from{transform:translateY(1px) rotate(-1deg)}
+    to{transform:translateY(-4px) rotate(1deg)}
   }
-  @keyframes doveWingLift{
-    from{transform:rotate(8deg) translateY(0)}
-    to{transform:rotate(-22deg) translateY(-2px)}
+  @keyframes doveFloatLift{
+    from{transform:translateY(1px)}
+    to{transform:translateY(-5px)}
   }
 
   .opening-lift-thread{
@@ -341,7 +325,7 @@
     }
     .opening-lyric-card.show{transform:none}
     .opening-lyric-card__text{font-size:18px;min-height:2.8em}
-    .opening-dove{width:clamp(50px,11vw,72px)}
+    .opening-dove{width:clamp(68px,17vw,92px)}
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -352,7 +336,7 @@
 </head>
 
 <body>
-  <!-- WEDDING_OPENING_VERSION: V11.8-DOVES-WHITE-LIFT -->
+  <!-- WEDDING_OPENING_VERSION: V11.9-DOVE-ASSET-SYNC -->
 
   <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
     <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
@@ -855,24 +839,16 @@
         }
 
         /* ---------- dove ---------- */
-        function doveSVG(){
-          return '<svg viewBox="0 0 220 220" aria-hidden="true">' +
-            '<path class="dove-shade-fill wing-main" d="M98 100 C80 74, 66 47, 74 19 C102 42, 119 66, 123 96 C116 92, 108 93, 98 100 Z" />' +
-            '<path class="dove-shade-fill" d="M91 112 C72 97, 53 89, 29 87 C44 104, 63 116, 87 121 C87 118, 88 115, 91 112 Z" />' +
-            '<path class="dove-shade-fill" d="M90 134 C91 148, 84 160, 70 169 C83 170, 98 164, 107 152 C100 147, 94 141, 90 134 Z" />' +
-            '<path class="dove-body-fill" d="M91 109 C106 104, 120 96, 131 84 C140 74, 146 60, 149 47 C154 27, 164 19, 178 24 C166 34, 159 47, 157 62 C171 71, 180 82, 183 96 C187 117, 179 136, 160 149 C136 165, 105 166, 84 152 C70 142, 63 126, 65 108 C74 102, 82 102, 91 109 Z" />' +
-            '<path class="dove-outline wing-main" d="M98 100 C80 74, 66 47, 74 19 C102 42, 119 66, 123 96" />' +
-            '<path class="dove-outline" d="M91 112 C72 97, 53 89, 29 87 C44 104, 63 116, 87 121" />' +
-            '<path class="dove-outline" d="M101 101 C117 92, 129 80, 137 66 C145 52, 149 40, 149 31 C155 24, 166 20, 178 24 C166 34, 159 47, 157 62 C171 71, 180 82, 183 96 C187 117, 179 136, 160 149 C136 165, 105 166, 84 152 C70 142, 63 126, 65 108 C74 102, 82 102, 91 109" />' +
-            '<path class="dove-outline" d="M90 134 C91 148, 84 160, 70 169 C83 170, 98 164, 107 152" />' +
-            '<path class="dove-outline" d="M138 99 C151 103, 165 101, 177 94" />' +
-            '<circle class="dove-eye" cx="154" cy="79" r="2.4" />' +
-          '</svg>';
-        }
         function makeDove(extraClass){
           var d = document.createElement("div");
           d.className = "opening-dove " + (extraClass || "");
-          d.innerHTML = doveSVG();
+
+          var img = document.createElement("img");
+          img.src = "dove-ivory-champagne.png";
+          img.alt = "";
+          img.setAttribute("aria-hidden","true");
+
+          d.appendChild(img);
           cinemaLayer.appendChild(d);
           return d;
         }
@@ -906,34 +882,50 @@
         function flyOpeningDoves(){
           var leftDove = makeDove("is-flying");
           var rightDove = makeDove("is-flying");
-          var leftTarget = pointForCard(.18,.13);
-          var rightTarget = pointForCard(.82,.13);
+
+          var leftTarget = pointForCard(.13,.08);
+          var rightTarget = pointForCard(.87,.08);
+
           placeDove(leftDove, leftTarget);
           placeDove(rightDove, rightTarget);
+
           animate(leftDove,[
-            {opacity:0,transform:"translate(-42vw,-46vh) rotate(-14deg) scale(.68)"},
-            {opacity:1,offset:.14},
-            {opacity:1,transform:"translate(-12vw,-10vh) rotate(5deg) scale(.96)",offset:.68},
-            {opacity:.9,transform:"translate(-4vw,-3vh) rotate(8deg) scale(1)",offset:.88},
-            {opacity:0,transform:"translate(-1vw,0vh) rotate(10deg) scale(.96)"}
-          ],{duration:4200,easing:"cubic-bezier(.18,.68,.2,1)",fill:"forwards"});
+            {opacity:0,transform:"translate(-44vw,-46vh) rotate(-11deg) scale(.62)"},
+            {opacity:1,offset:.18},
+            {opacity:1,transform:"translate(-10vw,-8vh) rotate(2deg) scale(.86)",offset:.70},
+            {opacity:.94,transform:"translate(-3vw,-2vh) rotate(4deg) scale(.90)",offset:.90},
+            {opacity:0,transform:"translate(-1vw,0) rotate(5deg) scale(.86)"}
+          ],{
+            duration:4100,
+            easing:"cubic-bezier(.18,.68,.2,1)",
+            fill:"forwards"
+          });
+
           animate(rightDove,[
-            {opacity:0,transform:"translate(42vw,-46vh) rotate(14deg) scale(.68) scaleX(-1)"},
-            {opacity:1,offset:.14},
-            {opacity:1,transform:"translate(12vw,-10vh) rotate(-5deg) scale(.96) scaleX(-1)",offset:.68},
-            {opacity:.9,transform:"translate(4vw,-3vh) rotate(-8deg) scale(1) scaleX(-1)",offset:.88},
-            {opacity:0,transform:"translate(1vw,0vh) rotate(-10deg) scale(.96) scaleX(-1)"}
-          ],{duration:4200,easing:"cubic-bezier(.18,.68,.2,1)",fill:"forwards"});
-          later(function(){leftDove.remove();rightDove.remove();},4450);
+            {opacity:0,transform:"translate(44vw,-46vh) rotate(11deg) scale(.62) scaleX(-1)"},
+            {opacity:1,offset:.18},
+            {opacity:1,transform:"translate(10vw,-8vh) rotate(-2deg) scale(.86) scaleX(-1)",offset:.70},
+            {opacity:.94,transform:"translate(3vw,-2vh) rotate(-4deg) scale(.90) scaleX(-1)",offset:.90},
+            {opacity:0,transform:"translate(1vw,0) rotate(-5deg) scale(.86) scaleX(-1)"}
+          ],{
+            duration:4100,
+            easing:"cubic-bezier(.18,.68,.2,1)",
+            fill:"forwards"
+          });
+
+          later(function(){
+            leftDove.remove();
+            rightDove.remove();
+          },4300);
         }
 
         function createLiftDoves(){
-          /* Bốn chim vào bốn góc của thiệp để chuẩn bị kéo thiệp bay lên. */
+          /* Bốn chim cân đối đúng bốn góc của lá thư. */
           var groups = [
-            {x:.07,y:.13,flip:false,dx:-56,dy:-44,threadRot:-15},
-            {x:.93,y:.13,flip:true,dx:6,dy:-44,threadRot:15},
-            {x:.07,y:.83,flip:false,dx:-58,dy:10,threadRot:-8},
-            {x:.93,y:.83,flip:true,dx:8,dy:10,threadRot:8}
+            {x:.055,y:.085,flip:false,dx:-78,dy:-58,threadRot:-12},
+            {x:.945,y:.085,flip:true, dx:-10,dy:-58,threadRot:12},
+            {x:.055,y:.865,flip:false,dx:-78,dy:-8, threadRot:-7},
+            {x:.945,y:.865,flip:true, dx:-10,dy:-8, threadRot:7}
           ];
 
           var birds = [];
@@ -946,88 +938,111 @@
             placeDove(d,p);
 
             var flip = item.flip ? " scaleX(-1)" : "";
-            var finalTransform = "translate("+item.dx+"px,"+item.dy+"px) scale(.88)"+flip;
+            var finalTransform =
+              "translate("+item.dx+"px,"+item.dy+"px) scale(.72)"+flip;
 
             animate(d,[
-              {opacity:0,transform:"translate("+(item.flip?160:-160)+"px,"+(item.y>.5?80:92)+"px) scale(.62)"+flip},
-              {opacity:.96,offset:.32},
+              {
+                opacity:0,
+                transform:"translate("+(item.flip?150:-150)+"px,"+(item.y>.5?64:86)+"px) scale(.54)"+flip
+              },
+              {opacity:.95,offset:.34},
               {opacity:1,transform:finalTransform}
             ],{
-              duration:2050 + index*100,
+              duration:1850 + index*70,
               easing:"cubic-bezier(.18,.78,.2,1)",
               fill:"forwards"
             });
 
-            var anchorX = cardRect.left - openRect.left + cardRect.width * item.x;
-            var anchorY = cardRect.top - openRect.top + cardRect.height * item.y;
+            var anchorX =
+              cardRect.left - openRect.left + cardRect.width * item.x;
+            var anchorY =
+              cardRect.top - openRect.top + cardRect.height * item.y;
+
             var thread = makeLiftThread(anchorX, anchorY, item.threadRot);
 
             birds.push({
               el:d,
               flip:item.flip,
               thread:thread,
-              anchorX:anchorX,
-              anchorY:anchorY,
-              riseX:item.flip ? 28 : -28
+              baseDx:item.dx,
+              baseDy:item.dy,
+              side:item.flip ? 1 : -1
             });
           });
 
           return birds;
         }
 
-        function liftCardWithDoves(birds){
+        function liftCardWithDoves(birds, onComplete){
           if(liftGlow){
             animate(liftGlow,[
-              {opacity:0,transform:"scale(.88)"},
-              {opacity:.76,transform:"scale(1.06)"},
-              {opacity:.20,transform:"scale(1.22)"}
-            ],{duration:3200,easing:"ease",fill:"forwards"});
+              {opacity:0,transform:"scale(.9)"},
+              {opacity:.72,transform:"scale(1.08)",offset:.45},
+              {opacity:.08,transform:"scale(1.30)"}
+            ],{
+              duration:3450,
+              easing:"ease",
+              fill:"forwards"
+            });
           }
 
-          animate(card,[
+          var liftAnim = animate(card,[
             {transform:"translateY(-18px) scale(1.01)"},
-            {transform:"translateY(-32px) scale(1.012)",offset:.18},
-            {transform:"translateY(-140px) scale(1.016)",offset:.62},
-            {transform:"translateY(-300px) scale(1.02)",offset:.9},
-            {transform:"translateY(-420px) scale(1.02)",opacity:.98}
+            {transform:"translateY(-55px) scale(1.012)",offset:.18},
+            {transform:"translateY(-170px) scale(1.015)",offset:.50},
+            {transform:"translateY(-315px) scale(1.018)",offset:.78},
+            {transform:"translateY(-470px) scale(1.02)"}
           ],{
             duration:3450,
-            easing:"cubic-bezier(.22,.72,.2,1)",
+            easing:"cubic-bezier(.18,.74,.18,1)",
             fill:"forwards"
           });
 
-          animate(envelope,[
-            {transform:"translateY(2vh) scale(1)"},
-            {transform:"translateY(2vh) scale(.995)"}
-          ],{duration:2600,easing:"ease",fill:"forwards"});
-
           birds.forEach(function(b,index){
             var flip = b.flip ? " scaleX(-1)" : "";
-            var sway = b.flip ? -6 : 6;
+            var sideDrift = b.side * 34;
+
             animate(b.el,[
-              {transform:"translate(0px,0px) rotate(0deg)"+flip},
-              {transform:"translate("+b.riseX+"px,-38px) rotate("+sway+"deg)"+flip,offset:.25},
-              {transform:"translate("+(b.riseX*1.6)+"px,-176px) rotate("+(sway*1.2)+"deg)"+flip,offset:.72},
-              {transform:"translate("+(b.riseX*1.85)+"px,-330px) rotate("+(sway*1.4)+"deg)"+flip}
+              {
+                transform:"translate("+b.baseDx+"px,"+b.baseDy+"px) scale(.72)"+flip
+              },
+              {
+                transform:"translate("+(b.baseDx+sideDrift*.25)+"px,"+(b.baseDy-58)+"px) scale(.76)"+flip,
+                offset:.24
+              },
+              {
+                transform:"translate("+(b.baseDx+sideDrift*.65)+"px,"+(b.baseDy-210)+"px) scale(.80)"+flip,
+                offset:.68
+              },
+              {
+                transform:"translate("+(b.baseDx+sideDrift)+"px,"+(b.baseDy-385)+"px) scale(.82)"+flip
+              }
             ],{
-              duration:3450+index*40,
-              easing:"cubic-bezier(.22,.72,.2,1)",
+              duration:3450 + index*20,
+              easing:"cubic-bezier(.18,.74,.18,1)",
               fill:"forwards"
             });
 
             if(b.thread){
               animate(b.thread,[
-                {opacity:.62,transform:b.thread.style.transform+" translateY(0) scaleY(.7)"},
-                {opacity:.56,transform:b.thread.style.transform+" translateY(-38px) scaleY(1)",offset:.25},
-                {opacity:.34,transform:b.thread.style.transform+" translateY(-176px) scaleY(1.16)",offset:.72},
-                {opacity:.1,transform:b.thread.style.transform+" translateY(-330px) scaleY(1.24)"}
+                {opacity:.58,transform:b.thread.style.transform+" translateY(0) scaleY(.8)"},
+                {opacity:.44,transform:b.thread.style.transform+" translateY(-75px) scaleY(1.06)",offset:.35},
+                {opacity:.20,transform:b.thread.style.transform+" translateY(-250px) scaleY(1.18)",offset:.78},
+                {opacity:0,transform:b.thread.style.transform+" translateY(-390px) scaleY(1.24)"}
               ],{
                 duration:3450,
-                easing:"cubic-bezier(.22,.72,.2,1)",
+                easing:"cubic-bezier(.18,.74,.18,1)",
                 fill:"forwards"
               });
             }
           });
+
+          Promise.resolve(liftAnim.finished)
+            .catch(function(){})
+            .then(function(){
+              if(typeof onComplete==="function") onComplete();
+            });
         }
 
         /* ---------- manual note / optional spoken intro ---------- */
@@ -1086,7 +1101,7 @@
           animate(opening,[
             {opacity:1,filter:"blur(0px)"},
             {opacity:0,filter:"blur(12px)"}
-          ],{duration:1050,easing:"ease",fill:"forwards"});
+          ],{duration:720,easing:"ease",fill:"forwards"});
           later(function(){
             document.body.classList.remove("wedding-opening-lock");
             try{window.dispatchEvent(new CustomEvent("wedding:opening-complete"));}catch(e){}
@@ -1094,7 +1109,7 @@
             var target=document.querySelector(".hero-v10")||document.querySelector("main");
             if(target) target.scrollIntoView({behavior:"auto",block:"start"});
             startPlaylistAfterOpening();
-          },1080);
+          },740);
         }
 
         function startMusicFromGesture(){
@@ -1180,19 +1195,39 @@
             tryPlaySpokenIntro();
           },7000);
 
-          /* 16.8s — four doves take positions at the two sides/corners. */
+          /*
+             Bốn chim đến trước cao trào cuối, sau đó kéo lá thư lên.
+             Điểm kết thúc của cú kéo được canh trùng với cuối instrumental,
+             nhờ vậy không còn đứng khựng ở frame cuối hơn 1 giây.
+          */
           var liftBirds=[];
-          later(function(){liftBirds=createLiftDoves();},Math.min(durationMs*.68,16900));
+          var liftDuration=3450;
+          var birdArrivalLead=1850;
 
-          /* 19.0s — four doves lift the invitation for the musical finale. */
-          later(function(){if(liftBirds.length)liftCardWithDoves(liftBirds);},Math.min(durationMs*.77,19200));
+          var liftStartMs=Math.max(10500,durationMs-liftDuration-80);
+          var birdsStartMs=Math.max(9000,liftStartMs-birdArrivalLead);
 
-          /* Transition only when the instrumental really ends. */
+          later(function(){
+            liftBirds=createLiftDoves();
+          },birdsStartMs);
+
+          later(function(){
+            if(!liftBirds.length) liftBirds=createLiftDoves();
+            liftCardWithDoves(liftBirds,function(){
+              /* Nếu audio đã hết hoặc chỉ còn rất ít, chuyển ngay. */
+              if(!ambient || ambient.ended || (ambient.duration-ambient.currentTime)<.18){
+                finishOpening();
+              }
+            });
+          },liftStartMs);
+
+          /* Audio kết thúc là tín hiệu chuyển trang chính. */
           if(ambient){
             ambient.addEventListener("ended",finishOpening,{once:true});
           }
-          /* Safety fallback in case the browser never fires ended. */
-          later(finishOpening,durationMs+1200);
+
+          /* Safety fallback chỉ dư rất ít để tránh đứng hình nếu browser bỏ event ended. */
+          later(finishOpening,durationMs+180);
         }
 
         seal.addEventListener("click",openInvitation,true);
