@@ -229,17 +229,21 @@
     height:auto;
     overflow:visible;
   }
-  .opening-dove .dove-outline,
-  .opening-dove .dove-branch,
-  .opening-dove .dove-leaf{
+  .opening-dove .dove-outline{
     fill:none;
-    stroke:rgba(227,206,166,.95);
-    stroke-width:2.7;
+    stroke:rgba(229,223,216,.96);
+    stroke-width:2.5;
     stroke-linecap:round;
     stroke-linejoin:round;
   }
-  .opening-dove .dove-leaf{
-    stroke-width:2.25;
+  .opening-dove .dove-body-fill{
+    fill:rgba(249,249,248,.96);
+  }
+  .opening-dove .dove-shade-fill{
+    fill:rgba(232,233,235,.88);
+  }
+  .opening-dove .dove-eye{
+    fill:rgba(165,148,130,.65);
   }
   .opening-dove .wing-main{
     transform-box:fill-box;
@@ -348,7 +352,7 @@
 </head>
 
 <body>
-  <!-- WEDDING_OPENING_VERSION: V11.7-DOVE-REFERENCE -->
+  <!-- WEDDING_OPENING_VERSION: V11.8-DOVES-WHITE-LIFT -->
 
   <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
     <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
@@ -852,17 +856,17 @@
 
         /* ---------- dove ---------- */
         function doveSVG(){
-          return '<svg viewBox="0 0 200 200" aria-hidden="true">' +
-            '<path class="dove-outline wing-main" d="M83 98 C63 70, 49 45, 52 16 C78 45, 95 66, 103 94" />' +
-            '<path class="dove-outline" d="M86 101 C66 85, 46 77, 23 74 C40 93, 57 104, 76 108" />' +
-            '<path class="dove-outline" d="M102 93 C118 77, 130 61, 136 43 C146 16, 157 11, 170 18 C155 31, 149 47, 146 63 C159 72, 170 84, 176 98" />' +
-            '<path class="dove-outline" d="M82 108 C86 132, 75 149, 51 160 C68 163, 84 158, 94 147" />' +
-            '<path class="dove-outline" d="M86 101 C101 106, 115 105, 127 96 C138 87, 146 75, 148 60 C156 66, 162 75, 165 86 C171 108, 161 128, 138 141 C118 152, 95 151, 79 138 C68 129, 64 118, 66 106" />' +
-            '<path class="dove-outline" d="M134 95 C149 100, 163 99, 176 92" />' +
-            '<path class="dove-branch" d="M146 94 C158 90, 170 86, 183 79" />' +
-            '<path class="dove-leaf" d="M165 79 C165 69, 171 61, 181 57 C182 67, 176 76, 165 79" />' +
-            '<path class="dove-leaf" d="M171 84 C174 74, 181 67, 192 65 C191 76, 184 83, 171 84" />' +
-            '<path class="dove-leaf" d="M157 86 C151 78, 144 74, 134 73 C138 82, 146 88, 157 86" />' +
+          return '<svg viewBox="0 0 220 220" aria-hidden="true">' +
+            '<path class="dove-shade-fill wing-main" d="M98 100 C80 74, 66 47, 74 19 C102 42, 119 66, 123 96 C116 92, 108 93, 98 100 Z" />' +
+            '<path class="dove-shade-fill" d="M91 112 C72 97, 53 89, 29 87 C44 104, 63 116, 87 121 C87 118, 88 115, 91 112 Z" />' +
+            '<path class="dove-shade-fill" d="M90 134 C91 148, 84 160, 70 169 C83 170, 98 164, 107 152 C100 147, 94 141, 90 134 Z" />' +
+            '<path class="dove-body-fill" d="M91 109 C106 104, 120 96, 131 84 C140 74, 146 60, 149 47 C154 27, 164 19, 178 24 C166 34, 159 47, 157 62 C171 71, 180 82, 183 96 C187 117, 179 136, 160 149 C136 165, 105 166, 84 152 C70 142, 63 126, 65 108 C74 102, 82 102, 91 109 Z" />' +
+            '<path class="dove-outline wing-main" d="M98 100 C80 74, 66 47, 74 19 C102 42, 119 66, 123 96" />' +
+            '<path class="dove-outline" d="M91 112 C72 97, 53 89, 29 87 C44 104, 63 116, 87 121" />' +
+            '<path class="dove-outline" d="M101 101 C117 92, 129 80, 137 66 C145 52, 149 40, 149 31 C155 24, 166 20, 178 24 C166 34, 159 47, 157 62 C171 71, 180 82, 183 96 C187 117, 179 136, 160 149 C136 165, 105 166, 84 152 C70 142, 63 126, 65 108 C74 102, 82 102, 91 109" />' +
+            '<path class="dove-outline" d="M90 134 C91 148, 84 160, 70 169 C83 170, 98 164, 107 152" />' +
+            '<path class="dove-outline" d="M138 99 C151 103, 165 101, 177 94" />' +
+            '<circle class="dove-eye" cx="154" cy="79" r="2.4" />' +
           '</svg>';
         }
         function makeDove(extraClass){
@@ -924,12 +928,12 @@
         }
 
         function createLiftDoves(){
-          /* Hai chim ở mỗi góc trên của thiệp, không che chữ trên thiệp. */
+          /* Bốn chim vào bốn góc của thiệp để chuẩn bị kéo thiệp bay lên. */
           var groups = [
-            {x:.045,y:.12,flip:false,dx:-108,dy:-58,threadRot:-12},
-            {x:.055,y:.22,flip:false,dx:-72,dy:-18,threadRot:-6},
-            {x:.955,y:.12,flip:true,dx:18,dy:-58,threadRot:12},
-            {x:.945,y:.22,flip:true,dx:-8,dy:-18,threadRot:6}
+            {x:.07,y:.13,flip:false,dx:-56,dy:-44,threadRot:-15},
+            {x:.93,y:.13,flip:true,dx:6,dy:-44,threadRot:15},
+            {x:.07,y:.83,flip:false,dx:-58,dy:10,threadRot:-8},
+            {x:.93,y:.83,flip:true,dx:8,dy:10,threadRot:8}
           ];
 
           var birds = [];
@@ -942,27 +946,29 @@
             placeDove(d,p);
 
             var flip = item.flip ? " scaleX(-1)" : "";
-            var finalTransform = "translate("+item.dx+"px,"+item.dy+"px) scale(.92)"+flip;
+            var finalTransform = "translate("+item.dx+"px,"+item.dy+"px) scale(.88)"+flip;
 
             animate(d,[
-              {opacity:0,transform:"translate("+(item.flip?160:-160)+"px,95px) scale(.66)"+flip},
-              {opacity:.92,offset:.30},
+              {opacity:0,transform:"translate("+(item.flip?160:-160)+"px,"+(item.y>.5?80:92)+"px) scale(.62)"+flip},
+              {opacity:.96,offset:.32},
               {opacity:1,transform:finalTransform}
             ],{
-              duration:2200 + index*90,
+              duration:2050 + index*100,
               easing:"cubic-bezier(.18,.78,.2,1)",
               fill:"forwards"
             });
 
-            /* Sợi chỉ vàng rất mảnh nối chim với góc thiệp để cảm giác 'nhấc' rõ hơn. */
-            var anchorX = cardRect.left - openRect.left + cardRect.width * (item.flip ? .94 : .06);
-            var anchorY = cardRect.top - openRect.top + cardRect.height * .12;
+            var anchorX = cardRect.left - openRect.left + cardRect.width * item.x;
+            var anchorY = cardRect.top - openRect.top + cardRect.height * item.y;
             var thread = makeLiftThread(anchorX, anchorY, item.threadRot);
 
             birds.push({
               el:d,
               flip:item.flip,
-              thread:thread
+              thread:thread,
+              anchorX:anchorX,
+              anchorY:anchorY,
+              riseX:item.flip ? 28 : -28
             });
           });
 
@@ -974,36 +980,49 @@
             animate(liftGlow,[
               {opacity:0,transform:"scale(.88)"},
               {opacity:.76,transform:"scale(1.06)"},
-              {opacity:.28,transform:"scale(1.16)"}
-            ],{duration:3500,easing:"ease",fill:"forwards"});
+              {opacity:.20,transform:"scale(1.22)"}
+            ],{duration:3200,easing:"ease",fill:"forwards"});
           }
 
           animate(card,[
-            {transform:"translateY(-72px) scale(1.015)"},
-            {transform:"translateY(-110px) scale(1.02)"}
+            {transform:"translateY(-18px) scale(1.01)"},
+            {transform:"translateY(-32px) scale(1.012)",offset:.18},
+            {transform:"translateY(-140px) scale(1.016)",offset:.62},
+            {transform:"translateY(-300px) scale(1.02)",offset:.9},
+            {transform:"translateY(-420px) scale(1.02)",opacity:.98}
           ],{
-            duration:3400,
+            duration:3450,
             easing:"cubic-bezier(.22,.72,.2,1)",
             fill:"forwards"
           });
 
+          animate(envelope,[
+            {transform:"translateY(2vh) scale(1)"},
+            {transform:"translateY(2vh) scale(.995)"}
+          ],{duration:2600,easing:"ease",fill:"forwards"});
+
           birds.forEach(function(b,index){
             var flip = b.flip ? " scaleX(-1)" : "";
+            var sway = b.flip ? -6 : 6;
             animate(b.el,[
-              {transform:"translateY(0px)"+flip},
-              {transform:"translateY(-38px) rotate("+(b.flip?-3:3)+"deg)"+flip}
+              {transform:"translate(0px,0px) rotate(0deg)"+flip},
+              {transform:"translate("+b.riseX+"px,-38px) rotate("+sway+"deg)"+flip,offset:.25},
+              {transform:"translate("+(b.riseX*1.6)+"px,-176px) rotate("+(sway*1.2)+"deg)"+flip,offset:.72},
+              {transform:"translate("+(b.riseX*1.85)+"px,-330px) rotate("+(sway*1.4)+"deg)"+flip}
             ],{
-              duration:3400+index*50,
+              duration:3450+index*40,
               easing:"cubic-bezier(.22,.72,.2,1)",
               fill:"forwards"
             });
 
             if(b.thread){
               animate(b.thread,[
-                {opacity:.72,transform:b.thread.style.transform+" translateY(0)"},
-                {opacity:.48,transform:b.thread.style.transform+" translateY(-34px)"}
+                {opacity:.62,transform:b.thread.style.transform+" translateY(0) scaleY(.7)"},
+                {opacity:.56,transform:b.thread.style.transform+" translateY(-38px) scaleY(1)",offset:.25},
+                {opacity:.34,transform:b.thread.style.transform+" translateY(-176px) scaleY(1.16)",offset:.72},
+                {opacity:.1,transform:b.thread.style.transform+" translateY(-330px) scaleY(1.24)"}
               ],{
-                duration:3400,
+                duration:3450,
                 easing:"cubic-bezier(.22,.72,.2,1)",
                 fill:"forwards"
               });
@@ -1145,13 +1164,13 @@
             [tearLeft,tearRight].forEach(function(line){if(line)animate(line,[{opacity:1},{opacity:0}],{duration:900,delay:700,fill:"forwards"});});
           },4700);
 
-          /* 7.0–10.3s — invitation rises; hearts and flowers release. */
+          /* 7.0–10.3s — thiệp nhô nhẹ khỏi phong bì, chưa bay hẳn lên trên. */
           later(function(){
             card.style.zIndex="8";
             burstHeartsAndFlowers();
             animate(card,[
               {transform:"translateY(0px) scale(1)"},
-              {transform:"translateY(-72px) scale(1.015)"}
+              {transform:"translateY(-18px) scale(1.01)"}
             ],{duration:3250,easing:"cubic-bezier(.18,.76,.2,1)",fill:"forwards"});
             animate(names,[
               {opacity:0,transform:"translateY(18px) scale(.985)",filter:"blur(5px)"},
