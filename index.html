@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <link rel="stylesheet" href="opening/opening.css?v=10">
 
   <style id="openingFxV108">
@@ -203,6 +203,104 @@
     }
   </style>
 
+
+<style id="openingCinematicV114">
+  /* V11.4 — cinematic dove / lyric sequence. Scoped to Opening only. */
+  .wedding-opening__cinema-layer{
+    position:absolute;
+    inset:0;
+    z-index:45;
+    overflow:hidden;
+    pointer-events:none;
+  }
+
+  .opening-dove{
+    position:absolute;
+    width:clamp(54px,5.2vw,88px);
+    height:auto;
+    opacity:0;
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,.24));
+    transform-origin:50% 50%;
+    will-change:transform,opacity;
+  }
+  .opening-dove svg{width:100%;height:auto;display:block;overflow:visible}
+  .opening-dove .dove-body{fill:rgba(247,240,224,.96);stroke:rgba(201,169,118,.72);stroke-width:1.15}
+  .opening-dove .dove-wing{fill:rgba(252,247,235,.98);stroke:rgba(201,169,118,.66);stroke-width:1.05;transform-box:fill-box;transform-origin:50% 72%}
+  .opening-dove.is-flying .wing-l{animation:doveWingLeft .48s ease-in-out infinite alternate}
+  .opening-dove.is-flying .wing-r{animation:doveWingRight .48s ease-in-out infinite alternate}
+  .opening-dove.is-lifting .wing-l{animation:doveWingLeft .36s ease-in-out infinite alternate}
+  .opening-dove.is-lifting .wing-r{animation:doveWingRight .36s ease-in-out infinite alternate}
+  @keyframes doveWingLeft{from{transform:rotate(8deg)}to{transform:rotate(-27deg)}}
+  @keyframes doveWingRight{from{transform:rotate(-8deg)}to{transform:rotate(27deg)}}
+
+  .opening-lyric-card{
+    position:absolute;
+    z-index:60;
+    left:clamp(28px,5vw,88px);
+    top:50%;
+    width:min(365px,31vw);
+    transform:translateY(-45%);
+    padding:18px 20px 19px;
+    border-left:1px solid rgba(221,188,137,.58);
+    background:linear-gradient(90deg,rgba(18,13,10,.48),rgba(18,13,10,.12) 80%,transparent);
+    color:#f4eadc;
+    opacity:0;
+    filter:blur(3px);
+    transition:opacity .65s ease,filter .65s ease,transform .65s ease;
+    text-shadow:0 3px 16px rgba(0,0,0,.35);
+  }
+  .opening-lyric-card.show{opacity:1;filter:blur(0);transform:translateY(-50%)}
+  .opening-lyric-card__kicker{
+    margin:0 0 11px;
+    font:500 7px/1.4 "Montserrat",sans-serif;
+    letter-spacing:.3em;
+    color:#d0ad78;
+  }
+  .opening-lyric-card__text{
+    min-height:3.5em;
+    margin:0;
+    font:italic clamp(19px,1.7vw,27px)/1.36 "Cormorant Garamond",serif;
+    transition:opacity .32s ease,transform .32s ease;
+  }
+  .opening-lyric-card__text.swap{opacity:0;transform:translateY(7px)}
+  .opening-lyric-card__rule{width:46px;height:1px;margin-top:15px;background:rgba(219,187,137,.5)}
+
+  .wedding-opening__tear{
+    height:2px!important;
+    box-shadow:0 0 8px rgba(226,193,141,.28),0 0 20px rgba(226,193,141,.14);
+    background:linear-gradient(90deg,transparent,rgba(238,213,172,.95),rgba(96,67,46,.75))!important;
+  }
+
+  .opening-card-lift-glow{
+    position:absolute;
+    z-index:7;
+    left:18%;right:18%;top:20%;height:56%;
+    border-radius:50%;
+    background:radial-gradient(ellipse,rgba(226,195,146,.12),transparent 67%);
+    opacity:0;
+    filter:blur(14px);
+    pointer-events:none;
+  }
+
+  @media(max-width:900px){
+    .opening-lyric-card{
+      left:16px;right:16px;top:auto;bottom:24px;width:auto;
+      transform:translateY(12px);
+      padding:12px 14px 13px;
+      border-left:0;border-top:1px solid rgba(221,188,137,.42);
+      background:linear-gradient(180deg,rgba(18,13,10,.20),rgba(18,13,10,.58));
+      backdrop-filter:blur(5px);
+    }
+    .opening-lyric-card.show{transform:none}
+    .opening-lyric-card__text{font-size:18px;min-height:2.8em}
+    .opening-dove{width:clamp(44px,12vw,66px)}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .opening-dove{display:none!important}
+  }
+</style>
+
 </head>
 
 <body>
@@ -241,6 +339,15 @@
       <i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i>
     </div>
+
+    <div class="wedding-opening__cinema-layer" id="openingCinemaLayer" aria-hidden="true"></div>
+    <div class="opening-card-lift-glow" id="openingCardLiftGlow" aria-hidden="true"></div>
+
+    <aside class="opening-lyric-card" id="openingLyricCard" aria-live="polite">
+      <p class="opening-lyric-card__kicker">LỜI TỪ CHÚNG CON</p>
+      <p class="opening-lyric-card__text" id="openingLyricText"></p>
+      <div class="opening-lyric-card__rule"></div>
+    </aside>
 
     <div class="wedding-opening__envelope">
       <div class="wedding-opening__back"></div>
@@ -604,7 +711,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 
   <!-- Opening animation embedded directly: no external .js file -->
   <script>
@@ -619,36 +726,54 @@
         var card = opening && opening.querySelector(".wedding-opening__card");
         var names = opening && opening.querySelector(".wedding-opening__names");
         var date = opening && opening.querySelector(".wedding-opening__date");
+        var cinemaLayer = document.getElementById("openingCinemaLayer");
+        var lyricCard = document.getElementById("openingLyricCard");
+        var lyricText = document.getElementById("openingLyricText");
+        var liftGlow = document.getElementById("openingCardLiftGlow");
+        var ambient = document.getElementById("openingAmbient");
+        var vowAudio = document.getElementById("vowAudio");
+        var playlistAudio = document.getElementById("playlistAudio");
 
-        if (!opening || !envelope || !seal || !flap || !card || !names) return;
+        if (!opening || !envelope || !seal || !flap || !card || !names || !cinemaLayer) return;
 
         document.body.classList.add("wedding-opening-lock");
         var started = false;
+        var finished = false;
+        var fallbackDuration = 24.946939;
+        var lyricTimers = [];
 
+        var lyricLines = [
+          "Từ những ngày rất đỗi bình thường, chúng con đã tìm thấy nhau.",
+          "Chúng con hứa sẽ cùng nhau đi qua những ngày vui, những ngày khó khăn và những điều chưa biết trước.",
+          "Từ hôm nay, hai hành trình sẽ trở thành một mái nhà."
+        ];
+
+        function rand(min, max) { return Math.random() * (max - min) + min; }
+        function animate(el, frames, options) {
+          if (!el || !el.animate) return null;
+          return el.animate(frames, options);
+        }
+        function later(fn, ms){ return window.setTimeout(fn, Math.max(0, ms)); }
+
+        /* ---------- stars ---------- */
         var fxLayer = document.createElement("div");
         fxLayer.className = "wedding-opening__fx";
         fxLayer.setAttribute("aria-hidden", "true");
         opening.appendChild(fxLayer);
 
-        function rand(min, max) {
-          return Math.random() * (max - min) + min;
-        }
-
         function createFallingStars() {
-          var count = window.innerWidth < 700 ? 28 : 64;
+          var count = window.innerWidth < 700 ? 34 : 76;
           var fragment = document.createDocumentFragment();
-
           for (var i = 0; i < count; i++) {
             var star = document.createElement("i");
             star.className = "wedding-opening__star";
-            star.style.setProperty("--x", rand(2, 98).toFixed(2) + "vw");
-            star.style.setProperty("--size", rand(1.8, window.innerWidth < 700 ? 4.2 : 5.4).toFixed(2) + "px");
-            star.style.setProperty("--duration", rand(4.8, 8.8).toFixed(2) + "s");
+            star.style.setProperty("--x", rand(1, 99).toFixed(2) + "vw");
+            star.style.setProperty("--size", rand(1.7, window.innerWidth < 700 ? 4.3 : 5.5).toFixed(2) + "px");
+            star.style.setProperty("--duration", rand(4.6, 8.8).toFixed(2) + "s");
             star.style.setProperty("--delay", (-rand(0, 10)).toFixed(2) + "s");
-            star.style.setProperty("--drift", rand(-58, 58).toFixed(0) + "px");
+            star.style.setProperty("--drift", rand(-62, 62).toFixed(0) + "px");
             fragment.appendChild(star);
           }
-
           fxLayer.appendChild(fragment);
         }
 
@@ -657,7 +782,6 @@
           burst.className = "wedding-opening__burst";
           burst.setAttribute("aria-hidden", "true");
           fxLayer.appendChild(burst);
-
           var symbols = [
             { char: "♡", cls: "is-heart" },
             { char: "♥", cls: "is-heart" },
@@ -665,211 +789,295 @@
             { char: "✿", cls: "is-flower" },
             { char: "❁", cls: "is-flower" }
           ];
-
-          var count = window.innerWidth < 700 ? 16 : 34;
-
+          var count = window.innerWidth < 700 ? 18 : 36;
           for (var i = 0; i < count; i++) {
             var particle = document.createElement("span");
             var item = symbols[i % symbols.length];
             var angle = rand(200, 340) * Math.PI / 180;
-            var distance = rand(window.innerWidth < 700 ? 105 : 180, window.innerWidth < 700 ? 230 : 430);
-            var tx = Math.cos(angle) * distance;
-            var ty = Math.sin(angle) * distance - rand(10, 90);
-
+            var distance = rand(window.innerWidth < 700 ? 105 : 190, window.innerWidth < 700 ? 240 : 440);
             particle.className = "wedding-opening__burst-particle " + item.cls;
             particle.textContent = item.char;
-            particle.style.setProperty("--tx", tx.toFixed(0) + "px");
-            particle.style.setProperty("--ty", ty.toFixed(0) + "px");
-            particle.style.setProperty("--rot", rand(-180, 180).toFixed(0) + "deg");
-            particle.style.setProperty("--scale", rand(window.innerWidth < 700 ? .85 : 1.0, window.innerWidth < 700 ? 1.4 : 1.8).toFixed(2));
-            particle.style.setProperty("--duration", rand(1550, 2550).toFixed(0) + "ms");
-            particle.style.animationDelay = rand(0, 260).toFixed(0) + "ms";
+            particle.style.setProperty("--tx", (Math.cos(angle) * distance).toFixed(0) + "px");
+            particle.style.setProperty("--ty", (Math.sin(angle) * distance - rand(10, 100)).toFixed(0) + "px");
+            particle.style.setProperty("--rot", rand(-190, 190).toFixed(0) + "deg");
+            particle.style.setProperty("--scale", rand(window.innerWidth < 700 ? .8 : 1.0, window.innerWidth < 700 ? 1.4 : 1.85).toFixed(2));
+            particle.style.setProperty("--duration", rand(1650, 2700).toFixed(0) + "ms");
+            particle.style.animationDelay = rand(0, 240).toFixed(0) + "ms";
             burst.appendChild(particle);
           }
+          later(function(){ burst.remove(); }, 3100);
+        }
 
-          window.setTimeout(function () {
-            if (burst.parentNode) burst.parentNode.removeChild(burst);
-          }, 2800);
+        /* ---------- dove ---------- */
+        function doveSVG(){
+          return '<svg viewBox="0 0 120 80" aria-hidden="true">' +
+            '<path class="dove-wing wing-l" d="M56 40C38 39 22 29 10 13c2 20 13 36 31 47 8 5 16 6 23 4-5-7-7-15-8-24Z"/>' +
+            '<path class="dove-wing wing-r" d="M64 39c17-5 35-17 46-31-2 21-12 39-29 52-7 5-15 8-23 6 5-8 7-17 6-27Z"/>' +
+            '<path class="dove-body" d="M42 47c7-16 22-22 37-16 8 3 13 9 17 16 6 2 11 1 16-3-1 7-6 12-14 13-7 14-24 18-38 11-8-4-14-11-18-21Z"/>' +
+            '<path class="dove-body" d="M90 37c4-8 10-12 17-12 3 0 6 1 8 3-6 1-10 4-13 9"/>' +
+            '</svg>';
+        }
+        function makeDove(extraClass){
+          var d = document.createElement("div");
+          d.className = "opening-dove " + (extraClass || "");
+          d.innerHTML = doveSVG();
+          cinemaLayer.appendChild(d);
+          return d;
+        }
+        function pointForCard(xRatio, yRatio){
+          var cardRect = card.getBoundingClientRect();
+          var openRect = opening.getBoundingClientRect();
+          return {
+            x: cardRect.left - openRect.left + cardRect.width * xRatio,
+            y: cardRect.top - openRect.top + cardRect.height * yRatio
+          };
+        }
+        function placeDove(dove, p){
+          dove.style.left = p.x + "px";
+          dove.style.top = p.y + "px";
+        }
+
+        function flyOpeningDoves(){
+          var leftDove = makeDove("is-flying");
+          var rightDove = makeDove("is-flying");
+          var leftTarget = pointForCard(.24,.13);
+          var rightTarget = pointForCard(.70,.13);
+          placeDove(leftDove, leftTarget);
+          placeDove(rightDove, rightTarget);
+          animate(leftDove,[
+            {opacity:0,transform:"translate(-36vw,-42vh) rotate(-20deg) scale(.72)"},
+            {opacity:1,offset:.16},
+            {opacity:1,transform:"translate(-7vw,-6vh) rotate(8deg) scale(1)",offset:.82},
+            {opacity:.15,transform:"translate(-1vw,1vh) rotate(14deg) scale(.95)"}
+          ],{duration:3600,easing:"cubic-bezier(.2,.66,.2,1)",fill:"forwards"});
+          animate(rightDove,[
+            {opacity:0,transform:"translate(36vw,-42vh) rotate(20deg) scale(.72) scaleX(-1)"},
+            {opacity:1,offset:.16},
+            {opacity:1,transform:"translate(7vw,-6vh) rotate(-8deg) scale(1) scaleX(-1)",offset:.82},
+            {opacity:.15,transform:"translate(1vw,1vh) rotate(-14deg) scale(.95) scaleX(-1)"}
+          ],{duration:3600,easing:"cubic-bezier(.2,.66,.2,1)",fill:"forwards"});
+          later(function(){leftDove.remove();rightDove.remove();},3900);
+        }
+
+        function createLiftDoves(){
+          var points = [
+            {x:.08,y:.10,flip:false,dx:-28,dy:-12},
+            {x:.08,y:.74,flip:false,dx:-34,dy:0},
+            {x:.84,y:.10,flip:true,dx:16,dy:-12},
+            {x:.84,y:.74,flip:true,dx:20,dy:0}
+          ];
+          var birds = [];
+          points.forEach(function(item,index){
+            var d = makeDove("is-lifting");
+            var p = pointForCard(item.x,item.y);
+            placeDove(d,p);
+            birds.push({el:d,flip:item.flip});
+            var fromX = item.flip ? 30 : -30;
+            animate(d,[
+              {opacity:0,transform:"translate("+(fromX*3)+"px,85px) scale(.72)"+(item.flip?" scaleX(-1)":"")},
+              {opacity:1,offset:.25},
+              {opacity:1,transform:"translate("+item.dx+"px,"+item.dy+"px) scale(1)"+(item.flip?" scaleX(-1)":"")}
+            ],{duration:1900+index*110,easing:"cubic-bezier(.18,.76,.2,1)",fill:"forwards"});
+          });
+          return birds;
+        }
+
+        function liftCardWithDoves(birds){
+          if(liftGlow){
+            animate(liftGlow,[{opacity:0,transform:"scale(.88)"},{opacity:1,transform:"scale(1.1)"},{opacity:.35,transform:"scale(1.18)"}],{duration:3300,easing:"ease",fill:"forwards"});
+          }
+          animate(card,[
+            {transform:"translateY(-72px) scale(1.015)"},
+            {transform:"translateY(-128px) scale(1.025)"}
+          ],{duration:3200,easing:"cubic-bezier(.22,.72,.2,1)",fill:"forwards"});
+          birds.forEach(function(b,index){
+            var flip = b.flip ? " scaleX(-1)" : "";
+            animate(b.el,[
+              {transform:"translateY(0px)"+flip},
+              {transform:"translateY(-56px)"+flip}
+            ],{duration:3200+index*60,easing:"cubic-bezier(.22,.72,.2,1)",fill:"forwards"});
+          });
+        }
+
+        /* ---------- lyric / optional spoken intro ---------- */
+        function showLyric(index){
+          if(!lyricCard || !lyricText) return;
+          lyricCard.classList.add("show");
+          lyricText.classList.add("swap");
+          later(function(){
+            lyricText.textContent = lyricLines[Math.max(0,Math.min(lyricLines.length-1,index))];
+            lyricText.classList.remove("swap");
+          },260);
+        }
+        function scheduleLyrics(durationMs){
+          var times = [durationMs*.29,durationMs*.48,durationMs*.66];
+          times.forEach(function(t,i){ lyricTimers.push(later(function(){showLyric(i);},t)); });
+          lyricTimers.push(later(function(){ if(lyricCard) lyricCard.classList.remove("show"); },durationMs*.88));
+        }
+        function tryPlaySpokenIntro(){
+          if(!vowAudio) return;
+          var cfg = window.WEDDING_CONFIG && window.WEDDING_CONFIG.audio;
+          var source = cfg && cfg.vowAudio;
+          if(!source) return;
+          vowAudio.src = source;
+          vowAudio.volume = .82;
+          vowAudio.play().catch(function(){});
+        }
+
+        /* ---------- playlist after opening ---------- */
+        function shuffle(arr){
+          var a=arr.slice();
+          for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+          return a;
+        }
+        function startPlaylistAfterOpening(){
+          var cfg = window.WEDDING_CONFIG && window.WEDDING_CONFIG.audio;
+          if(!playlistAudio || !cfg || !Array.isArray(cfg.playlist)) return;
+          var queue = shuffle(cfg.playlist.filter(Boolean)).slice(0,Math.max(0,Number(cfg.maxPlaylistTracks||3)));
+          if(!queue.length) return;
+          var idx=0;
+          function next(){
+            if(idx>=queue.length) return;
+            playlistAudio.src=queue[idx++];
+            playlistAudio.volume=Math.min(.38,Number(cfg.playlistVolume||.28));
+            playlistAudio.play().catch(function(){});
+          }
+          playlistAudio.addEventListener("ended",next);
+          next();
         }
 
         createFallingStars();
 
-        function animate(el, frames, options) {
-          if (!el || !el.animate) return null;
-          return el.animate(frames, options);
-        }
-
-        function finishOpening() {
-          animate(opening, [
-            { opacity: 1, filter: "blur(0px)" },
-            { opacity: 0, filter: "blur(12px)" }
-          ], {
-            duration: 950,
-            easing: "ease",
-            fill: "forwards"
-          });
-
-          window.setTimeout(function () {
+        function finishOpening(){
+          if(finished) return;
+          finished = true;
+          lyricTimers.forEach(clearTimeout);
+          if(lyricCard) lyricCard.classList.remove("show");
+          if(vowAudio && !vowAudio.paused){
+            var vFrom = vowAudio.volume;
+            var vStart = performance.now();
+            (function fadeVoice(now){
+              var p=Math.min(1,(now-vStart)/650); vowAudio.volume=vFrom*(1-p);
+              if(p<1) requestAnimationFrame(fadeVoice); else vowAudio.pause();
+            })(vStart);
+          }
+          animate(opening,[
+            {opacity:1,filter:"blur(0px)"},
+            {opacity:0,filter:"blur(12px)"}
+          ],{duration:1050,easing:"ease",fill:"forwards"});
+          later(function(){
             document.body.classList.remove("wedding-opening-lock");
-            try {
-              window.dispatchEvent(new CustomEvent("wedding:opening-complete"));
-            } catch (e) {}
-
-            if (opening.parentNode) opening.parentNode.removeChild(opening);
-
-            var target = document.querySelector(".hero") || document.querySelector("main");
-            if (target) {
-              target.scrollIntoView({ behavior: "auto", block: "start" });
-            }
-          }, 980);
+            try{window.dispatchEvent(new CustomEvent("wedding:opening-complete"));}catch(e){}
+            if(opening.parentNode) opening.parentNode.removeChild(opening);
+            var target=document.querySelector(".hero-v10")||document.querySelector("main");
+            if(target) target.scrollIntoView({behavior:"auto",block:"start"});
+            startPlaylistAfterOpening();
+          },1080);
         }
 
-        function openInvitation(event) {
-          if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
-          }
+        function startMusicFromGesture(){
+          if(!ambient) return;
+          ambient.loop=false;
+          ambient.currentTime=0;
+          var cfg=window.WEDDING_CONFIG && window.WEDDING_CONFIG.audio;
+          var master=.18;
+          try{
+            var saved=Number(localStorage.getItem("weddingMasterVolume")||"0.65");
+            if(Number.isFinite(saved)) master*=Math.max(0,Math.min(1,saved));
+          }catch(e){}
+          ambient.volume=master;
+          try{
+            var promise=ambient.play();
+            if(promise&&promise.catch) promise.catch(function(){});
+          }catch(e){}
+        }
 
-          if (started) return;
-          started = true;
-          seal.disabled = true;
+        function openInvitation(event){
+          if(event){event.preventDefault();event.stopPropagation();if(event.stopImmediatePropagation)event.stopImmediatePropagation();}
+          if(started) return;
+          started=true;
+          seal.disabled=true;
 
-          /* Phát instrumental trực tiếp trong thao tác click để iPhone/Safari
-             xem đây là âm thanh do người dùng chủ động kích hoạt. */
-          if (typeof window.startWeddingAmbientNow === "function") {
-            window.startWeddingAmbientNow();
-          }
+          startMusicFromGesture();
 
-          /* Cho nhạc có 1.6 giây dẫn vào trước khi phong bì bắt đầu xé. */
-          window.setTimeout(function () {
+          var durationSec = Number.isFinite(ambient && ambient.duration) && ambient.duration>8 ? ambient.duration : fallbackDuration;
+          var durationMs = durationSec*1000;
+          scheduleLyrics(durationMs);
 
-          /* 1. Seal cracks / shrinks */
-          animate(seal, [
-            { transform: "translate(-50%, -50%) scale(1)", opacity: 1, filter: "blur(0px)" },
-            { transform: "translate(-50%, -50%) scale(1.08) rotate(-2deg)", opacity: 1, offset: .28 },
-            { transform: "translate(-50%, -50%) scale(.82) rotate(5deg)", opacity: .55, offset: .68 },
-            { transform: "translate(-50%, -50%) scale(.62) rotate(-9deg)", opacity: 0, filter: "blur(2px)" }
-          ], {
-            duration: 1250,
-            easing: "cubic-bezier(.2,.7,.2,1)",
-            fill: "forwards"
+          /* 0.0–2.6s — logo responds; glowing cut grows from center to both edges. */
+          animate(seal,[
+            {transform:"translate(-50%,-50%) scale(1)",opacity:1},
+            {transform:"translate(-50%,-50%) scale(1.075)",opacity:1,offset:.34},
+            {transform:"translate(-50%,-50%) scale(.76) rotate(-5deg)",opacity:.35,offset:.78},
+            {transform:"translate(-50%,-50%) scale(.60) rotate(-9deg)",opacity:0,filter:"blur(2px)"}
+          ],{duration:2250,easing:"cubic-bezier(.2,.68,.2,1)",fill:"forwards"});
+          if(date) animate(date,[{opacity:1},{opacity:0}],{duration:900,delay:650,fill:"forwards"});
+
+          [tearLeft,tearRight].forEach(function(line){
+            if(!line) return;
+            line.style.opacity="1";
+            animate(line,[
+              {width:"0%",opacity:0},
+              {width:"8%",opacity:1,offset:.15},
+              {width:"26%",opacity:1,offset:.55},
+              {width:"49%",opacity:1}
+            ],{duration:2600,easing:"cubic-bezier(.16,.72,.2,1)",fill:"forwards"});
           });
 
-          if (date) {
-            animate(date, [
-              { opacity: 1, transform: "translateX(-50%) translateY(0)" },
-              { opacity: 0, transform: "translateX(-50%) translateY(8px)" }
-            ], { duration: 420, easing: "ease", fill: "forwards" });
+          /* 2.0–5.6s — two doves descend and visually guide the envelope open. */
+          later(flyOpeningDoves,1900);
+          animate(envelope,[
+            {transform:"translateY(2vh) scale(1)"},
+            {transform:"translateY(2vh) scale(1.012)",offset:.48},
+            {transform:"translateY(2vh) scale(1)"}
+          ],{duration:2900,delay:1100,easing:"ease"});
+
+          /* 4.7–7.5s — flap opens slowly. */
+          later(function(){
+            animate(flap,[
+              {transform:"rotateX(0deg)",zIndex:6},
+              {transform:"rotateX(44deg)",offset:.34},
+              {transform:"rotateX(110deg)",offset:.68},
+              {transform:"rotateX(178deg)",zIndex:1}
+            ],{duration:2800,easing:"cubic-bezier(.30,.04,.18,1)",fill:"forwards"});
+            [tearLeft,tearRight].forEach(function(line){if(line)animate(line,[{opacity:1},{opacity:0}],{duration:900,delay:700,fill:"forwards"});});
+          },4700);
+
+          /* 7.0–10.3s — invitation rises; hearts and flowers release. */
+          later(function(){
+            card.style.zIndex="8";
+            burstHeartsAndFlowers();
+            animate(card,[
+              {transform:"translateY(0px) scale(1)"},
+              {transform:"translateY(-72px) scale(1.015)"}
+            ],{duration:3250,easing:"cubic-bezier(.18,.76,.2,1)",fill:"forwards"});
+            animate(names,[
+              {opacity:0,transform:"translateY(18px) scale(.985)",filter:"blur(5px)"},
+              {opacity:1,transform:"translateY(0) scale(1)",filter:"blur(0px)"}
+            ],{duration:1800,delay:800,easing:"ease",fill:"forwards"});
+            tryPlaySpokenIntro();
+          },7000);
+
+          /* 16.8s — four doves take positions at the two sides/corners. */
+          var liftBirds=[];
+          later(function(){liftBirds=createLiftDoves();},Math.min(durationMs*.68,16900));
+
+          /* 19.0s — four doves lift the invitation for the musical finale. */
+          later(function(){if(liftBirds.length)liftCardWithDoves(liftBirds);},Math.min(durationMs*.77,19200));
+
+          /* Transition only when the instrumental really ends. */
+          if(ambient){
+            ambient.addEventListener("ended",finishOpening,{once:true});
           }
-
-          /* 2. Cutting lines travel from the seal to both edges */
-          if (tearLeft) {
-            tearLeft.style.opacity = "1";
-            animate(tearLeft, [
-              { width: "0%", opacity: 0 },
-              { width: "10%", opacity: 1, offset: .18 },
-              { width: "49%", opacity: 1 }
-            ], {
-              duration: 1400,
-              easing: "cubic-bezier(.18,.72,.2,1)",
-              fill: "forwards"
-            });
-          }
-
-          if (tearRight) {
-            tearRight.style.opacity = "1";
-            animate(tearRight, [
-              { width: "0%", opacity: 0 },
-              { width: "10%", opacity: 1, offset: .18 },
-              { width: "49%", opacity: 1 }
-            ], {
-              duration: 1400,
-              easing: "cubic-bezier(.18,.72,.2,1)",
-              fill: "forwards"
-            });
-          }
-
-          /* tiny envelope tension before opening */
-          animate(envelope, [
-            { transform: "translateY(2vh) scale(1)" },
-            { transform: "translateY(2vh) scale(1.012)", offset: .5 },
-            { transform: "translateY(2vh) scale(1)" }
-          ], { duration: 850, easing: "ease" });
-
-          /* 3. After cut completes, flap opens */
-          window.setTimeout(function () {
-            animate(flap, [
-              { transform: "rotateX(0deg)", zIndex: 6 },
-              { transform: "rotateX(62deg)", offset: .42 },
-              { transform: "rotateX(178deg)", zIndex: 1 }
-            ], {
-              duration: 1550,
-              easing: "cubic-bezier(.35,.05,.2,1)",
-              fill: "forwards"
-            });
-
-            if (tearLeft) {
-              animate(tearLeft, [{ opacity: 1 }, { opacity: 0 }], {
-                duration: 320, delay: 180, fill: "forwards"
-              });
-            }
-            if (tearRight) {
-              animate(tearRight, [{ opacity: 1 }, { opacity: 0 }], {
-                duration: 320, delay: 180, fill: "forwards"
-              });
-            }
-
-            /* 4. Card rises clearly above the envelope */
-            window.setTimeout(function () {
-              /* Tới đây phong bì đã mở đủ chậm để nhạc instrumental có thời gian dẫn vào. */
-              try {
-                window.dispatchEvent(new CustomEvent("wedding:seal-opened"));
-              } catch (e) {}
-
-              burstHeartsAndFlowers();
-              card.style.zIndex = "8";
-              animate(card, [
-                { transform: "translateY(0px) scale(1)" },
-                { transform: "translateY(-72px) scale(1.015)" }
-              ], {
-                duration: 1450,
-                easing: "cubic-bezier(.2,.78,.2,1)",
-                fill: "forwards"
-              });
-
-              animate(names, [
-                { opacity: 0, transform: "translateY(18px) scale(.985)", filter: "blur(5px)" },
-                { opacity: 1, transform: "translateY(0px) scale(1)", filter: "blur(0px)" }
-              ], {
-                duration: 1150,
-                delay: 360,
-                easing: "ease",
-                fill: "forwards"
-              });
-
-              /* Chờ lời hứa phát xong rồi mới đi vào nội dung.
-                 Nếu chưa có file lời hứa, fallback về nhịp mở thiệp cũ. */
-              if (typeof window.waitForWeddingVowThenFinish === "function") {
-                window.waitForWeddingVowThenFinish(finishOpening);
-              } else {
-                window.setTimeout(finishOpening, 4100);
-              }
-            }, 760);
-          }, 1650);
-
-          }, 1600);
+          /* Safety fallback in case the browser never fires ended. */
+          later(finishOpening,durationMs+1200);
         }
 
-        /* Capture phase prevents older click handlers from skipping our animation. */
-        seal.addEventListener("click", openInvitation, true);
+        seal.addEventListener("click",openInvitation,true);
       }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initWeddingOpening);
-      } else {
-        initWeddingOpening();
-      }
+      if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",initWeddingOpening);
+      else initWeddingOpening();
     })();
   </script>
 
