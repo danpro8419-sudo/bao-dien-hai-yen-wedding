@@ -336,7 +336,7 @@
 </head>
 
 <body>
-  <!-- WEDDING_OPENING_VERSION: V11.9-DOVE-ASSET-SYNC -->
+  <!-- WEDDING_OPENING_VERSION: V11.10-DOVE-ANCHOR-SYMMETRY-USER-TEXT -->
 
   <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
     <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
@@ -861,8 +861,11 @@
           };
         }
         function placeDove(dove, p){
+          /* p là tâm điểm đáp, không phải góc trái của ảnh chim. */
           dove.style.left = p.x + "px";
           dove.style.top = p.y + "px";
+          dove.style.marginLeft = -(dove.offsetWidth / 2) + "px";
+          dove.style.marginTop = -(dove.offsetHeight / 2) + "px";
         }
 
         function makeLiftThread(x, y, rotateDeg){
@@ -883,18 +886,19 @@
           var leftDove = makeDove("is-flying");
           var rightDove = makeDove("is-flying");
 
-          var leftTarget = pointForCard(.13,.08);
-          var rightTarget = pointForCard(.87,.08);
+          /* Hai tâm điểm đáp đối xứng tuyệt đối qua trục giữa lá thư. */
+          var leftTarget = pointForCard(.115,.105);
+          var rightTarget = pointForCard(.885,.105);
 
           placeDove(leftDove, leftTarget);
           placeDove(rightDove, rightTarget);
 
           animate(leftDove,[
-            {opacity:0,transform:"translate(-44vw,-46vh) rotate(-11deg) scale(.62)"},
+            {opacity:0,transform:"translate(-43vw,-44vh) rotate(-10deg) scale(.60)"},
             {opacity:1,offset:.18},
-            {opacity:1,transform:"translate(-10vw,-8vh) rotate(2deg) scale(.86)",offset:.70},
-            {opacity:.94,transform:"translate(-3vw,-2vh) rotate(4deg) scale(.90)",offset:.90},
-            {opacity:0,transform:"translate(-1vw,0) rotate(5deg) scale(.86)"}
+            {opacity:1,transform:"translate(-8vw,-7vh) rotate(1deg) scale(.84)",offset:.70},
+            {opacity:.95,transform:"translate(-18px,-8px) rotate(3deg) scale(.88)",offset:.91},
+            {opacity:0,transform:"translate(-12px,-4px) rotate(4deg) scale(.86)"}
           ],{
             duration:4100,
             easing:"cubic-bezier(.18,.68,.2,1)",
@@ -902,11 +906,11 @@
           });
 
           animate(rightDove,[
-            {opacity:0,transform:"translate(44vw,-46vh) rotate(11deg) scale(.62) scaleX(-1)"},
+            {opacity:0,transform:"translate(43vw,-44vh) rotate(10deg) scale(.60) scaleX(-1)"},
             {opacity:1,offset:.18},
-            {opacity:1,transform:"translate(10vw,-8vh) rotate(-2deg) scale(.86) scaleX(-1)",offset:.70},
-            {opacity:.94,transform:"translate(3vw,-2vh) rotate(-4deg) scale(.90) scaleX(-1)",offset:.90},
-            {opacity:0,transform:"translate(1vw,0) rotate(-5deg) scale(.86) scaleX(-1)"}
+            {opacity:1,transform:"translate(8vw,-7vh) rotate(-1deg) scale(.84) scaleX(-1)",offset:.70},
+            {opacity:.95,transform:"translate(18px,-8px) rotate(-3deg) scale(.88) scaleX(-1)",offset:.91},
+            {opacity:0,transform:"translate(12px,-4px) rotate(-4deg) scale(.86) scaleX(-1)"}
           ],{
             duration:4100,
             easing:"cubic-bezier(.18,.68,.2,1)",
@@ -920,12 +924,12 @@
         }
 
         function createLiftDoves(){
-          /* Bốn chim cân đối đúng bốn góc của lá thư. */
+          /* 4 điểm neo đối xứng tuyệt đối. */
           var groups = [
-            {x:.055,y:.085,flip:false,dx:-78,dy:-58,threadRot:-12},
-            {x:.945,y:.085,flip:true, dx:-10,dy:-58,threadRot:12},
-            {x:.055,y:.865,flip:false,dx:-78,dy:-8, threadRot:-7},
-            {x:.945,y:.865,flip:true, dx:-10,dy:-8, threadRot:7}
+            {x:.065,y:.105,flip:false,dx:-52,dy:-50,threadRot:-11},
+            {x:.935,y:.105,flip:true, dx: 52,dy:-50,threadRot: 11},
+            {x:.065,y:.855,flip:false,dx:-52,dy:  8,threadRot: -7},
+            {x:.935,y:.855,flip:true, dx: 52,dy:  8,threadRot:  7}
           ];
 
           var birds = [];
@@ -944,7 +948,7 @@
             animate(d,[
               {
                 opacity:0,
-                transform:"translate("+(item.flip?150:-150)+"px,"+(item.y>.5?64:86)+"px) scale(.54)"+flip
+                transform:"translate("+(item.flip?148:-148)+"px,"+(item.y>.5?62:82)+"px) scale(.54)"+flip
               },
               {opacity:.95,offset:.34},
               {opacity:1,transform:finalTransform}
@@ -954,11 +958,8 @@
               fill:"forwards"
             });
 
-            var anchorX =
-              cardRect.left - openRect.left + cardRect.width * item.x;
-            var anchorY =
-              cardRect.top - openRect.top + cardRect.height * item.y;
-
+            var anchorX = cardRect.left - openRect.left + cardRect.width * item.x;
+            var anchorY = cardRect.top - openRect.top + cardRect.height * item.y;
             var thread = makeLiftThread(anchorX, anchorY, item.threadRot);
 
             birds.push({
