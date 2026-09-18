@@ -206,7 +206,7 @@
 
 
 <style id="openingCinematicV114">
-  /* V11.4 — cinematic dove / lyric sequence. Scoped to Opening only. */
+  /* V11.14 — cinematic dove / lyric sequence. Scoped to Opening only. */
   .wedding-opening__cinema-layer{
     position:absolute;
     inset:0;
@@ -270,7 +270,7 @@
     z-index:60;
     left:clamp(28px,5vw,88px);
     top:50%;
-    width:min(365px,31vw);
+    width:min(420px,34vw);
     transform:translateY(-45%);
     padding:18px 20px 19px;
     border-left:1px solid rgba(221,188,137,.58);
@@ -291,7 +291,7 @@
   .opening-lyric-card__text{
     min-height:2.1em;
     margin:0;
-    font:italic clamp(19px,1.7vw,27px)/1.36 "Cormorant Garamond",serif;
+    font:italic clamp(18px,1.55vw,26px)/1.38 "Cormorant Garamond",serif;
     transition:opacity .32s ease,transform .32s ease;
   }
   .opening-lyric-card__text.swap{opacity:0;transform:translateY(7px)}
@@ -299,7 +299,7 @@
     text-wrap:balance;
   }
   .opening-lyric-card__text.is-long{
-    font-size:clamp(17px,1.42vw,23px);
+    font-size:clamp(16px,1.25vw,21px);
     line-height:1.34;
   }
 
@@ -341,10 +341,58 @@
   }
 </style>
 
+
+<style id="mobileOpeningPolishV1114">
+  @media (max-width:700px){
+    .audio-control{
+      top:max(10px, env(safe-area-inset-top, 0px));
+      left:12px;
+      transform:scale(.92);
+      transform-origin:top left;
+    }
+    .admin-quick-link{
+      top:max(10px, env(safe-area-inset-top, 0px));
+      right:12px;
+    }
+    .opening-lyric-card{
+      left:12px;
+      right:12px;
+      bottom:max(14px, env(safe-area-inset-bottom, 0px));
+      padding:11px 12px 12px;
+      border-top:1px solid rgba(221,188,137,.36);
+      border-radius:16px;
+      background:linear-gradient(180deg,rgba(18,13,10,.16),rgba(18,13,10,.64));
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+      backdrop-filter:blur(7px);
+    }
+    .opening-lyric-card__kicker{
+      margin-bottom:8px;
+      font-size:6px;
+      letter-spacing:.28em;
+    }
+    .opening-lyric-card__text{
+      font-size:clamp(16px,4.6vw,19px);
+      line-height:1.34;
+      min-height:4.4em;
+    }
+    .opening-lyric-card__text.is-long{
+      font-size:clamp(14px,4.1vw,17px);
+      line-height:1.38;
+    }
+    .opening-lyric-card__rule{
+      width:34px;
+      margin-top:10px;
+    }
+    .opening-dove{
+      width:clamp(54px,14vw,78px);
+    }
+  }
+</style>
+
 </head>
 
 <body>
-  <!-- WEDDING_OPENING_VERSION: V11.12-OPENING-NOTE-SEQUENCE -->
+  <!-- WEDDING_OPENING_VERSION: V11.14-MOBILE-POLISH -->
 
   <div class="audio-control" id="audioControl" aria-label="Điều khiển âm thanh">
     <button class="audio-control__toggle" id="audioToggle" type="button" aria-label="Bật hoặc tắt âm thanh">
@@ -778,6 +826,7 @@
         var lyricCard = document.getElementById("openingLyricCard");
         var lyricText = document.getElementById("openingLyricText");
         var liftGlow = document.getElementById("openingCardLiftGlow");
+        var isNarrow = window.matchMedia && window.matchMedia("(max-width:700px)").matches;
         var ambient = document.getElementById("openingAmbient");
         var vowAudio = document.getElementById("vowAudio");
         var playlistAudio = document.getElementById("playlistAudio");
@@ -873,8 +922,11 @@
           };
         }
         function placeDove(dove, p){
-          dove.style.left = p.x + "px";
-          dove.style.top = p.y + "px";
+          var rect = dove.getBoundingClientRect();
+          var w = rect.width || 110;
+          var h = rect.height || 110;
+          dove.style.left = (p.x - w/2) + "px";
+          dove.style.top = (p.y - h/2) + "px";
         }
 
         function makeLiftThread(x, y, rotateDeg){
@@ -932,12 +984,19 @@
         }
 
         function createLiftDoves(){
-          var groups = [
-            {x:.065,y:.105,flip:false,dx:-52,dy:-50,threadRot:-11},
-            {x:.935,y:.105,flip:true, dx: 52,dy:-50,threadRot: 11},
-            {x:.065,y:.855,flip:false,dx:-52,dy:  8,threadRot: -7},
-            {x:.935,y:.855,flip:true, dx: 52,dy:  8,threadRot:  7}
-          ];
+          var groups = isNarrow
+            ? [
+                {x:.12,y:.15,flip:false,dx:-18,dy:-16,threadRot:-10},
+                {x:.88,y:.15,flip:true, dx: 18,dy:-16,threadRot: 10},
+                {x:.12,y:.85,flip:false,dx:-18,dy: 16,threadRot: -6},
+                {x:.88,y:.85,flip:true, dx: 18,dy: 16,threadRot:  6}
+              ]
+            : [
+                {x:.105,y:.135,flip:false,dx:-26,dy:-22,threadRot:-11},
+                {x:.895,y:.135,flip:true, dx: 26,dy:-22,threadRot: 11},
+                {x:.105,y:.865,flip:false,dx:-26,dy: 22,threadRot: -7},
+                {x:.895,y:.865,flip:true, dx: 26,dy: 22,threadRot:  7}
+              ];
 
           var birds = [];
           var cardRect = card.getBoundingClientRect();
@@ -995,13 +1054,23 @@
             });
           }
 
-          var liftAnim = animate(card,[
-            {transform:"translateY(-18px) scale(1.01)"},
-            {transform:"translateY(-70px) scale(1.012)",offset:.22},
-            {transform:"translateY(-205px) scale(1.015)",offset:.58},
-            {transform:"translateY(-355px) scale(1.018)",offset:.84},
-            {transform:"translateY(-470px) scale(1.02)"}
-          ],{
+          var cardFrames = isNarrow
+            ? [
+                {transform:"translateY(-14px) scale(1.01)"},
+                {transform:"translateY(-56px) scale(1.012)",offset:.22},
+                {transform:"translateY(-155px) scale(1.015)",offset:.58},
+                {transform:"translateY(-265px) scale(1.018)",offset:.84},
+                {transform:"translateY(-360px) scale(1.02)"}
+              ]
+            : [
+                {transform:"translateY(-18px) scale(1.01)"},
+                {transform:"translateY(-70px) scale(1.012)",offset:.22},
+                {transform:"translateY(-205px) scale(1.015)",offset:.58},
+                {transform:"translateY(-355px) scale(1.018)",offset:.84},
+                {transform:"translateY(-470px) scale(1.02)"}
+              ];
+
+          var liftAnim = animate(card, cardFrames, {
             duration:3200,
             easing:"cubic-bezier(.18,.74,.18,1)",
             fill:"forwards"
@@ -1009,26 +1078,42 @@
 
           birds.forEach(function(b,index){
             var flip = b.flip ? " scaleX(-1)" : "";
-            var sideDrift = b.side * 30;
+            var sideDrift = b.side * (isNarrow ? 20 : 30);
+            var birdFrames = isNarrow
+              ? [
+                  {transform:"translate("+b.baseDx+"px,"+b.baseDy+"px) scale(.70)"+flip},
+                  {transform:"translate("+(b.baseDx+sideDrift*.28)+"px,"+(b.baseDy-52)+"px) scale(.74)"+flip,offset:.28},
+                  {transform:"translate("+(b.baseDx+sideDrift*.62)+"px,"+(b.baseDy-165)+"px) scale(.78)"+flip,offset:.70},
+                  {transform:"translate("+(b.baseDx+sideDrift)+"px,"+(b.baseDy-300)+"px) scale(.80)"+flip}
+                ]
+              : [
+                  {transform:"translate("+b.baseDx+"px,"+b.baseDy+"px) scale(.72)"+flip},
+                  {transform:"translate("+(b.baseDx+sideDrift*.30)+"px,"+(b.baseDy-72)+"px) scale(.76)"+flip,offset:.28},
+                  {transform:"translate("+(b.baseDx+sideDrift*.68)+"px,"+(b.baseDy-230)+"px) scale(.80)"+flip,offset:.70},
+                  {transform:"translate("+(b.baseDx+sideDrift)+"px,"+(b.baseDy-390)+"px) scale(.82)"+flip}
+                ];
 
-            animate(b.el,[
-              {transform:"translate("+b.baseDx+"px,"+b.baseDy+"px) scale(.72)"+flip},
-              {transform:"translate("+(b.baseDx+sideDrift*.30)+"px,"+(b.baseDy-72)+"px) scale(.76)"+flip,offset:.28},
-              {transform:"translate("+(b.baseDx+sideDrift*.68)+"px,"+(b.baseDy-230)+"px) scale(.80)"+flip,offset:.70},
-              {transform:"translate("+(b.baseDx+sideDrift)+"px,"+(b.baseDy-390)+"px) scale(.82)"+flip}
-            ],{
+            animate(b.el, birdFrames, {
               duration:3200 + index*15,
               easing:"cubic-bezier(.18,.74,.18,1)",
               fill:"forwards"
             });
 
             if(b.thread){
-              animate(b.thread,[
-                {opacity:.58,transform:b.thread.style.transform+" translateY(0) scaleY(.8)"},
-                {opacity:.40,transform:b.thread.style.transform+" translateY(-90px) scaleY(1.06)",offset:.38},
-                {opacity:.16,transform:b.thread.style.transform+" translateY(-265px) scaleY(1.18)",offset:.80},
-                {opacity:0,transform:b.thread.style.transform+" translateY(-395px) scaleY(1.24)"}
-              ],{
+              var threadFrames = isNarrow
+                ? [
+                    {opacity:.58,transform:b.thread.style.transform+" translateY(0) scaleY(.8)"},
+                    {opacity:.40,transform:b.thread.style.transform+" translateY(-64px) scaleY(1.02)",offset:.38},
+                    {opacity:.16,transform:b.thread.style.transform+" translateY(-190px) scaleY(1.12)",offset:.80},
+                    {opacity:0,transform:b.thread.style.transform+" translateY(-305px) scaleY(1.18)"}
+                  ]
+                : [
+                    {opacity:.58,transform:b.thread.style.transform+" translateY(0) scaleY(.8)"},
+                    {opacity:.40,transform:b.thread.style.transform+" translateY(-90px) scaleY(1.06)",offset:.38},
+                    {opacity:.16,transform:b.thread.style.transform+" translateY(-265px) scaleY(1.18)",offset:.80},
+                    {opacity:0,transform:b.thread.style.transform+" translateY(-395px) scaleY(1.24)"}
+                  ];
+              animate(b.thread, threadFrames, {
                 duration:3200,
                 easing:"cubic-bezier(.18,.74,.18,1)",
                 fill:"forwards"
@@ -1081,16 +1166,18 @@
           }
 
           /*
-             4 đoạn được chia theo nhịp 12.2s:
-             đoạn 1: ~3.55–5.15s
-             đoạn 2: ~5.15–6.95s
-             đoạn 3: ~6.95–9.10s
-             đoạn 4: ~9.10–11.20s
+             V11.13:
+             - Hiện ngay khi nhấn logo để người xem có thêm thời gian đọc.
+             - Chuyển câu chậm hơn, bám theo opening ~12.2s.
+             đoạn 1: 0.0–4.4s
+             đoạn 2: 4.4–6.6s
+             đoạn 3: 6.6–9.0s
+             đoạn 4: 9.0–11.6s
           */
           lyricText.textContent=notes[0];
           lyricText.classList.toggle("is-long", notes[0].length > 125);
 
-          var starts=[1600,3400,5550];
+          var starts=[4400,6600,9000];
           starts.forEach(function(delay, idx){
             var id = later(function(){ renderNote(idx+1); }, delay);
             openingNoteTimers.push(id);
@@ -1202,14 +1289,15 @@
           seal.disabled=true;
 
           startMusicFromGesture();
+          showManualOpeningNote();
 
           /*
             V11.11 — Timeline canh theo file nhạc 12.199s:
-            0.0–1.4  : logo + đường cắt
+            0.0–1.4  : logo + đường cắt + hiện lời nhắn đầu tiên
             1.4–3.2  : 2 chim bay xuống
             3.2–5.2  : mở nắp phong bì
             5.2–7.2  : thiệp nhô nhẹ
-            7.2–8.0  : 4 chim vào vị trí
+            7.2–8.0  : 4 chim vào vị trí cân đối hơn
             7.8–11.0 : chim kéo thiệp bay lên
             11.0–12.2: fade chuyển vào trang trong
           */
@@ -1265,8 +1353,6 @@
             easing:"ease"
           });
 
-          /* Lời nhắn bắt đầu trong lúc phong bì mở để đủ thời gian đọc cả 4 đoạn. */
-          later(showManualOpeningNote,3550);
 
           /* 3.2–5.2s — flap opens */
           later(function(){
